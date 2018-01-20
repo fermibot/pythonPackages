@@ -39,8 +39,13 @@ from mathematica import list_operations as lo
 # print("Rand Sample    ", end="")
 # print(random_functions.RandomSample(list(range(0, 53)), 53))
 
+# print(lo.Range(9.5))
+# print(lo.First(lo.Range(2, 3)))
+# print(lo.Last(lo.Range(2, 3)))
+# print(lo.Reverse(lo.Range(10)))
+# print(lo.Head(lo.Range(9.5)))
+print(lo.Tuples([1, 2, 3], 4))
 
-print(lo.Range(9.5))
-print(lo.First(lo.Range(2, 3)))
-print(lo.Last(lo.Range(2, 3)))
-print(lo.Reverse(lo.Range(10)))
+
+
+print(lo.Transpose([[1, 2, 3], [4, 5, 6]]))
