@@ -1,34 +1,33 @@
-
-
 def Range(i, j=None, step=None):
-    # TODO : add functionality for non integer steps
-    i = int(i)
+
+    def _Range( _lower, _upper, _step):
+        __elem, __list = _lower, []
+        while __elem <= _upper:
+            __list.append(__elem)
+            __elem += _step
+        return __list
+
     if step is None:
         if j is None:
-            if i < 1:
+            if i <= 0:
                 return 0
             elif i >= 1:
-                sample = []
-                for i in range(0, i):
-                    sample.append(i + 1)
-                return sample
-        if j is not None:
-            if i < 1:
-                return 0
-            elif i >= 1:
-                sample = []
-                for i in range(i, j + 1):
-                    sample.append(i + 1)
-                return sample
+                return _Range(1, i, 1)
+        elif j is not None:
+            if j < i:
+                print("Upper limit needs to be smaller than the lower limit.")
+            elif i ==j:
+                return i
+            elif i < j:
+                return _Range(i, j, 1)
     elif step is not None:
-        if i < 1:
-            return 0
-        elif i >= 1:
-            sample = []
-            for i in range(i, j + 1):
-                i += step
-                sample.append(i)
-            return sample
+        diff = j - i
+        if diff < 0:
+            print("Upper limit needs to be smaller than the lower limit.")
+        elif diff == 0:
+            return i
+        elif diff > 0:
+            return _Range(i, j, step)
 
 
 def Head(obj):
@@ -36,19 +35,31 @@ def Head(obj):
 
 
 def First(_list: list):
-    return _list[0]
+    try:
+        return _list[0]
+    except TypeError:
+        print("The object is not iterable")
+        print("Das object ist nicht iterierbar")
 
 
 def Last(_list: list):
-    _len = len(_list)
-    return _list[_len - 1]
+    try:
+        _len = len(_list)
+        return _list[_len - 1]
+    except TypeError:
+        print("The object is not iterable")
+        print("Das objekt ist nicht iterierbar")
 
 
 def Rest(_list:list):
-    __list = []
-    for i in range(1, len(_list)):
-        __list.append(i)
-    return __list
+    try:
+        __list = []
+        for i in range(1, len(_list)):
+            __list.append(i)
+        return __list
+    except:
+        print("The object is not iterable")
+        print("Das objekt ist nicht iterierbar")
 
 
 def Reverse(_list: list):
@@ -85,4 +96,3 @@ def Tuples(_list: list, level: int):
     _tuple = Transpose(_tuple)
     for r in _tuple:
         print(r)
-

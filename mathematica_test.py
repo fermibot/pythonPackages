@@ -44,8 +44,7 @@ from mathematica import list_operations as lo
 # print(lo.Last(lo.Range(2, 3)))
 # print(lo.Reverse(lo.Range(10)))
 # print(lo.Head(lo.Range(9.5)))
-print(lo.Tuples([1, 2, 3], 4))
+# print(lo.Tuples([1, 2, 3], 4))
+# print(lo.Transpose([[1, 2, 3], [4, 5, 6]]))
 
-
-
-print(lo.Transpose([[1, 2, 3], [4, 5, 6]]))
+print(lo.Range(1, 2, 0.2))
