@@ -68,6 +68,12 @@ def Reverse(_list: list):
         __list.append(i)
     return __list
 
+def Reverse(obj):
+    if iter(obj):
+        _obj = []
+        for i in range(len(obj), -1):
+            _obj += i
+
 
 def Transpose(_list: list):
     _transpose = []
@@ -96,3 +102,5 @@ def Tuples(_list: list, level: int):
     _tuple = Transpose(_tuple)
     for r in _tuple:
         print(r)
+
+
