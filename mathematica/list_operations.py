@@ -1,3 +1,7 @@
+def _promptNotIterable():
+    print("The object needs to be iterable\nDas object ist nicht iterierbar")
+
+
 def Range(i, j=None, step=None):
 
     def _Range( _lower, _upper, _step):
@@ -38,8 +42,7 @@ def First(_list: list):
     try:
         return _list[0]
     except TypeError:
-        print("The object is not iterable")
-        print("Das object ist nicht iterierbar")
+        _promptNotIterable()
 
 
 def Last(_list: list):
@@ -47,8 +50,7 @@ def Last(_list: list):
         _len = len(_list)
         return _list[_len - 1]
     except TypeError:
-        print("The object is not iterable")
-        print("Das objekt ist nicht iterierbar")
+        _promptNotIterable()
 
 
 def Rest(_list:list):
@@ -58,21 +60,28 @@ def Rest(_list:list):
             __list.append(i)
         return __list
     except:
-        print("The object is not iterable")
-        print("Das objekt ist nicht iterierbar")
+        _promptNotIterable()
 
-
-def Reverse(_list: list):
-    __list = []
-    for i in reversed(_list):
-        __list.append(i)
-    return __list
 
 def Reverse(obj):
-    if iter(obj):
-        _obj = []
-        for i in range(len(obj), -1):
+    if isinstance(obj, str):
+        _obj = ""
+        for i in reversed(obj):
             _obj += i
+        return _obj
+    elif isinstance(obj, list):
+        _obj = []
+        for i in reversed(obj):
+            _obj.append(i)
+        return _obj
+    elif isinstance(obj, tuple):
+        _obj = []
+        for i in reversed(obj):
+            _obj.append(i)
+        return _obj
+    elif (not isinstance(obj, str)) or (isinstance(obj, list)) or isinstance(obj, tuple):
+        _promptNotIterable()
+        # TODO: Else returns none, check with Gowtham
 
 
 def Transpose(_list: list):
@@ -104,3 +113,6 @@ def Tuples(_list: list, level: int):
         print(r)
 
 
+def Table(obj: def):
+    # TODO: Add functionality to the function ;)
+    pass

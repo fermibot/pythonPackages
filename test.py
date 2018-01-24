@@ -36,13 +36,26 @@ from mathematica import list_operations as lo
 # print(lo.Tuples([1, 2, 3], 4))
 # print(lo.Transpose([[1, 2, 3], [4, 5, 6]]))
 # print(lo.Range(1, 2, 0.2))
+# print(lo.Reverse("string"))
+# print(lo.Reverse([1, 3, 4, 6]))
+# print(lo.Reverse([(1, 2), (2, 4)]))
 
 from mathematica import mathematical_functions as mf
 # print(mf.Factorial(5))
 # print(mf.Factorial(3.0))
 # print(mf.Factorial(0))
+# print(mf.Sin(0))
+# print(mf.Cos(0))
+# print(mf.Tan(0))
+# print(mf.Sec(0))
+# print(mf.Csc(0.01))
+# print(mf.Cot(0.01))
 
-from mathematica import precision as pc
-print(mf.Sin(0))
-print(mf.Cos(0))
-print(mf.Tan(0))
+
+from mathematica import precision as pr
+# print(pr.Ceiling(1.2))
+# print(pr.Ceiling(1.66))
+# print(pr.Round(1.2))
+# print(pr.Round(1.66))
+# print(pr.Floor(1.99))
+# print(pr.Floor(1.2))
