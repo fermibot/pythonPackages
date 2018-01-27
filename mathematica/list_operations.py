@@ -1,3 +1,11 @@
+from mathematica.calculus import *
+from mathematica.list_operations import *
+from mathematica.mathematical_functions import *
+from mathematica.precision import *
+from mathematica.q_functions import *
+from mathematica.random_functions import *
+
+
 def _promptNotIterable():
     print("The object needs to be iterable\nDas object ist nicht iterierbar")
 
@@ -78,7 +86,12 @@ def Reverse(obj):
         _obj = []
         for i in reversed(obj):
             _obj.append(i)
+    elif isinstance(obj, range):
+        _obj = []
+        for i in reversed(obj):
+            _obj.append(i)
         return _obj
+
     elif (not isinstance(obj, str)) or (isinstance(obj, list)) or isinstance(obj, tuple):
         _promptNotIterable()
         # TODO: Else returns none, check with Gowtham
@@ -113,6 +126,41 @@ def Tuples(_list: list, level: int):
         print(r)
 
 
-def Table(obj: def):
+def Table(obj):
     # TODO: Add functionality to the function ;)
     pass
+
+
+def CirclePoints(*kwargs):
+    if len(kwargs) == 1:
+        _circlePoints = []
+        for i in range(0, kwargs[0] + 1):
+            _circlePoints.append([Sin(2 * i * Pi / kwargs[0]), Cos(2 * i * Pi / kwargs[0])])
+        return _circlePoints
+    elif len(kwargs) == 2 and NumberQ(kwargs[0]):
+        _circlePoints = []
+        for i in range(0, kwargs[1] + 1):
+            _circlePoints.append([kwargs[0] * Sin(2 * i * Pi / kwargs[1]), kwargs[0] * Cos(2 * i * Pi / kwargs[1])])
+        return _circlePoints
+    elif len(kwargs) == 2 and ListQ(kwargs[0]):
+        _circlePoints = []
+        for i in range(0, kwargs[1] + 1):
+            _circlePoints.append([
+                kwargs[0][0] * Sin(((2 * i * Pi) + kwargs[0][1]) / kwargs[1]),
+                kwargs[0][0] * Cos(((2 * i * Pi) + kwargs[0][1]) / kwargs[1])
+            ])
+        return _circlePoints
+    elif len(kwargs) == 3 \
+            and ListQ(kwargs[0]) \
+            and ListQ(kwargs[1]) \
+            and NumberQ(kwargs[1][0]) \
+            and NumberQ(kwargs[1][1]) \
+            and IntegerQ(kwargs[2]):
+        _circlePoints = []
+        for i in range(0, kwargs[2] + 1):
+            _circlePoints.append([
+                (kwargs[1][0] * Sin(((2 * i * Pi) + kwargs[1][1]) / kwargs[2])) + kwargs[0][0],
+                (kwargs[1][1] * Cos(((2 * i * Pi) + kwargs[1][1]) / kwargs[2])) + kwargs[0][1]
+            ])
+        return _circlePoints
+
