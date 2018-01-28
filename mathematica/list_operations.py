@@ -11,8 +11,7 @@ def _promptNotIterable():
 
 
 def Range(i, j=None, step=None):
-
-    def _Range( _lower, _upper, _step):
+    def _Range(_lower, _upper, _step):
         __elem, __list = _lower, []
         while __elem <= _upper:
             __list.append(__elem)
@@ -28,7 +27,7 @@ def Range(i, j=None, step=None):
         elif j is not None:
             if j < i:
                 print("Upper limit needs to be smaller than the lower limit.")
-            elif i ==j:
+            elif i == j:
                 return i
             elif i < j:
                 return _Range(i, j, 1)
@@ -61,7 +60,7 @@ def Last(_list: list):
         _promptNotIterable()
 
 
-def Rest(_list:list):
+def Rest(_list: list):
     try:
         __list = []
         for i in range(1, len(_list)):
@@ -112,7 +111,7 @@ def Tuples(_list: list, level: int):
     _tuple = []
     for n in range(0, level):
         _tuplet = []
-        for j in range(0, l**n):
+        for j in range(0, l ** n):
             _tuplett = []
             for r in range(0, l):
                 _tuplettt = []
@@ -132,35 +131,95 @@ def Table(obj):
 
 
 def CirclePoints(*kwargs):
-    if len(kwargs) == 1:
-        _circlePoints = []
-        for i in range(0, kwargs[0] + 1):
-            _circlePoints.append([Sin(2 * i * Pi / kwargs[0]), Cos(2 * i * Pi / kwargs[0])])
-        return _circlePoints
-    elif len(kwargs) == 2 and NumberQ(kwargs[0]):
-        _circlePoints = []
-        for i in range(0, kwargs[1] + 1):
-            _circlePoints.append([kwargs[0] * Sin(2 * i * Pi / kwargs[1]), kwargs[0] * Cos(2 * i * Pi / kwargs[1])])
-        return _circlePoints
-    elif len(kwargs) == 2 and ListQ(kwargs[0]):
-        _circlePoints = []
-        for i in range(0, kwargs[1] + 1):
-            _circlePoints.append([
-                kwargs[0][0] * Sin(((2 * i * Pi) + kwargs[0][1]) / kwargs[1]),
-                kwargs[0][0] * Cos(((2 * i * Pi) + kwargs[0][1]) / kwargs[1])
-            ])
-        return _circlePoints
-    elif len(kwargs) == 3 \
-            and ListQ(kwargs[0]) \
-            and ListQ(kwargs[1]) \
-            and NumberQ(kwargs[1][0]) \
-            and NumberQ(kwargs[1][1]) \
-            and IntegerQ(kwargs[2]):
-        _circlePoints = []
-        for i in range(0, kwargs[2] + 1):
-            _circlePoints.append([
-                (kwargs[1][0] * Sin(((2 * i * Pi) + kwargs[1][1]) / kwargs[2])) + kwargs[0][0],
-                (kwargs[1][1] * Cos(((2 * i * Pi) + kwargs[1][1]) / kwargs[2])) + kwargs[0][1]
-            ])
-        return _circlePoints
+    try:
+        if len(kwargs) == 1:
+            _circlePoints = []
+            for i in range(0, kwargs[0] + 1):
+                _circlePoints.append([Sin(2 * i * Pi / kwargs[0]), Cos(2 * i * Pi / kwargs[0])])
+            return _circlePoints
+        elif len(kwargs) == 2 and NumberQ(kwargs[0]):
+            _circlePoints = []
+            for i in range(0, kwargs[1] + 1):
+                _circlePoints.append([kwargs[0] * Sin(2 * i * Pi / kwargs[1]), kwargs[0] * Cos(2 * i * Pi / kwargs[1])])
+            return _circlePoints
+        elif len(kwargs) == 2 and ListQ(kwargs[0]):
+            _circlePoints = []
+            for i in range(0, kwargs[1] + 1):
+                _circlePoints.append([
+                    kwargs[0][0] * Sin(((2 * i * Pi) + kwargs[0][1]) / kwargs[1]),
+                    kwargs[0][0] * Cos(((2 * i * Pi) + kwargs[0][1]) / kwargs[1])
+                ])
+            return _circlePoints
+        elif len(kwargs) == 3 \
+                and ListQ(kwargs[0]) \
+                and ListQ(kwargs[1]) \
+                and NumberQ(kwargs[1][0]) \
+                and NumberQ(kwargs[1][1]) \
+                and IntegerQ(kwargs[2]):
+            _circlePoints = []
+            for i in range(0, kwargs[2] + 1):
+                _circlePoints.append([
+                    (kwargs[1][0] * Sin(((2 * i * Pi) + kwargs[1][1]) / kwargs[2])) + kwargs[0][0],
+                    (kwargs[1][1] * Cos(((2 * i * Pi) + kwargs[1][1]) / kwargs[2])) + kwargs[0][1]
+                ])
+            return _circlePoints
+    except TypeError:
+        # TODO: Add command list
+        pass
 
+
+def Subdivide(*kwargs):
+    if len(kwargs) == 1:
+        try:
+            if IntegerQ(kwargs[0]) and kwargs[0] >= 1:
+                _subDivide = []
+                for i in range(0, kwargs[0] + 1):
+                    _subDivide.append(i / kwargs[0])
+                return _subDivide
+        except TypeError:
+            print("Enter an integer value")
+    elif len(kwargs) == 2:
+        try:
+            if NumberQ(kwargs[0]) and IntegerQ(kwargs[1]) and kwargs[1] >= 1:
+                _subDivide = []
+                for i in range(0, kwargs[1] + 1):
+                    _subDivide.append(i * kwargs[0] / kwargs[1])
+                return _subDivide
+        except TypeError:
+            print("Enter proper arguments")
+    elif len(kwargs) == 3:
+        try:
+            if NumberQ(kwargs[0]) \
+                    and NumberQ(kwargs[1]) \
+                    and IntegerQ(kwargs[2]) and kwargs[2] >= 1:
+                _subDivide = []
+                for i in range(0, kwargs[2] + 1):
+                    _subDivide.append( kwargs[0] + (i * (kwargs[1] - kwargs[0]) / kwargs[2]))
+                return _subDivide
+        except TypeError:
+            print("")
+
+
+def CoordinateBoundsArray(*kwargs):
+    if len(kwargs) == 1 and ListQ(kwargs[0]):
+        _array = []
+        xpos = kwargs[0][0][0]
+        while xpos <= Floor(kwargs[0][0][1]):
+            _arraylet = []
+            ypos = kwargs[0][1][0]
+            while ypos <= Floor(kwargs[0][1][1]):
+                _arraylet.append([xpos, ypos])
+                ypos += 1
+            _array.append(_arraylet)
+            xpos += 1
+        return _array
+
+    elif len(kwargs) == 2:
+        if ListQ(kwargs[0]) and NumberQ(kwargs[1]):
+            pass
+        elif ListQ(kwargs[0]) and ListQ(kwargs[1]):
+            pass
+    elif len(kwargs) == 3:
+        pass
+    elif len(kwargs) == 4:
+        pass

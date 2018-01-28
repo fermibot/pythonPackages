@@ -26,21 +26,6 @@ from mathematica.random_functions import *
 # print(RandomSample(list(range(0, 53)), 53))
 
 
-from mathematica.list_operations import *
-#
-# print(Range(9.5))
-# print(First(Range(2, 3)))
-# print(Last(Range(2, 3)))
-# print(Reverse(Range(10)))
-# print(Head(Range(9.5)))
-# print(Tuples([1, 2, 3], 4))
-# print(Transpose([[1, 2, 3], [4, 5, 6]]))
-# print(Range(1, 2, 0.2))
-# print(Reverse("string"))
-# print(Reverse([1, 3, 4, 6]))
-# print(Reverse([(1, 2), (2, 4)]))
-# print(Reverse(range(0, 10)))
-
 from mathematica.mathematical_functions import *
 # print(Factorial(5))
 # print(Factorial(3.0))
@@ -61,7 +46,26 @@ from mathematica.precision import *
 # print(Floor(1.99))
 # print(Floor(1.2))
 
+
+from mathematica.list_operations import *
+#
+# print(Range(9.5))
+# print(First(Range(2, 3)))
+# print(Last(Range(2, 3)))
+# print(Reverse(Range(10)))
+# print(Head(Range(9.5)))
+# print(Tuples([1, 2, 3], 4))
+# print(Transpose([[1, 2, 3], [4, 5, 6]]))
+# print(Range(1, 2, 0.2))
+# print(Reverse("string"))
+# print(Reverse([1, 3, 4, 6]))
+# print(Reverse([(1, 2), (2, 4)]))
+# print(Reverse(range(0, 10)))
 # print(CirclePoints(100))
 # print(CirclePoints(2, 25))
 # print(CirclePoints([2, Pi], 25))
-print(CirclePoints([1, 1], [2, 0], 4))
+# print(CirclePoints([1, 1], [2, 0], 4))
+# print(Subdivide(10))
+# print(Subdivide(10, 21))
+# print(Subdivide(10, 20, 200))
+print(CoordinateBoundsArray([[1, 3], [3, 7]]))

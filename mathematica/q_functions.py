@@ -16,8 +16,10 @@ def TupleQ(obj):
 def IntegerQ(obj):
     return isinstance(obj, int)
 
+
 def FloatQ(obj):
     return isinstance(obj, float)
+
 
 def NumberQ(obj):
     return isinstance(obj, float) or isinstance(obj, int)
