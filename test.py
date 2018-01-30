@@ -68,4 +68,6 @@ from mathematica.list_operations import *
 # print(Subdivide(10))
 # print(Subdivide(10, 21))
 # print(Subdivide(10, 20, 200))
-print(CoordinateBoundsArray([[1, 3], [3, 7]]))
+
+
+print(SparseArray([[[1, 1], 2], [[2, 3], 2], [[3, 3], 5]]))

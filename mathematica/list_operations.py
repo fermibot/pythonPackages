@@ -41,6 +41,26 @@ def Range(i, j=None, step=None):
             return _Range(i, j, step)
 
 
+def Max(_list: list):
+    _max = _list[0]
+    for i in _list:
+        if i > _max:
+            _max = i
+        else:
+            _max = _max
+    return _max
+
+
+def Min(_list: list):
+    _min = _list[0]
+    for i in _list:
+        if i < _min:
+            _min = i
+        else:
+            _min = _min
+    return _min
+
+
 def Head(obj):
     return type(obj)
 
@@ -58,6 +78,10 @@ def Last(_list: list):
         return _list[_len - 1]
     except TypeError:
         _promptNotIterable()
+
+
+def Union(_list: list):
+    pass
 
 
 def Rest(_list: list):
@@ -201,6 +225,7 @@ def Subdivide(*kwargs):
 
 
 def CoordinateBoundsArray(*kwargs):
+    # TODO: Add tuple type functionality to this implementation
     if len(kwargs) == 1 and ListQ(kwargs[0]):
         _array = []
         xpos = kwargs[0][0][0]
@@ -223,3 +248,56 @@ def CoordinateBoundsArray(*kwargs):
         pass
     elif len(kwargs) == 4:
         pass
+
+
+def FindDivisions(*kwargs):
+    if len(kwargs) == 2:
+        try:
+            if ListQ(kwargs[0]) and (len(kwargs[0]) == 2) and IntegerQ(kwargs[1]):
+                pass
+            elif ListQ(kwargs[0]) and (len(kwargs[0]) == 3) and IntegerQ(kwargs[1]):
+                pass
+            elif ListQ(kwargs[0]) and ListQ(kwargs[1]):
+                pass
+            elif ListQ(kwargs[0]) and ListQ(kwargs[1]) and ListQ(Last(kwargs[0])):
+                pass
+        except TypeError:
+            pass
+    else:
+        pass
+        # TODO: Print help document.
+        # TODO: Plus, I do not understand what 'Nice Numbers' mean.
+        # TODO: Need to re-write the whole document.
+
+
+def SparseArray(*kwargs):
+    if ListQ(*kwargs):
+        _list = kwargs[0]
+        _maxx = 0
+        _maxy = 0
+        _coordinates = []
+        for i in _list:
+            if i[0][0] > _maxx:
+                _maxx = i[0][0]
+                if i[0][1] > _maxy:
+                    _maxy = i[0][1]
+                    if i[0] not in _coordinates:
+                        _coordinates.append(i[0])
+        _dimensions = Max([_maxx, _maxy])
+
+        _listDict = {}
+        for i in _list:
+            _listDict.update({str(i[0]):i[1]})
+        print(_listDict)
+
+        _sparseArray = []
+        for i in range(1, _dimensions + 1):
+            for j in range(1, _dimensions + 1):
+                if str([i, j]) in _listDict:
+                    _sparseArray.append([[i, j], _listDict[str([i, j])]])
+                elif str([i, j]) not in _listDict:
+                    _sparseArray.append([[i, j], 0])
+        return _sparseArray
+    else:
+        print("No, can't do")
+        # TODO: Add documentation
