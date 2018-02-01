@@ -81,7 +81,13 @@ def Last(_list: list):
 
 
 def Union(_list: list):
-    pass
+    _union = []
+    for i in _list:
+        if i not in _union:
+            _union.append(i)
+        elif i in _list:
+            _union = _union
+    return _union
 
 
 def Rest(_list: list):
@@ -128,6 +134,25 @@ def Transpose(_list: list):
             _transposelet.append(_list[j][i])
         _transpose.append(_transposelet)
     return _transpose
+
+
+def Partition(_list: list, n):
+    if n >= len(_list):
+        return _list
+
+    elif n < len(_list):
+        _partition = []
+        _partitionn = []
+        i = 0
+        while i < (len(_list) - (len(_list) % n)):
+            for r in range(i, i + n):
+                _partitionn.append(_list[r])
+            _partition.append(_partitionn)
+            _partitionn = []
+            i += n
+        return _partition
+
+    # TODO: Partition does not return the last partition.
 
 
 def Tuples(_list: list, level: int):
@@ -267,28 +292,24 @@ def FindDivisions(*kwargs):
         pass
         # TODO: Print help document.
         # TODO: Plus, I do not understand what 'Nice Numbers' mean.
-        # TODO: Need to re-write the whole document.
+        # TODO: Need to re-write the whole function.
 
 
 def SparseArray(*kwargs):
-    if ListQ(*kwargs):
+    if ListQ(kwargs[0]) and len(kwargs) == 1:
         _list = kwargs[0]
         _maxx = 0
         _maxy = 0
-        _coordinates = []
         for i in _list:
             if i[0][0] > _maxx:
                 _maxx = i[0][0]
                 if i[0][1] > _maxy:
                     _maxy = i[0][1]
-                    if i[0] not in _coordinates:
-                        _coordinates.append(i[0])
         _dimensions = Max([_maxx, _maxy])
 
         _listDict = {}
         for i in _list:
-            _listDict.update({str(i[0]):i[1]})
-        print(_listDict)
+            _listDict.update({str(i[0]): i[1]})
 
         _sparseArray = []
         for i in range(1, _dimensions + 1):
@@ -297,7 +318,29 @@ def SparseArray(*kwargs):
                     _sparseArray.append([[i, j], _listDict[str([i, j])]])
                 elif str([i, j]) not in _listDict:
                     _sparseArray.append([[i, j], 0])
-        return _sparseArray
+        return Partition(_sparseArray, _dimensions)
+
+    elif len(kwargs) == 2 and ListQ(kwargs[0]) and ListQ(kwargs[1]):
+        if len(kwargs[0]) == len(kwargs[1]):
+
+            _list = kwargs[0]
+            _transpose = Transpose(kwargs[0])
+            _dimensions = Max([Max(_transpose[0]), Max(_transpose[1])])
+
+            _listDict = {}
+            for i in range(0, len(kwargs[0])):
+                _listDict.update({str(kwargs[0][i]): kwargs[1][i]})
+
+            _sparseArray = []
+            for i in range(1, _dimensions + 1):
+                for j in range(1, _dimensions + 1):
+                    if str([i, j]) in _listDict:
+                        _sparseArray.append([[i, j], _listDict[str([i, j])]])
+                    elif str([i, j]) not in _listDict:
+                        _sparseArray.append([[i, j], 0])
+            return Partition(_sparseArray, _dimensions)
+        else:
+            print("The two lists need to be of equal lengths")
     else:
         print("No, can't do")
         # TODO: Add documentation
