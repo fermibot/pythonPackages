@@ -57,10 +57,12 @@ from mathematica.list_operations import *
 # print(Tuples([1, 2, 3], 4))
 # print(Transpose([[1, 2, 3], [4, 5, 6]]))
 # print(Range(1, 2, 0.2))
+
 # print(Reverse("string"))
 # print(Reverse([1, 3, 4, 6]))
 # print(Reverse([(1, 2), (2, 4)]))
 # print(Reverse(range(0, 10)))
+
 # print(CirclePoints(100))
 # print(CirclePoints(2, 25))
 # print(CirclePoints([2, Pi], 25))
@@ -69,10 +71,9 @@ from mathematica.list_operations import *
 # print(Subdivide(10, 21))
 # print(Subdivide(10, 20, 200))
 # print(Union([1, 2, 3, 3, 3, 4, 4, 5]))
-# print(Partition([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14], 7))
-
-for i in SparseArray([[[1, 1], 2], [[2, 3], 2], [[3, 3], 5]]):
-    print(i)
-
-for i in SparseArray([[1, 1], [2, 3], [2, 4]], [1, 3, 5]):
-    print(i)
+# print(Partition([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14], 7)
+# print(SparseArray([[[1, 1], 2], [[2, 3], 2], [[3, 3], 5]]))
+# print(SparseArray([[1, 1], [2, 3], [2, 4]], [1, 3, 5]))
+print(PowerRange(100000000))
+print(PowerRange(1, 9462165999))
+print(PowerRange(1, 9462165999, 4))

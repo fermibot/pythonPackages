@@ -121,7 +121,8 @@ def Reverse(obj):
             _obj.append(i)
         return _obj
 
-    elif (not isinstance(obj, str)) or (isinstance(obj, list)) or isinstance(obj, tuple):
+    # else (not isinstance(obj, str)) or (not isinstance(obj, list)) or (not isinstance(obj, tuple)):
+    else:
         _promptNotIterable()
         # TODO: Else returns none, check with Gowtham
 
@@ -152,8 +153,6 @@ def Partition(_list: list, n):
             i += n
         return _partition
 
-    # TODO: Partition does not return the last partition.
-
 
 def Tuples(_list: list, level: int):
     l = len(_list)
@@ -177,6 +176,38 @@ def Tuples(_list: list, level: int):
 def Table(obj):
     # TODO: Add functionality to the function ;)
     pass
+
+
+def PowerRange(*kwargs):
+    if len(kwargs) == 1:
+        _powerRange = []
+        if NumberQ(kwargs[0]):
+            i = 0
+            while (10 ** i) <= kwargs[0]:
+                _powerRange.append(10 ** i)
+                i += 1
+            return _powerRange
+
+    elif len(kwargs) == 2:
+        i = 0
+        _powerRange = []
+        while (10 ** i) <= kwargs[1]:
+            if (10 ** i >= kwargs[0]) and (10 ** i <= kwargs[1]):
+                _powerRange.append(10 ** i)
+                i += 1
+            else:
+                i += 1
+        return _powerRange
+    elif len(kwargs) == 3:
+        i = 0
+        _powerRange = []
+        while (kwargs[2] ** i) <= kwargs[1]:
+            if (kwargs[2] ** i >= kwargs[0]) and (kwargs[2] ** i <= kwargs[1]):
+                _powerRange.append(kwargs[2] ** i)
+                i += 1
+            else:
+                i += 1
+        return _powerRange
 
 
 def CirclePoints(*kwargs):
@@ -213,7 +244,7 @@ def CirclePoints(*kwargs):
                 ])
             return _circlePoints
     except TypeError:
-        # TODO: Add command list
+        # TODO: Add documentation.
         pass
 
 
