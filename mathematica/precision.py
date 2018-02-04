@@ -98,3 +98,29 @@ def CubeRoot(n):
 def Power(*kwargs):
     if NumberQ(kwargs[0]) and NumberQ(kwargs[1]):
         return kwargs[0] ** kwargs[1]
+    elif NumberQ(kwargs[0]) and ListQ(kwargs[1]):
+        _list = []
+        for i in kwargs[1]:
+            _list.append(kwargs[0] ** i)
+        return _list
+    elif ListQ(kwargs[0]) and NumberQ(kwargs[1]):
+        _list = []
+        for i in kwargs[0]:
+            _list.append(i ** kwargs[1])
+        return _list
+    elif ListQ(kwargs[0]) and ListQ(kwargs[1]):
+        if len(kwargs[0]) == len(kwargs[1]):
+            _list = []
+            for i in range(0, len(kwargs[0])):
+                _list.append(kwargs[0][i] ** kwargs[0][i])
+            return _list
+        elif len(kwargs[0]) != len(kwargs[1]):
+            _list = []
+            for i in kwargs[0]:
+                _listt = []
+                for j in kwargs[1]:
+                    _listt.append(i ** j)
+                _list.append(_listt)
+            return _list
+    else:
+        print("Help document")

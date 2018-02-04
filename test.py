@@ -81,8 +81,6 @@ from mathematica.list_operations import *
 
 from mathematica.number_sequences import *
 
-
-print(Sqrt(100))
-print(CubeRoot(1000))
-print(CubeRoot(1000000))
+for i in Power(range(2, 10), range(1, 5)):
+    print(i)
 
