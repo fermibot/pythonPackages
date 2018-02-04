@@ -73,7 +73,16 @@ from mathematica.list_operations import *
 # print(Union([1, 2, 3, 3, 3, 4, 4, 5]))
 # print(Partition([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14], 7)
 # print(SparseArray([[[1, 1], 2], [[2, 3], 2], [[3, 3], 5]]))
-# print(SparseArray([[1, 1], [2, 3], [2, 4]], [1, 3, 5]))
-print(PowerRange(100000000))
-print(PowerRange(1, 9462165999))
-print(PowerRange(1, 9462165999, 4))
+# # print(SparseArray([[1, 1], [2, 3], [2, 4]], [1, 3, 5]))
+# print(PowerRange(100000000))
+# print(PowerRange(1, 9462165999))
+# print(PowerRange(1, 9462165999, 4))
+
+
+from mathematica.number_sequences import *
+
+
+print(Sqrt(100))
+print(CubeRoot(1000))
+print(CubeRoot(1000000))
+

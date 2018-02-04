@@ -6,5 +6,14 @@ from mathematica.q_functions import *
 from mathematica.random_functions import *
 from mathematica.number_sequences import *
 
-def Integrate(func, x):
+def Fibonacci(*kwargs):
+    if len(kwargs) == 1:
+        pass
+    elif len(kwargs) == 2:
+        pass
+
+
+def Tribonacci(n):
+    n = Round
     pass
+
