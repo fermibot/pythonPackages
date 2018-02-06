@@ -100,6 +100,13 @@ def Rest(_list: list):
         _promptNotIterable()
 
 
+def Total(_list: list):
+    _total = 0
+    for i in _list:
+        _total += i
+    return _total
+
+
 def Reverse(obj):
     if isinstance(obj, str):
         _obj = ""
@@ -375,3 +382,108 @@ def SparseArray(*kwargs):
     else:
         print("No, can't do")
         # TODO: Add documentation
+
+
+def Fibonacci(n):
+    _a = 0
+    _b = 1
+    _i = 1
+    while _i < n:
+        _temp = _b
+        _b += _a
+        _a = _temp
+        _i += 1
+    return _b
+
+
+def Tribonacci(n):
+    _a = 0
+    _b = 0
+    _c = 1
+    _i = 1
+    while _i < n:
+        _temp1 = _b
+        _temp2 = _c
+        _c = _c + _b + _a
+        _a = _temp1
+        _b = _temp2
+        _i += 1
+    return _c
+
+
+def Quadronacci(n):
+    _a = 0
+    _b = 0
+    _c = 0
+    _d = 1
+    _i = 1
+    while _i < n:
+        _temp1 = _b
+        _temp2 = _c
+        _temp3 = _d
+        _d = _d + _c + _b + _a
+        _a = _temp1
+        _b = _temp2
+        _c = _temp3
+        _i += 1
+    return _d
+
+
+def Pentonacci(n):
+    _a = 0
+    _b = 0
+    _c = 0
+    _d = 0
+    _e = 1
+    _i = 1
+    while _i < n:
+        _temp1 = _b
+        _temp2 = _c
+        _temp3 = _d
+        _temp4 = _e
+        _e = _e + _d + _c + _b + _a
+        _a = _temp1
+        _b = _temp2
+        _c = _temp3
+        _d = _temp4
+        _i += 1
+    return _e
+
+
+def Hexonacci(n):
+    _a = 0
+    _b = 0
+    _c = 0
+    _d = 0
+    _e = 0
+    _f = 1
+    _i = 1
+    while _i < n:
+        _temp1 = _b
+        _temp2 = _c
+        _temp3 = _d
+        _temp4 = _e
+        _temp5 = _f
+        _f = _f + _e + _d + _c + _b + _a
+        _a = _temp1
+        _b = _temp2
+        _c = _temp3
+        _d = _temp4
+        _e = _temp5
+        _i += 1
+    return _f
+
+
+def Polynacci(n: int, base: int):
+    _polynacci = [1]
+    for i in range(0, base):
+        _polynacci.append(2 ** i)
+    if n <= base:
+        return _polynacci[n - 1]
+    elif n > base:
+        _len = len(_polynacci)
+        while _len < n + 1:
+            _polynacci.append(Total(_polynacci))
+            _polynacci.pop(0)
+            _len += 1
+        return _polynacci[-1]

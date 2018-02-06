@@ -5,6 +5,7 @@ from mathematica.precision import *
 from mathematica.q_functions import *
 from mathematica.random_functions import *
 
+
 def ListQ(obj):
     return isinstance(obj, list) or isinstance(obj, range)
 

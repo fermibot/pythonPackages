@@ -123,3 +123,7 @@ def Power(*kwargs):
             return _list
     else:
         print("Help document")
+
+
+def BaseForm(number: int, base: int):
+    pass

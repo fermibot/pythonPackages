@@ -5,9 +5,7 @@ from mathematica.precision import *
 from mathematica.q_functions import *
 from mathematica.random_functions import *
 
-
 import random
-
 
 def Mean(*args: float):
     a = 0
@@ -223,8 +221,6 @@ def VonMisesDistribution(mu: float=0, kappa: float=1, sample_size: int=1):
             print(sample_size_limit())
 
 
-
-
 def RandomChoice(sequence: list, sample_size:int=None):
     if sample_size is None:
         return random.choice(sequence)
@@ -240,3 +236,5 @@ def RandomSample(sequence: list, sample_size: int=1):
         return random.sample(sequence, sample_size)
     elif sample_size < 1:
         print(sample_size_limit())
+
+

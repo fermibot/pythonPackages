@@ -77,9 +77,10 @@ from mathematica.list_operations import *
 # print(PowerRange(100000000))
 # print(PowerRange(1, 9462165999))
 # print(PowerRange(1, 9462165999, 4))
-
-
-from mathematica.number_sequences import *
-
-for i in Power(range(2, 10), range(1, 6)):
-    print(i)
+# for i in range(1, 20): print(Fibonacci(i))
+# for i in range(1, 20): print(Tribonacci(i))
+# for i in range(1, 20): print(Quadronacci(i))
+# for i in range(1, 20): print(Pentonacci(i))
+for i in range(1, 8): print(Hexonacci(i))
+print(Polynacci(7, 6))
+print(Hexonacci(7))
