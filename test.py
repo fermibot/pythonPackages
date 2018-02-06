@@ -81,6 +81,5 @@ from mathematica.list_operations import *
 
 from mathematica.number_sequences import *
 
-for i in Power(range(2, 10), range(1, 5)):
+for i in Power(range(2, 10), range(1, 6)):
     print(i)
-
