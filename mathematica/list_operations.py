@@ -80,14 +80,23 @@ def Last(_list: list):
         _promptNotIterable()
 
 
-def Union(_list: list):
+def Union(*kwargs):
     _union = []
-    for i in _list:
-        if i not in _union:
-            _union.append(i)
-        elif i in _list:
-            _union = _union
+    for i in kwargs:
+        for j in i:
+            if j not in _union:
+                _union.append(j)
+            elif i in _union:
+                _union = _union
     return _union
+
+
+def Join(*kwargs):
+    _join = []
+    for i in kwargs:
+        for j in i:
+            _join.append(j)
+    return _join
 
 
 def Rest(_list: list):
@@ -176,8 +185,7 @@ def Tuples(_list: list, level: int):
             _tuplet += _tuplett
         _tuple.append(_tuplet)
     _tuple = Transpose(_tuple)
-    for r in _tuple:
-        print(r)
+    return _tuple
 
 
 def Table(obj):
@@ -411,7 +419,7 @@ def Tribonacci(n):
     return _c
 
 
-def Quadronacci(n):
+def Quadranacci(n):
     _a = 0
     _b = 0
     _c = 0
@@ -483,7 +491,74 @@ def Polynacci(n: int, base: int):
     elif n > base:
         _len = len(_polynacci)
         while _len < n + 1:
-            _polynacci.append(Total(_polynacci))
             _polynacci.pop(0)
+            _polynacci.append(Total(_polynacci))
             _len += 1
         return _polynacci[-1]
+
+
+def Riffle(*kwargs):
+    if len(kwargs) == 2:
+        if ListQ(kwargs[0]) and not ListQ(kwargs[1]):
+            _riffle = []
+            for i in kwargs[0]:
+                _riffle.append(i)
+                _riffle.append(kwargs[1])
+            _riffle.pop((len(_riffle) - 1))
+            return _riffle
+        elif ListQ(kwargs[0]) and ListQ(kwargs[1]):
+            _riffle = []
+            _len = len(kwargs[1])
+            for i in range(0, len(kwargs[0])):
+                _riffle.append(kwargs[0][i])
+                _riffle.append(kwargs[1][i % _len])
+            _riffle.pop(len(_riffle) - 1)
+            return _riffle
+
+    elif len(kwargs) == 3:
+        if ListQ(kwargs[0]) and NumberQ(kwargs[2]):
+            _riffle = []
+            for i in range(len(kwargs[0])):
+                _riffle.append(kwargs[0][i])
+                pass
+        elif ListQ(kwargs[0]) and ListQ(kwargs[2]):
+            pass
+    else:
+        pass
+
+
+# String Operations
+def StringJoin(*kwargs):
+    def _subStringJoin(obj):
+        if not ListQ(obj):
+            return str(obj)
+        elif ListQ(obj):
+            _stringList = ""
+            for i in obj:
+                _stringList += str(i)
+            return _stringList
+    if len(kwargs) == 1:
+        return _subStringJoin(kwargs[0])
+    elif len(kwargs) > 1:
+        _stringJoin = []
+        for i in kwargs:
+             _stringJoin.append(_subStringJoin(i))
+        return _stringJoin
+
+
+def ToString(*kwargs):
+    def _subToString(obj):
+        if not ListQ(obj):
+            return str(obj)
+        elif ListQ(obj):
+            _stringList = []
+            for i in obj:
+                _stringList.append(str(i))
+            return _stringList
+    if len(kwargs) == 1:
+        return _subToString(kwargs[0])
+    elif len(kwargs) > 1:
+        _toString = []
+        for i in kwargs:
+            _toString.append(_subToString(i))
+        return _toString

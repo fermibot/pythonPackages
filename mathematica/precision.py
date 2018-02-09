@@ -127,3 +127,4 @@ def Power(*kwargs):
 
 def BaseForm(number: int, base: int):
     pass
+

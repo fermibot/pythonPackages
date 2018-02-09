@@ -79,8 +79,18 @@ from mathematica.list_operations import *
 # print(PowerRange(1, 9462165999, 4))
 # for i in range(1, 20): print(Fibonacci(i))
 # for i in range(1, 20): print(Tribonacci(i))
-# for i in range(1, 20): print(Quadronacci(i))
+# for i in range(1, 20): print(Quadranacci(i))
 # for i in range(1, 20): print(Pentonacci(i))
-for i in range(1, 8): print(Hexonacci(i))
-print(Polynacci(7, 6))
-print(Hexonacci(7))
+# for i in range(1, 16): #     print([Hexonacci(i), Polynacci(i, 6)])
+# print(Riffle(range(0, 10), "a"))
+# print(Riffle(range(0, 10), ["a", "b", "c", "d"]))
+
+
+s = 21122
+a = 10
+while a < s:
+    print(s % a)
+    s = s // a
+
+print(StringJoin([12, 43, 45, "tringr"]))
+print(ToString(range(1, 20), range(1, 4)))
