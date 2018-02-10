@@ -1,4 +1,4 @@
-from mathematica.random_functions import *
+from mathematica.load_all_functions import *
 # print()
 # print("Random Integer ", end="")
 # print(RandomInteger(0, 200, 46))
@@ -25,8 +25,6 @@ from mathematica.random_functions import *
 # print("Rand Sample    ", end="")
 # print(RandomSample(list(range(0, 53)), 53))
 
-
-from mathematica.mathematical_functions import *
 # print(Factorial(5))
 # print(Factorial(3.0))
 # print(Factorial(0))
@@ -38,7 +36,6 @@ from mathematica.mathematical_functions import *
 # print(Cot(0.01))
 
 
-from mathematica.precision import *
 # print(Ceiling(1.2))
 # print(Ceiling(1.66))
 # print(Round(1.2))
@@ -47,8 +44,6 @@ from mathematica.precision import *
 # print(Floor(1.2))
 
 
-from mathematica.list_operations import *
-#
 # print(Range(9.5))
 # print(First(Range(2, 3)))
 # print(Last(Range(2, 3)))
@@ -85,12 +80,9 @@ from mathematica.list_operations import *
 # print(Riffle(range(0, 10), "a"))
 # print(Riffle(range(0, 10), ["a", "b", "c", "d"]))
 
-
-s = 21122
-a = 10
-while a < s:
-    print(s % a)
-    s = s // a
-
-print(StringJoin([12, 43, 45, "tringr"]))
-print(ToString(range(1, 20), range(1, 4)))
+print(Total(range(1,11)))
+print(Mean(range(1,11)))
+print(Variance(range(1,11)))
+print(StandardDeviation(range(1,11)))
+print(Skewness(range(1,101)))
+print(Kurtosis(range(1,11)))
