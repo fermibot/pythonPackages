@@ -1,5 +1,4 @@
-from mathematica.load_all_functions import *
-
+from mathematica.precision import *
 
 def Total(_list: list):
     _total = float(0)
@@ -46,3 +45,11 @@ def Kurtosis(_sample: list):
     for i in _sample:
         _kurtedErrors.append((_mean - i) ** 4)
     return SampleMean(_kurtedErrors) / (Variance(_sample) ** 2)
+
+
+def NormalDistributionPDF(x, mu: float=0, sigma: float=1):
+    _factor = 1 / Sqrt(2 * Pi * (sigma ** 2))
+    _exponent = ((x - mu) ** 2) / (2 * (sigma ** 2))
+    return _factor * (E ** (-_exponent))
+
+

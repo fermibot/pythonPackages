@@ -1,8 +1,15 @@
-from mathematica.load_all_functions import *
-
+from .q_functions import *
+from .base_functions import *
 
 Pi = 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679821480865132
 E = 2.7182818284590452353602874713526624977572470936999595749669676277240766303535475945713821785251664274274663919320
+
+
+def Pi(precision=200):
+    _pi = 0
+    for i in range(0, precision + 1):
+        _pi += (Factorial(i) / Factorial2(2 * i + 1))
+    return round(float(2 * _pi), 200)
 
 
 def _promptReal():

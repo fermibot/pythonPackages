@@ -1,20 +1,7 @@
-from mathematica.load_all_functions import *
-
+from .precision import *
 
 def Gamma(x):
     pass
-
-
-def Factorial(x):
-    if x == 0:
-        return 1
-    if (not isinstance(x, int)) or (x < 1):
-            return "Non integer functionality not yet included"
-    elif (isinstance(x, int)) and (x >= 1):
-        _fact = 1
-        for i in range(1, x + 1):
-            _fact = _fact * i
-        return _fact
 
 
 def Sin(x: float):
@@ -62,3 +49,14 @@ def ArcTan(x: float):
     for i in range(50):
         _arctan += (((-1)**i) * (x**(2 * i + 1)) / (2 * i + 1))
     return _arctan
+
+
+def Erf(x):
+    _erf = 0
+    if x == 0:
+        return _erf
+    elif x != 0:
+        for i in Range(0, x, 0.001):
+            _erf += (E ** (- (i ** 2))) * 0.001
+        return 2 * _erf / Sqrt(Pi())
+

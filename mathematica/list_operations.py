@@ -5,37 +5,6 @@ def _promptNotIterable():
     print("The object needs to be iterable\nDas object ist nicht iterierbar")
 
 
-def Range(i, j=None, step=None):
-    def _Range(_lower, _upper, _step):
-        __elem, __list = _lower, []
-        while __elem <= _upper:
-            __list.append(__elem)
-            __elem += _step
-        return __list
-
-    if step is None:
-        if j is None:
-            if i <= 0:
-                return 0
-            elif i >= 1:
-                return _Range(1, i, 1)
-        elif j is not None:
-            if j < i:
-                print("Upper limit needs to be smaller than the lower limit.")
-            elif i == j:
-                return i
-            elif i < j:
-                return _Range(i, j, 1)
-    elif step is not None:
-        diff = j - i
-        if diff < 0:
-            print("Upper limit needs to be smaller than the lower limit.")
-        elif diff == 0:
-            return i
-        elif diff > 0:
-            return _Range(i, j, step)
-
-
 def Max(_list: list):
     _max = _list[0]
     for i in _list:
@@ -559,3 +528,21 @@ def ToString(*kwargs):
         return _toString
 
 
+def ToUpperCase(*kwargs):
+    if (len(kwargs) == 1) and StringQ(kwargs[0]):
+        (kwargs[0]).upper()
+    elif len(kwargs) > 1:
+        _toUpperCase = []
+        for i in kwargs:
+            _toUpperCase.append(i.upper())
+        return _toUpperCase
+
+
+def ToLowerCase(*kwargs):
+    if (len(kwargs) == 1) and StringQ(kwargs[0]):
+        return kwargs[0].lower()
+    elif len(kwargs) > 1:
+        _toLowerCase = []
+        for i in kwargs:
+            _toLowerCase.append(i.lower())
+        return _toLowerCase

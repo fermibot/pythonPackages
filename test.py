@@ -1,4 +1,6 @@
-from mathematica.load_all_functions import *
+from mathematica.precision import *
+from mathematica.mathematical_functions import *
+
 # print()
 # print("Random Integer ", end="")
 # print(RandomInteger(0, 200, 46))
@@ -26,7 +28,7 @@ from mathematica.load_all_functions import *
 # print(RandomSample(list(range(0, 53)), 53))
 
 # print(Factorial(5))
-# print(Factorial(3.0))
+# print(Factorial(3.0))_
 # print(Factorial(0))
 # print(Sin(0))
 # print(Cos(0))
@@ -79,10 +81,22 @@ from mathematica.load_all_functions import *
 # for i in range(1, 16): #     print([Hexonacci(i), Polynacci(i, 6)])
 # print(Riffle(range(0, 10), "a"))
 # print(Riffle(range(0, 10), ["a", "b", "c", "d"]))
+# print(Total(range(1,11)))
+# print(Mean(range(1,11)))
+# print(Variance(range(1,11)))
+# print(StandardDeviation(range(1,11)))
+# print(Skewness(range(1,101)))
+# print(Kurtosis(range(1,11)))
 
-print(Total(range(1,11)))
-print(Mean(range(1,11)))
-print(Variance(range(1,11)))
-print(StandardDeviation(range(1,11)))
-print(Skewness(range(1,101)))
-print(Kurtosis(range(1,11)))
+# _integral = 0
+# for i in Range(0, Pi, 0.005):
+#     _integral += Sin(i) * 0.005
+# print(_integral)
+#
+# _integral = 0
+# for i in Range(0, Pi, 0.005):
+#     _integral += Cos(i) * 0.005
+# print(_integral)
+
+
+print(Erf(10))
