@@ -5,11 +5,19 @@ Pi = 3.1415926535897932384626433832795028841971693993751058209749445923078164062
 E = 2.7182818284590452353602874713526624977572470936999595749669676277240766303535475945713821785251664274274663919320
 
 
-def Pi(precision=200):
+def Pi(precision: int=200):
     _pi = 0
-    for i in range(0, precision + 1):
+    for i in range(0, precision):
         _pi += (Factorial(i) / Factorial2(2 * i + 1))
     return round(float(2 * _pi), 200)
+
+
+def E(precision: int=200):
+    _e = 0
+    for i in range(0, precision):
+        _e += (1 / Factorial(i))
+    return round(float(_e), 200)
+
 
 
 def _promptReal():
@@ -96,6 +104,29 @@ def CubeRoot(n):
         return "enter a real number"
 
 
+def Surd(x, n):
+    if NumberQ(x):
+        _precision = 10
+        if x == 0:
+            return 0
+        elif x >= 1:
+            _surd = float(1)
+            i = 0
+            while i <= _precision:
+                j = 0
+                _step = 1 / (10 ** i)
+                while ((_surd + _step) ** n) <= x:
+                    _surd += 1 / (10 ** i)
+                    j += 1
+                i += 1
+            return _surd
+        elif 0 < x < 1:
+            pass
+    else:
+        return "enter a real number"
+
+
+
 def Power(*kwargs):
     if NumberQ(kwargs[0]) and NumberQ(kwargs[1]):
         return kwargs[0] ** kwargs[1]
@@ -129,4 +160,3 @@ def Power(*kwargs):
 
 def BaseForm(number: int, base: int):
     pass
-

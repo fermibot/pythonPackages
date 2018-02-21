@@ -56,7 +56,25 @@ def Erf(x):
     if x == 0:
         return _erf
     elif x != 0:
+        _e = E()
+        _pi = Pi()
         for i in Range(0, x, 0.001):
-            _erf += (E ** (- (i ** 2))) * 0.001
-        return 2 * _erf / Sqrt(Pi())
+            _erf += (_e ** (- (i ** 2))) * 0.001
+        return 2 * _erf / Sqrt(_pi)
+
+
+def LogE(_x, _n=E()):
+    _log = 0
+    for i in Range(1, _x, 0.001):
+        _log += 0.001 * 1 / i
+    return _log
+
+
+def Log10(_x):
+    return LogE(_x) / LogE(10)
+
+
+def Log(_x, _base):
+    return LogE(_x) / LogE(_base)
+
 

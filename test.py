@@ -1,5 +1,5 @@
-from mathematica.precision import *
-from mathematica.mathematical_functions import *
+from mathematica.load_all_functions import *
+
 
 # print()
 # print("Random Integer ", end="")
@@ -99,4 +99,9 @@ from mathematica.mathematical_functions import *
 # print(_integral)
 
 
-print(Erf(10))
+# print(Alphabet())
+# for i in Range(0, 10, 0.1):
+#     print([NormalDistributionPDF(i, 0, 1), NormalDistributionCDF(i, 0, 1)])
+# print(NormalDistributionInverseCDF(0.6))
+
+print(NormalDistributionInverseCDF(0.95))

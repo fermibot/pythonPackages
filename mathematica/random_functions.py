@@ -231,5 +231,3 @@ def RandomSample(sequence: list, sample_size: int=1):
         return random.sample(sequence, sample_size)
     elif sample_size < 1:
         print(sample_size_limit())
-
-
