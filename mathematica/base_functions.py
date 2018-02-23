@@ -1,6 +1,21 @@
 from .q_functions import *
 
 
+def promptReal():
+    print("Input needs to be a real number \nDie Eingabe muss eine reelle Zahl sein")
+
+def Abs(x: float):
+    try:
+        if x >= 0:
+            _x = x
+        elif x <=0:
+            _x = -1 * x
+        return _x
+    except TypeError:
+        promptReal()
+        # TODO: This prints a redundant none statement.
+
+
 def Range(i, j=None, step=None):
     def _Range(_lower, _upper, _step):
         __elem, __list = _lower, []
@@ -55,3 +70,8 @@ def Factorial2(x):
         for i in range(1, int((x  + 1)/ 2) + 1):
             _factorial2 *= (2 * i - 1)
     return _factorial2
+
+
+def Binomial(_n, _m):
+    _n, _m = Abs(_n), Abs(_m)
+    return Factorial(_n) / (Factorial(_n - _m) * Factorial(_m))

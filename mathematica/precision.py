@@ -1,4 +1,3 @@
-from .q_functions import *
 from .base_functions import *
 
 Pi = 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679821480865132
@@ -19,45 +18,68 @@ def E(precision: int=200):
     return round(float(_e), 200)
 
 
-
-def _promptReal():
-    print("Input needs to be a real number \nDie Eingabe muss eine reelle Zahl sein")
+def Sign(_x):
+    if _x < 0:
+        return -1
+    elif _x > 0:
+        return 1
 
 
 def Round(x: float):
     try:
-        if x % int(x) < 0.5:
-            return int(x)
+        _x = x
+        x = Abs(x)
+        if x == 0:
+            return 0
+        elif x % int(x) < 0.5:
+            return Sign(_x) * int(x)
         elif x % int(x) >= 0.5:
-            return int(x) + 1
+            return Sign(_x) * (int(x) + 1)
     except TypeError:
-        _promptReal()
+        promptReal()
+
+
+def Clip(*kwargs):
+    if len(kwargs) == 1:
+        _x = kwargs[0]
+        if -1 < _x < 1:
+            return _x
+        elif _x <= -1:
+            return -1
+        elif _x >= 1:
+            return 1
+    elif len(kwargs) == 2 and ListQ(kwargs[1]):
+        _x = kwargs[0]
+        if kwargs[1][0] < _x < kwargs[1][1]:
+            return _x
+        elif _x <= kwargs[1][0]:
+            return kwargs[1][0]
+        elif _x >= kwargs[1][1]:
+            return kwargs[1][1]
+    elif len(kwargs) == 3 and ListQ(kwargs[1]) and ListQ(kwargs[2]):
+        _x = kwargs[0]
+        if kwargs[1][0] < _x < kwargs[1][1]:
+            return _x
+        elif _x <= kwargs[1][0]:
+            return kwargs[2][0]
+        elif _x >= kwargs[1][1]:
+            return kwargs[2][1]
+
+
 
 
 def Floor(x: float):
     try:
         return int(x)
     except TypeError:
-        _promptReal()
+        promptReal()
 
 
 def Ceiling(x: float):
     try:
         return int(x) + 1
     except TypeError:
-        _promptReal()
-
-
-def Abs(x: float):
-    try:
-        if x >= 0:
-            _x = x
-        elif x <=0:
-            _x = -1 * x
-        return _x
-    except TypeError:
-        _promptReal()
-        # TODO: This prints a redundant none statement.
+        promptReal()
 
 
 def Sqrt(n):

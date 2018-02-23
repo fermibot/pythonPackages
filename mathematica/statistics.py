@@ -95,3 +95,13 @@ def NormalDistributionInverseCDF(x):
         elif _y < 0:
             return -_preInv
 
+
+def BinomialDistributionPDF(_n, _p, _x):
+    if 0 < _p < 1:
+        _x = Round(_x)
+        if 0 <= _x <= _n:
+            return Binomial(_n, _x) * (_p**_x) * ((1 - _p)**(_n-_x))
+        elif _x < 0 or _x > _n:
+            return 0
+    elif _p >= 1 or _p <= 0:
+        return "Probability needs to be between 0 and 1"

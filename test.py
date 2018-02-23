@@ -103,5 +103,7 @@ from mathematica.load_all_functions import *
 # for i in Range(0, 10, 0.1):
 #     print([NormalDistributionPDF(i, 0, 1), NormalDistributionCDF(i, 0, 1)])
 # print(NormalDistributionInverseCDF(0.6))
+# print(NormalDistributionInverseCDF(0.95))
 
-print(NormalDistributionInverseCDF(0.95))
+for i in Range(-2, 2, 0.1):
+    print((Clip(i, [-1.5, 1.5], [-2, 2])))
