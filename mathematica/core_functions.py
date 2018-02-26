@@ -15,6 +15,54 @@ def Abs(x: float):
         promptReal()
         # TODO: This prints a redundant none statement.
 
+def Sign(_x):
+    if _x < 0:
+        return -1
+    elif _x > 0:
+        return 1
+
+
+def Greater(_list):
+    if len(_list) == 2:
+        return _list[0] > _list[1]
+    elif len(_list) > 2:
+        _greater = True
+        for i in range(0, len(_list)):
+            _greater = _greater and (_list[i] > _list[i + 1])
+            return _greater
+
+
+def GreaterEqual(_list):
+    if len(_list) == 2:
+        return _list[0] >= _list[1]
+    elif len(_list) > 2:
+        _greaterEqual = True
+        for i in range(0, len(_list)):
+            _greaterEqual = _greaterEqual and (_list[i] >= _list[i + 1])
+            return _greaterEqual
+
+
+def Less(_list):
+    if len(_list) == 2:
+        return _list[0] < _list[1]
+    elif len(_list) > 2:
+        _less = True
+        for i in range(0, len(_list)):
+            _less = _less and (_list[i] < _list[i + 1])
+            return _less
+
+
+def LessEqual(_list):
+    if len(_list) == 2:
+        return _list[0] <= _list[1]
+    elif len(_list) > 2:
+        _lessEqual = True
+        for i in range(0, len(_list)):
+            _lessEqual = _lessEqual and (_list[i] >= _list[i + 1])
+            return _lessEqual
+
+
+
 
 def Range(i, j=None, step=None):
     def _Range(_lower, _upper, _step):

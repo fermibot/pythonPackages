@@ -44,9 +44,9 @@ def Last(_list: list):
         _promptNotIterable()
 
 
-def Union(*kwargs):
+def Union(*args):
     _union = []
-    for i in kwargs:
+    for i in args:
         for j in i:
             if j not in _union:
                 _union.append(j)
@@ -55,9 +55,9 @@ def Union(*kwargs):
     return _union
 
 
-def Join(*kwargs):
+def Join(*args):
     _join = []
-    for i in kwargs:
+    for i in args:
         for j in i:
             _join.append(j)
     return _join
@@ -157,69 +157,69 @@ def Table(obj):
     pass
 
 
-def PowerRange(*kwargs):
-    if len(kwargs) == 1:
+def PowerRange(*args):
+    if len(args) == 1:
         _powerRange = []
-        if NumberQ(kwargs[0]):
+        if NumberQ(args[0]):
             i = 0
-            while (10 ** i) <= kwargs[0]:
+            while (10 ** i) <= args[0]:
                 _powerRange.append(10 ** i)
                 i += 1
             return _powerRange
 
-    elif len(kwargs) == 2:
+    elif len(args) == 2:
         i = 0
         _powerRange = []
-        while (10 ** i) <= kwargs[1]:
-            if (10 ** i >= kwargs[0]) and (10 ** i <= kwargs[1]):
+        while (10 ** i) <= args[1]:
+            if (10 ** i >= args[0]) and (10 ** i <= args[1]):
                 _powerRange.append(10 ** i)
                 i += 1
             else:
                 i += 1
         return _powerRange
-    elif len(kwargs) == 3:
+    elif len(args) == 3:
         i = 0
         _powerRange = []
-        while (kwargs[2] ** i) <= kwargs[1]:
-            if (kwargs[2] ** i >= kwargs[0]) and (kwargs[2] ** i <= kwargs[1]):
-                _powerRange.append(kwargs[2] ** i)
+        while (args[2] ** i) <= args[1]:
+            if (args[2] ** i >= args[0]) and (args[2] ** i <= args[1]):
+                _powerRange.append(args[2] ** i)
                 i += 1
             else:
                 i += 1
         return _powerRange
 
 
-def CirclePoints(*kwargs):
+def CirclePoints(*args):
     try:
-        if len(kwargs) == 1:
+        if len(args) == 1:
             _circlePoints = []
-            for i in range(0, kwargs[0] + 1):
-                _circlePoints.append([Sin(2 * i * Pi / kwargs[0]), Cos(2 * i * Pi / kwargs[0])])
+            for i in range(0, args[0] + 1):
+                _circlePoints.append([Sin(2 * i * Pi / args[0]), Cos(2 * i * Pi / args[0])])
             return _circlePoints
-        elif len(kwargs) == 2 and NumberQ(kwargs[0]):
+        elif len(args) == 2 and NumberQ(args[0]):
             _circlePoints = []
-            for i in range(0, kwargs[1] + 1):
-                _circlePoints.append([kwargs[0] * Sin(2 * i * Pi / kwargs[1]), kwargs[0] * Cos(2 * i * Pi / kwargs[1])])
+            for i in range(0, args[1] + 1):
+                _circlePoints.append([args[0] * Sin(2 * i * Pi / args[1]), args[0] * Cos(2 * i * Pi / args[1])])
             return _circlePoints
-        elif len(kwargs) == 2 and ListQ(kwargs[0]):
+        elif len(args) == 2 and ListQ(args[0]):
             _circlePoints = []
-            for i in range(0, kwargs[1] + 1):
+            for i in range(0, args[1] + 1):
                 _circlePoints.append([
-                    kwargs[0][0] * Sin(((2 * i * Pi) + kwargs[0][1]) / kwargs[1]),
-                    kwargs[0][0] * Cos(((2 * i * Pi) + kwargs[0][1]) / kwargs[1])
+                    args[0][0] * Sin(((2 * i * Pi) + args[0][1]) / args[1]),
+                    args[0][0] * Cos(((2 * i * Pi) + args[0][1]) / args[1])
                 ])
             return _circlePoints
-        elif len(kwargs) == 3 \
-                and ListQ(kwargs[0]) \
-                and ListQ(kwargs[1]) \
-                and NumberQ(kwargs[1][0]) \
-                and NumberQ(kwargs[1][1]) \
-                and IntegerQ(kwargs[2]):
+        elif len(args) == 3 \
+                and ListQ(args[0]) \
+                and ListQ(args[1]) \
+                and NumberQ(args[1][0]) \
+                and NumberQ(args[1][1]) \
+                and IntegerQ(args[2]):
             _circlePoints = []
-            for i in range(0, kwargs[2] + 1):
+            for i in range(0, args[2] + 1):
                 _circlePoints.append([
-                    (kwargs[1][0] * Sin(((2 * i * Pi) + kwargs[1][1]) / kwargs[2])) + kwargs[0][0],
-                    (kwargs[1][1] * Cos(((2 * i * Pi) + kwargs[1][1]) / kwargs[2])) + kwargs[0][1]
+                    (args[1][0] * Sin(((2 * i * Pi) + args[1][1]) / args[2])) + args[0][0],
+                    (args[1][1] * Cos(((2 * i * Pi) + args[1][1]) / args[2])) + args[0][1]
                 ])
             return _circlePoints
     except TypeError:
@@ -227,74 +227,74 @@ def CirclePoints(*kwargs):
         pass
 
 
-def Subdivide(*kwargs):
-    if len(kwargs) == 1:
+def Subdivide(*args):
+    if len(args) == 1:
         try:
-            if IntegerQ(kwargs[0]) and kwargs[0] >= 1:
+            if IntegerQ(args[0]) and args[0] >= 1:
                 _subDivide = []
-                for i in range(0, kwargs[0] + 1):
-                    _subDivide.append(i / kwargs[0])
+                for i in range(0, args[0] + 1):
+                    _subDivide.append(i / args[0])
                 return _subDivide
         except TypeError:
             print("Enter an integer value")
-    elif len(kwargs) == 2:
+    elif len(args) == 2:
         try:
-            if NumberQ(kwargs[0]) and IntegerQ(kwargs[1]) and kwargs[1] >= 1:
+            if NumberQ(args[0]) and IntegerQ(args[1]) and args[1] >= 1:
                 _subDivide = []
-                for i in range(0, kwargs[1] + 1):
-                    _subDivide.append(i * kwargs[0] / kwargs[1])
+                for i in range(0, args[1] + 1):
+                    _subDivide.append(i * args[0] / args[1])
                 return _subDivide
         except TypeError:
             print("Enter proper arguments")
-    elif len(kwargs) == 3:
+    elif len(args) == 3:
         try:
-            if NumberQ(kwargs[0]) \
-                    and NumberQ(kwargs[1]) \
-                    and IntegerQ(kwargs[2]) and kwargs[2] >= 1:
+            if NumberQ(args[0]) \
+                    and NumberQ(args[1]) \
+                    and IntegerQ(args[2]) and args[2] >= 1:
                 _subDivide = []
-                for i in range(0, kwargs[2] + 1):
-                    _subDivide.append( kwargs[0] + (i * (kwargs[1] - kwargs[0]) / kwargs[2]))
+                for i in range(0, args[2] + 1):
+                    _subDivide.append( args[0] + (i * (args[1] - args[0]) / args[2]))
                 return _subDivide
         except TypeError:
             print("")
 
 
-def CoordinateBoundsArray(*kwargs):
+def CoordinateBoundsArray(*args):
     # TODO: Add tuple type functionality to this implementation
-    if len(kwargs) == 1 and ListQ(kwargs[0]):
+    if len(args) == 1 and ListQ(args[0]):
         _array = []
-        xpos = kwargs[0][0][0]
-        while xpos <= Floor(kwargs[0][0][1]):
+        xpos = args[0][0][0]
+        while xpos <= Floor(args[0][0][1]):
             _arraylet = []
-            ypos = kwargs[0][1][0]
-            while ypos <= Floor(kwargs[0][1][1]):
+            ypos = args[0][1][0]
+            while ypos <= Floor(args[0][1][1]):
                 _arraylet.append([xpos, ypos])
                 ypos += 1
             _array.append(_arraylet)
             xpos += 1
         return _array
 
-    elif len(kwargs) == 2:
-        if ListQ(kwargs[0]) and NumberQ(kwargs[1]):
+    elif len(args) == 2:
+        if ListQ(args[0]) and NumberQ(args[1]):
             pass
-        elif ListQ(kwargs[0]) and ListQ(kwargs[1]):
+        elif ListQ(args[0]) and ListQ(args[1]):
             pass
-    elif len(kwargs) == 3:
+    elif len(args) == 3:
         pass
-    elif len(kwargs) == 4:
+    elif len(args) == 4:
         pass
 
 
-def FindDivisions(*kwargs):
-    if len(kwargs) == 2:
+def FindDivisions(*args):
+    if len(args) == 2:
         try:
-            if ListQ(kwargs[0]) and (len(kwargs[0]) == 2) and IntegerQ(kwargs[1]):
+            if ListQ(args[0]) and (len(args[0]) == 2) and IntegerQ(args[1]):
                 pass
-            elif ListQ(kwargs[0]) and (len(kwargs[0]) == 3) and IntegerQ(kwargs[1]):
+            elif ListQ(args[0]) and (len(args[0]) == 3) and IntegerQ(args[1]):
                 pass
-            elif ListQ(kwargs[0]) and ListQ(kwargs[1]):
+            elif ListQ(args[0]) and ListQ(args[1]):
                 pass
-            elif ListQ(kwargs[0]) and ListQ(kwargs[1]) and ListQ(Last(kwargs[0])):
+            elif ListQ(args[0]) and ListQ(args[1]) and ListQ(Last(args[0])):
                 pass
         except TypeError:
             pass
@@ -305,9 +305,9 @@ def FindDivisions(*kwargs):
         # TODO: Need to re-write the whole function.
 
 
-def SparseArray(*kwargs):
-    if ListQ(kwargs[0]) and len(kwargs) == 1:
-        _list = kwargs[0]
+def SparseArray(*args):
+    if ListQ(args[0]) and len(args) == 1:
+        _list = args[0]
         _maxx = 0
         _maxy = 0
         for i in _list:
@@ -330,16 +330,16 @@ def SparseArray(*kwargs):
                     _sparseArray.append([[i, j], 0])
         return Partition(_sparseArray, _dimensions)
 
-    elif len(kwargs) == 2 and ListQ(kwargs[0]) and ListQ(kwargs[1]):
-        if len(kwargs[0]) == len(kwargs[1]):
+    elif len(args) == 2 and ListQ(args[0]) and ListQ(args[1]):
+        if len(args[0]) == len(args[1]):
 
-            _list = kwargs[0]
-            _transpose = Transpose(kwargs[0])
+            _list = args[0]
+            _transpose = Transpose(args[0])
             _dimensions = Max([Max(_transpose[0]), Max(_transpose[1])])
 
             _listDict = {}
-            for i in range(0, len(kwargs[0])):
-                _listDict.update({str(kwargs[0][i]): kwargs[1][i]})
+            for i in range(0, len(args[0])):
+                _listDict.update({str(args[0][i]): args[1][i]})
 
             _sparseArray = []
             for i in range(1, _dimensions + 1):
@@ -461,38 +461,38 @@ def Polynacci(n: int, base: int):
         return _polynacci[-1]
 
 
-def Riffle(*kwargs):
-    if len(kwargs) == 2:
-        if ListQ(kwargs[0]) and not ListQ(kwargs[1]):
+def Riffle(*args):
+    if len(args) == 2:
+        if ListQ(args[0]) and not ListQ(args[1]):
             _riffle = []
-            for i in kwargs[0]:
+            for i in args[0]:
                 _riffle.append(i)
-                _riffle.append(kwargs[1])
+                _riffle.append(args[1])
             _riffle.pop((len(_riffle) - 1))
             return _riffle
-        elif ListQ(kwargs[0]) and ListQ(kwargs[1]):
+        elif ListQ(args[0]) and ListQ(args[1]):
             _riffle = []
-            _len = len(kwargs[1])
-            for i in range(0, len(kwargs[0])):
-                _riffle.append(kwargs[0][i])
-                _riffle.append(kwargs[1][i % _len])
+            _len = len(args[1])
+            for i in range(0, len(args[0])):
+                _riffle.append(args[0][i])
+                _riffle.append(args[1][i % _len])
             _riffle.pop(len(_riffle) - 1)
             return _riffle
 
-    elif len(kwargs) == 3:
-        if ListQ(kwargs[0]) and NumberQ(kwargs[2]):
+    elif len(args) == 3:
+        if ListQ(args[0]) and NumberQ(args[2]):
             _riffle = []
-            for i in range(len(kwargs[0])):
-                _riffle.append(kwargs[0][i])
+            for i in range(len(args[0])):
+                _riffle.append(args[0][i])
                 pass
-        elif ListQ(kwargs[0]) and ListQ(kwargs[2]):
+        elif ListQ(args[0]) and ListQ(args[2]):
             pass
     else:
         pass
 
 
 # String Operations
-def StringJoin(*kwargs):
+def StringJoin(*args):
     def _subStringJoin(obj):
         if not ListQ(obj):
             return str(obj)
@@ -501,16 +501,16 @@ def StringJoin(*kwargs):
             for i in obj:
                 _stringList += str(i)
             return _stringList
-    if len(kwargs) == 1:
-        return _subStringJoin(kwargs[0])
-    elif len(kwargs) > 1:
+    if len(args) == 1:
+        return _subStringJoin(args[0])
+    elif len(args) > 1:
         _stringJoin = []
-        for i in kwargs:
+        for i in args:
              _stringJoin.append(_subStringJoin(i))
         return _stringJoin
 
 
-def ToString(*kwargs):
+def ToString(*args):
     def _subToString(obj):
         if not ListQ(obj):
             return str(obj)
@@ -519,30 +519,38 @@ def ToString(*kwargs):
             for i in obj:
                 _stringList.append(str(i))
             return _stringList
-    if len(kwargs) == 1:
-        return _subToString(kwargs[0])
-    elif len(kwargs) > 1:
+    if len(args) == 1:
+        return _subToString(args[0])
+    elif len(args) > 1:
         _toString = []
-        for i in kwargs:
+        for i in args:
             _toString.append(_subToString(i))
         return _toString
 
 
-def ToUpperCase(*kwargs):
-    if (len(kwargs) == 1) and StringQ(kwargs[0]):
-        (kwargs[0]).upper()
-    elif len(kwargs) > 1:
+def ToUpperCase(*args):
+    if (len(args) == 1) and StringQ(args[0]):
+        (args[0]).upper()
+    elif len(args) > 1:
         _toUpperCase = []
-        for i in kwargs:
+        for i in args:
             _toUpperCase.append(i.upper())
         return _toUpperCase
 
 
-def ToLowerCase(*kwargs):
-    if (len(kwargs) == 1) and StringQ(kwargs[0]):
-        return kwargs[0].lower()
-    elif len(kwargs) > 1:
+def ToLowerCase(*args):
+    if (len(args) == 1) and StringQ(args[0]):
+        return args[0].lower()
+    elif len(args) > 1:
         _toLowerCase = []
-        for i in kwargs:
+        for i in args:
             _toLowerCase.append(i.lower())
         return _toLowerCase
+
+
+def Binlists(*args):
+    if len(args) == 1:
+        _max = Max(args[0])
+        _min = Min(args[0])
+        _binLists = []
+        return _binLists

@@ -103,3 +103,87 @@ def EvenQ(_number):
 
 def OddQ(_number):
     return not EvenQ(_number)
+
+
+def Negative(_obj):
+    def _negativeHelp(__obj):
+        try:
+            if NumberQ(__obj):
+                if __obj < 0:
+                    return True
+                elif __obj >= 0:
+                    return False
+        except TypeError:
+            return ""
+
+    if NumberQ(_obj):
+        return _negativeHelp(_obj)
+
+    elif ListQ(_obj):
+        _negative = []
+        for i in _obj:
+            _negative.append(_negativeHelp(i))
+        return _negative
+
+
+def NonNegative(_obj):
+    def _nonNegativeHelp(__obj):
+        try:
+            if NumberQ(__obj):
+                if __obj >= 0:
+                    return True
+                elif __obj < 0:
+                    return False
+        except TypeError:
+            return ""
+
+    if NumberQ(_obj):
+        return _nonNegativeHelp(_obj)
+
+    elif ListQ(_obj):
+        _nonNegative = []
+        for i in _obj:
+            _nonNegative.append(_nonNegativeHelp(i))
+        return _nonNegative
+
+
+def Positive(_obj):
+    def _positiveHelp(__obj):
+        try:
+            if NumberQ(__obj):
+                if __obj > 0:
+                    return True
+                elif __obj <= 0:
+                    return False
+        except TypeError:
+            return ""
+
+    if NumberQ(_obj):
+        return _positiveHelp(_obj)
+
+    elif ListQ(_obj):
+        _positive = []
+        for i in _obj:
+            _positive.append(_positiveHelp(i))
+        return _positive
+
+
+def NonPositive(_obj):
+    def _nonPositiveHelp(__obj):
+        try:
+            if NumberQ(__obj):
+                if __obj <= 0:
+                    return True
+                elif __obj > 0:
+                    return False
+        except TypeError:
+            return ""
+
+    if NumberQ(_obj):
+        return _nonPositiveHelp(_obj)
+
+    elif ListQ(_obj):
+        _nonPositive = []
+        for i in _obj:
+            _nonPositive.append(_nonPositiveHelp(i))
+        return _nonPositive

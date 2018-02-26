@@ -1,4 +1,4 @@
-from .base_functions import *
+from .core_functions import *
 
 Pi = 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679821480865132
 E = 2.7182818284590452353602874713526624977572470936999595749669676277240766303535475945713821785251664274274663919320
@@ -18,12 +18,6 @@ def E(precision: int=200):
     return round(float(_e), 200)
 
 
-def Sign(_x):
-    if _x < 0:
-        return -1
-    elif _x > 0:
-        return 1
-
 
 def Round(x: float):
     try:
@@ -39,31 +33,31 @@ def Round(x: float):
         promptReal()
 
 
-def Clip(*kwargs):
-    if len(kwargs) == 1:
-        _x = kwargs[0]
+def Clip(*args):
+    if len(args) == 1:
+        _x = args[0]
         if -1 < _x < 1:
             return _x
         elif _x <= -1:
             return -1
         elif _x >= 1:
             return 1
-    elif len(kwargs) == 2 and ListQ(kwargs[1]):
-        _x = kwargs[0]
-        if kwargs[1][0] < _x < kwargs[1][1]:
+    elif len(args) == 2 and ListQ(args[1]):
+        _x = args[0]
+        if args[1][0] < _x < args[1][1]:
             return _x
-        elif _x <= kwargs[1][0]:
-            return kwargs[1][0]
-        elif _x >= kwargs[1][1]:
-            return kwargs[1][1]
-    elif len(kwargs) == 3 and ListQ(kwargs[1]) and ListQ(kwargs[2]):
-        _x = kwargs[0]
-        if kwargs[1][0] < _x < kwargs[1][1]:
+        elif _x <= args[1][0]:
+            return args[1][0]
+        elif _x >= args[1][1]:
+            return args[1][1]
+    elif len(args) == 3 and ListQ(args[1]) and ListQ(args[2]):
+        _x = args[0]
+        if args[1][0] < _x < args[1][1]:
             return _x
-        elif _x <= kwargs[1][0]:
-            return kwargs[2][0]
-        elif _x >= kwargs[1][1]:
-            return kwargs[2][1]
+        elif _x <= args[1][0]:
+            return args[2][0]
+        elif _x >= args[1][1]:
+            return args[2][1]
 
 
 
@@ -149,36 +143,43 @@ def Surd(x, n):
 
 
 
-def Power(*kwargs):
-    if NumberQ(kwargs[0]) and NumberQ(kwargs[1]):
-        return kwargs[0] ** kwargs[1]
-    elif NumberQ(kwargs[0]) and ListQ(kwargs[1]):
+def Power(*args):
+    if NumberQ(args[0]) and NumberQ(args[1]):
+        return args[0] ** args[1]
+    elif NumberQ(args[0]) and ListQ(args[1]):
         _list = []
-        for i in kwargs[1]:
-            _list.append(kwargs[0] ** i)
+        for i in args[1]:
+            _list.append(args[0] ** i)
         return _list
-    elif ListQ(kwargs[0]) and NumberQ(kwargs[1]):
+    elif ListQ(args[0]) and NumberQ(args[1]):
         _list = []
-        for i in kwargs[0]:
-            _list.append(i ** kwargs[1])
+        for i in args[0]:
+            _list.append(i ** args[1])
         return _list
-    elif ListQ(kwargs[0]) and ListQ(kwargs[1]):
-        if len(kwargs[0]) == len(kwargs[1]):
+    elif ListQ(args[0]) and ListQ(args[1]):
+        if len(args[0]) == len(args[1]):
             _list = []
-            for i in range(0, len(kwargs[0])):
-                _list.append(kwargs[0][i] ** kwargs[0][i])
+            for i in range(0, len(args[0])):
+                _list.append(args[0][i] ** args[0][i])
             return _list
-        elif len(kwargs[0]) != len(kwargs[1]):
+        elif len(args[0]) != len(args[1]):
             _list = []
-            for i in kwargs[0]:
+            for i in args[0]:
                 _listt = []
-                for j in kwargs[1]:
+                for j in args[1]:
                     _listt.append(i ** j)
                 _list.append(_listt)
             return _list
     else:
         print("Help document")
 
+
+def Resacle(*args):
+    def _rescaleHelp(*args):
+        return (args[0] - args[1][0]) / Abs(args[1][0] - args[1][1])
+    if len(args) == 2:
+        _rescaleHelp(args[0], args[1])
+        # TODO: need to repair this function later-on ;)
 
 def BaseForm(number: int, base: int):
     pass
