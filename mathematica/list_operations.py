@@ -1,28 +1,9 @@
-from mathematica.load_all_functions import *
+from .mathematical_functions import *
+from .core_functions import *
 
 
 def _promptNotIterable():
     print("The object needs to be iterable\nDas object ist nicht iterierbar")
-
-
-def Max(_list: list):
-    _max = _list[0]
-    for i in _list:
-        if i > _max:
-            _max = i
-        else:
-            _max = _max
-    return _max
-
-
-def Min(_list: list):
-    _min = _list[0]
-    for i in _list:
-        if i < _min:
-            _min = i
-        else:
-            _min = _min
-    return _min
 
 
 def Head(obj):
@@ -491,66 +472,19 @@ def Riffle(*args):
         pass
 
 
-# String Operations
-def StringJoin(*args):
-    def _subStringJoin(obj):
-        if not ListQ(obj):
-            return str(obj)
-        elif ListQ(obj):
-            _stringList = ""
-            for i in obj:
-                _stringList += str(i)
-            return _stringList
-    if len(args) == 1:
-        return _subStringJoin(args[0])
-    elif len(args) > 1:
-        _stringJoin = []
-        for i in args:
-             _stringJoin.append(_subStringJoin(i))
-        return _stringJoin
-
-
-def ToString(*args):
-    def _subToString(obj):
-        if not ListQ(obj):
-            return str(obj)
-        elif ListQ(obj):
-            _stringList = []
-            for i in obj:
-                _stringList.append(str(i))
-            return _stringList
-    if len(args) == 1:
-        return _subToString(args[0])
-    elif len(args) > 1:
-        _toString = []
-        for i in args:
-            _toString.append(_subToString(i))
-        return _toString
-
-
-def ToUpperCase(*args):
-    if (len(args) == 1) and StringQ(args[0]):
-        (args[0]).upper()
-    elif len(args) > 1:
-        _toUpperCase = []
-        for i in args:
-            _toUpperCase.append(i.upper())
-        return _toUpperCase
-
-
-def ToLowerCase(*args):
-    if (len(args) == 1) and StringQ(args[0]):
-        return args[0].lower()
-    elif len(args) > 1:
-        _toLowerCase = []
-        for i in args:
-            _toLowerCase.append(i.lower())
-        return _toLowerCase
-
-
 def Binlists(*args):
     if len(args) == 1:
         _max = Max(args[0])
         _min = Min(args[0])
         _binLists = []
         return _binLists
+
+
+def Append(_list, _element):
+    _list.append(_element)
+    return _list
+
+
+def Prepend(_list, _element):
+    _list.insert(0, _element)
+    return _list

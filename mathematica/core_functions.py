@@ -1,6 +1,26 @@
 from .q_functions import *
 
 
+def Max(_list: list):
+    _max = _list[0]
+    for i in _list:
+        if i > _max:
+            _max = i
+        else:
+            _max = _max
+    return _max
+
+
+def Min(_list: list):
+    _min = _list[0]
+    for i in _list:
+        if i < _min:
+            _min = i
+        else:
+            _min = _min
+    return _min
+
+
 def promptReal():
     print("Input needs to be a real number \nDie Eingabe muss eine reelle Zahl sein")
 

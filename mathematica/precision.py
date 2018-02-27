@@ -18,7 +18,6 @@ def E(precision: int=200):
     return round(float(_e), 200)
 
 
-
 def Round(x: float):
     try:
         _x = x
@@ -177,9 +176,20 @@ def Power(*args):
 def Resacle(*args):
     def _rescaleHelp(*args):
         return (args[0] - args[1][0]) / Abs(args[1][0] - args[1][1])
+
     if len(args) == 2:
-        _rescaleHelp(args[0], args[1])
-        # TODO: need to repair this function later-on ;)
+        return _rescaleHelp(args[0], args[1])
+    elif len(args) == 3:
+        return (_rescaleHelp(args[0], args[1]) * (args[2][1] - args[2][0])) + args[2][0]
+    elif len(args) == 1 and ListQ(args[0]):
+        _min = Min(args[0])
+        _max = Max(args[0])
+        _rescale = []
+        for i in args[0]:
+            _rescale.append(_rescaleHelp(i, [_min, _max]))
+        return _rescale
+
+
 
 def BaseForm(number: int, base: int):
     pass

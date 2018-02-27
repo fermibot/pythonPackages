@@ -1,4 +1,7 @@
 from mathematica.load_all_functions import *
 
+print(Append(Range(100), 20))
+print(Prepend(Range(100), 20))
+print(Characters('A String'))
 
-print(Resacle(12, [10, 20]))
+print(StringRiffle(Characters("A String")))
