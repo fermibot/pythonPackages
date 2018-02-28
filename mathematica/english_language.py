@@ -72,10 +72,33 @@ def Characters(_string: str):
 
 
 def StringRiffle(*args):
-    if len(args) == 1 and ListQ(args):
+    if len(args) == 1 and ListQ(args[0]) and not allListQ(args[0]):
         _stringRiffle = ""
         for i in args[0]:
-            _stringRiffle += ToString(i)
-            _stringRiffle += ""
+            _stringRiffle += ToString(i) + " "
         return _stringRiffle
-
+    if len(args) == 2 and ListQ(args[0]) and not ListQ(args[1]):
+        _stringRiffle = ""
+        for i in args[0]:
+            _stringRiffle += ToString(i) + args[1]
+        return _stringRiffle
+    if len(args) == 2 and ListQ(args[0]) and ListQ(args[1]) and len(args[1]) == 3:
+        _stringRiffle = args[1][0]
+        for i in args[0]:
+            _stringRiffle += i + args[1][1]
+        _stringRiffle += args[1][2]
+        return _stringRiffle
+    if allListQ(args[0]) and len(args) == 1:
+        _stringRiffle = ""
+        for i in args[0]:
+            for j in i:
+                _stringRiffle += ToString(j) + " "
+            _stringRiffle += "\n"
+        return _stringRiffle
+    if allListQ(args[0]) and len(args) ==3:
+        _stringRiffle = ""
+        for i in args[0]:
+            for j in i:
+                _stringRiffle += ToString(j) + args[2]
+            _stringRiffle += args[1]
+        return _stringRiffle
