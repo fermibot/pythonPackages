@@ -1,7 +1,9 @@
-from .q_functions import *
+from .precision import *
 
 
-# String Operations
+def StringLength(_string: str):
+    return len(_string)
+
 
 def StringJoin(*args):
     def _subStringJoin(obj):
@@ -102,3 +104,23 @@ def StringRiffle(*args):
                 _stringRiffle += ToString(j) + args[2]
             _stringRiffle += args[1]
         return _stringRiffle
+
+
+def StringRepeat(*args):
+    if len(args) == 2 and StringQ(args[0]) and NumberQ(args[1]):
+        _string = args[0]
+        _stringRepeat = ""
+        for i in range(0, Round(args[1])):
+            _stringRepeat += _string
+        return _stringRepeat
+    elif len(args) == 3 and StringQ(args[0]) and NumberQ(args[1]) and NumberQ(args[2]):
+        n = 0
+        _string = args[0]
+        _stringRepeat = ""
+
+        while n <= Round(args[1] and StringLength(_stringRepeat) < Round(args[2])):
+            _stringRepeat += _string
+            n += 1
+        return _stringRepeat
+
+
