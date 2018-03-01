@@ -25,6 +25,10 @@ def Last(_list: list):
         _promptNotIterable()
 
 
+def Length(_list: list):
+    return len(_list)
+
+
 def Union(*args):
     _union = []
     for i in args:
@@ -42,6 +46,14 @@ def Join(*args):
         for j in i:
             _join.append(j)
     return _join
+
+
+def Catenate(_list: list):
+    _catenate = []
+    for i in _list:
+        for j in i:
+            _catenate.append(j)
+    return _catenate
 
 
 def Rest(_list: list):
@@ -337,6 +349,40 @@ def SparseArray(*args):
         # TODO: Add documentation
 
 
+def PadLeft():
+    pass
+
+
+def PadRight(*args):
+    if len(args) == 2 and ListQ(args[0]) and NumberQ(args[1]):
+        for i in range(0, args[1] - len(args[0])):
+            args[0].append(0)
+        return args[0]
+    elif len(args) == 3 and ListQ(args[0]) and NumberQ(args[1]) and not ListQ(args[2]):
+        for i in range(0, args[1] - len(args[0])):
+            args[0].append(args[2])
+        return args[0]
+    elif len(args) == 3 and ListQ(args[0]) and ListQ(args[2]) and NumberQ(args[1]):
+        for i in range(0, args[1] - len(args[0])):
+            args[0].append(args[2][i % len(args[2])])
+        return args[0]
+    elif len(args) == 4 and ListQ(args[0]) and NumberQ(args[1]) and NumberQ(args[3]):
+        _margin = []
+        for i in range(0, args[3]):
+            _margin.append(args[2])
+        for i in range(0, args[1] - args[3] - len(args[0])):
+            args[0].append(args[2])
+        return Join(_margin, args[0])
+    elif len(args) == 2 and ListQ(args[0]) and ListQ(args[1]):
+        pass
+    elif len(args) == 1 and ListQ(args[0]):
+        pass
+
+
+def ArrayReshape(_list: list):
+    return _list
+
+
 def Fibonacci(n):
     _a = 0
     _b = 1
@@ -488,3 +534,27 @@ def Append(_list, _element):
 def Prepend(_list, _element):
     _list.insert(0, _element)
     return _list
+
+
+def ConstantArray(*args):
+
+    def _constantArrayHelp(_obj, _number):
+        _constantArrayHelp = []
+        for i in range(0, Ceiling(_number)):
+            _constantArrayHelp.append(_obj)
+        return _constantArrayHelp
+
+    if len(args) == 2:
+        if NumberQ(args[1]):
+            _constantArray = []
+            for i in range(0, Round(args[1])):
+                _constantArray.append(args[0])
+            return _constantArray
+
+        if ListQ(args[1]):
+            _obj = args[0]
+            for i in args[1]:
+                _obj = _constantArrayHelp(_obj, i - 1)
+            return _obj
+    else:
+        pass
