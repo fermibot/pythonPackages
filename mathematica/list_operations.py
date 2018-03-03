@@ -29,6 +29,26 @@ def Length(_list: list):
     return len(_list)
 
 
+def  _longestSubList(_list: list):
+    _max = Length(_list[0])
+    for i in _list:
+        if Length(i) > _max:
+            _max = Length(i)
+        else:
+            _max = _max
+    return _max
+
+
+def _shortestSubList(_list):
+    _min = Length(_list[0])
+    for i in _list:
+        if Length(i) < _min:
+            _min = Length(i)
+        else:
+            _min = _min
+    return _min
+
+
 def Union(*args):
     _union = []
     for i in args:
@@ -349,35 +369,94 @@ def SparseArray(*args):
         # TODO: Add documentation
 
 
-def PadLeft():
-    pass
+def _padSimpleLeft(_list: list, _padding, _element):
+    _padSimpleLeft = []
+    if _padding > len(_list):
+        for i in range(0, _padding - len(_list)):
+            _padSimpleLeft.append(_element)
+        return Join(_padSimpleLeft, _list)
+    elif len(_list) == _padding:
+        return _list
+    elif  _padding < len(_list):
+        return _list[len(_list) - _padding : len(_list) : ]
+
+
+def PadLeft(*args):
+    if len(args) == 2 and ListQ(args[0]) and not ListQ(args[1]) and NumberQ(args[1]):
+        return _padSimpleLeft(args[0], args[1], 0)
+    elif len(args) == 3 and ListQ(args[0]) and NumberQ(args[1]) and not ListQ(args[2]):
+        return _padSimpleLeft(args[0], args[1], args[2])
+    elif len(args) == 3 and NumberQ(args[1]) and ListQ(args[2]):
+        if len(args[0]) >= args[1]:
+            return _padSimpleLeft(args[0], args[1], "")
+        elif len(args[0]) < args[1]:
+            _leftPad = []
+            for i in range(0, args[1] - len(args[0])):
+                _leftPad.append(args[2][i % len(args[2])])
+            return Join(_leftPad, args[0])
+    elif len(args) == 4 and NumberQ(args[1]) and NumberQ(args[3]):
+        if len(args[0]) >= args[1] + args[3]:
+            return _padSimpleLeft(args[0], args[1], "")
+        elif len(args[0]) < args[1] + args[3]:
+            _margin = []
+            for i in range(0, args[3]):
+                _margin.append(args[2])
+            _notMargin = []
+            for i in range(0, args[1] - args[3] - len(args[0])):
+                _notMargin.append(args[2])
+            return Join(_notMargin, args[0], _margin)
+    elif len(args) == 2 and ListQ(args[0]) and ListQ(args[1]):
+        pass
+    elif len(args) == 1 and ListQ(args[0]):
+        _max = _longestSubList(args[0])
+        _padLeft = []
+        for i in args[0]:
+            _padLeft.append(_padSimpleLeft(i, _max, 0))
+        return _padLeft
+
+
+def _padSimpleRight(_list: list, _padding, _element):
+    if len(_list) >= _padding:
+        _padSimpleRight = []
+        for i in range(0, _padding):
+            _padSimpleRight.append(_list[i])
+        return _padSimpleRight
+    elif len(_list) < _padding:
+        for i in range(0, _padding - len(_list)):
+            _list.append(_element)
+        return _list
 
 
 def PadRight(*args):
     if len(args) == 2 and ListQ(args[0]) and NumberQ(args[1]):
-        for i in range(0, args[1] - len(args[0])):
-            args[0].append(0)
-        return args[0]
+        return _padSimpleRight(args[0], args[1], 0)
     elif len(args) == 3 and ListQ(args[0]) and NumberQ(args[1]) and not ListQ(args[2]):
-        for i in range(0, args[1] - len(args[0])):
-            args[0].append(args[2])
-        return args[0]
+        return _padSimpleRight(args[0], args[1], args[2])
     elif len(args) == 3 and ListQ(args[0]) and ListQ(args[2]) and NumberQ(args[1]):
-        for i in range(0, args[1] - len(args[0])):
-            args[0].append(args[2][i % len(args[2])])
-        return args[0]
+        if len(args[0]) >= args[1]:
+            return _padSimpleRight(args[0], args[1], "")
+        elif len(args[0]) < args[1]:
+            for i in range(0, args[1] - len(args[0])):
+                args[0].append(args[2][i % len(args[2])])
+            return args[0]
     elif len(args) == 4 and ListQ(args[0]) and NumberQ(args[1]) and NumberQ(args[3]):
-        _margin = []
-        for i in range(0, args[3]):
-            _margin.append(args[2])
-        for i in range(0, args[1] - args[3] - len(args[0])):
-            args[0].append(args[2])
-        return Join(_margin, args[0])
+        if len(args[0]) >= args[1] + args[3]:
+            return _padSimpleRight(args[0], args[1], "")
+        elif len(args[0]) < args[1] + args[3]:
+            _margin = []
+            for i in range(0, args[3]):
+                _margin.append(args[2])
+            for i in range(0, args[1] - args[3] - len(args[0])):
+                args[0].append(args[2])
+            return Join(_margin, args[0])
     elif len(args) == 2 and ListQ(args[0]) and ListQ(args[1]):
         pass
     elif len(args) == 1 and ListQ(args[0]):
-        pass
-
+        _max = _longestSubList(args[0])
+        _padRight = []
+        for i in args[0]:
+            _padRight._padSimpleRight(i, _max, 0)
+        return _padRight
 
 def ArrayReshape(_list: list):
     return _list
@@ -558,3 +637,44 @@ def ConstantArray(*args):
             return _obj
     else:
         pass
+
+# EXPERIMENTAL
+#
+#
+# def _listBuilder(_list: list, _n: int):
+#     _listBuilder = []
+#     for i in range(0, _n):
+#         _listBuilder.append(_list)
+#     return _listBuilder
+#
+#
+# _list = Range(5)
+# for i in ConstantArray(5, 3):
+#     _list = _listBuilder(_list, i)
+#
+# print(_list)
+#
+#
+# def levelAnalyzer(_list: list):
+#     _list = str(_list)
+#     _elements = Union(Characters(_list))
+#     _filteredElements = []
+#     for i in _elements:
+#         if i not in ('[', ']'):
+#             _filteredElements.append(i)
+#     for i in _filteredElements:
+#         _list = _list.replace(i, '')
+#
+#     _count = 0
+#     _bracket = '['
+#     _countList = []
+#     for i in _list:
+#         if i == _bracket:
+#             _count += 1
+#         else:
+#             _countList.append(_count)
+#             _count = 0
+#     return _countList
+#
+# print(levelAnalyzer(_list))
+
