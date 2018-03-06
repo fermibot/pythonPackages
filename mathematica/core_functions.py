@@ -1,6 +1,10 @@
 from .q_functions import *
 
 
+def Print(_obj):
+    print(_obj)
+
+
 def Max(_list: list):
     _max = _list[0]
     for i in _list:

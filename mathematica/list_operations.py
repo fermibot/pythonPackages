@@ -93,6 +93,15 @@ def Total(_list: list):
     return _total
 
 
+def Accumulate(_list: list):
+    _accumulate = [First(_list)]
+    _element = First(_list)
+    for i in range(1, Length(_list)):
+        _element += _list[i]
+        _accumulate.append(_element)
+    return _accumulate
+
+
 def Reverse(obj):
     if isinstance(obj, str):
         _obj = ""
@@ -145,6 +154,48 @@ def Partition(_list: list, n):
             _partitionn = []
             i += n
         return _partition
+
+
+def ArrayReshape(_list: list, _reshape: list):
+    _length = Length(_list)
+    for i in Reverse(_reshape):
+        _list = Partition(_list, _length * int(Reciprocal(i)))
+    return _list
+
+
+def CenterArray(*args):
+    if len(args) == 2 and NumberQ(args[1]) and not ListQ(args[1]):
+        if args[1] <= 2:
+            return [0]
+        elif args[1] > 3:
+            _zeroPad = args[1] - 1
+            _padLeft = []
+            _padRight = []
+            for i in Range(1, _zeroPad // 2):
+                _padLeft.append(0)
+            if OddQ(args[1]):
+                for i in range(0, _zeroPad // 2):
+                    _padRight.append(0)
+            elif EvenQ(args[1]):
+                for i in range(1, _zeroPad // 2 + 1):
+                    _padRight.append(0)
+            return _padRight
+    elif len(args) == 1:
+        if args[0] < 2:
+            return [0]
+        elif args[0] >= 2:
+            _padding = int(args[0]) - 1
+            _centerArray = [1]
+            _padictionary = {'leftPad': 0, 'rightPad': 0}
+            _padding = _padding // 2
+            if OddQ(_padding):
+                _padictionary['leftPad'], _padictionary['rightPad'] = _padding, _padding + 1
+                return _padSimpleRight(_padSimpleLeft(_centerArray, _padding + 1, 0), (2 * _padding) + 2, 0)
+            elif EvenQ(_padding):
+                _padictionary['leftPad'] = _padictionary['rightPad'] = _padding, _padding
+                return _padSimpleRight(_padSimpleLeft(_centerArray, _padding + 1, 0), (2 * _padding) + 2, 0)
+
+    #This version not working at all. Will be trying a Razor approch after this commmit.
 
 
 def Tuples(_list: list, level: int):
@@ -457,9 +508,6 @@ def PadRight(*args):
         for i in args[0]:
             _padRight._padSimpleRight(i, _max, 0)
         return _padRight
-
-def ArrayReshape(_list: list):
-    return _list
 
 
 def Fibonacci(n):

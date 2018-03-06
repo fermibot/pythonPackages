@@ -32,6 +32,10 @@ def Round(x: float):
         promptReal()
 
 
+def Reciprocal(_number):
+    return 1 / _number
+
+
 def Clip(*args):
     if len(args) == 1:
         _x = args[0]
@@ -138,7 +142,7 @@ def Surd(x, n):
         elif 0 < x < 1:
             pass
     else:
-        return "enter a real number"
+        return "enter a real number \n Geben Sie eine reelle Zahl ein"
 
 
 
