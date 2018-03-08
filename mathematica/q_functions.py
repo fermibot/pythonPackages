@@ -2,6 +2,7 @@
 def _promptReal():
     print("Input needs to be a real number \nDie Eingabe muss eine reelle Zahl sein")
 
+
 def ListQ(obj):
     return isinstance(obj, list) or isinstance(obj, range)
 

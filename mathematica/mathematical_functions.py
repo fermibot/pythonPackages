@@ -1,7 +1,8 @@
 from .precision import *
 
+
 def Gamma(x):
-    pass
+    return x
 
 
 def Sin(x: float):
@@ -18,7 +19,7 @@ def Cos(x: float):
     return _cos
 
 
-def Tan(x:float):
+def Tan(x: float):
     return Sin(x) / Cos(x)
 
 
@@ -41,7 +42,7 @@ def ArcSin(x: float):
 
 
 def ArcCos(x):
-    pass
+    return x
 
 
 def ArcTan(x: float):
@@ -76,5 +77,3 @@ def Log10(_x):
 
 def Log(_x, _base):
     return LogE(_x) / LogE(_base)
-
-

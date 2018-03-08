@@ -1,8 +1,9 @@
 from .mathematical_functions import *
-from .core_functions import *
+# from .core_functions import *
+from .precision import *
 
 
-def _promptNotIterable():
+def promptNotIterable():
     print("The object needs to be iterable\nDas object ist nicht iterierbar")
 
 
@@ -14,7 +15,7 @@ def First(_list: list):
     try:
         return _list[0]
     except TypeError:
-        _promptNotIterable()
+        promptNotIterable()
 
 
 def Last(_list: list):
@@ -22,14 +23,14 @@ def Last(_list: list):
         _len = len(_list)
         return _list[_len - 1]
     except TypeError:
-        _promptNotIterable()
+        promptNotIterable()
 
 
 def Length(_list: list):
     return len(_list)
 
 
-def  _longestSubList(_list: list):
+def _longestSubList(_list: list):
     _max = Length(_list[0])
     for i in _list:
         if Length(i) > _max:
@@ -47,6 +48,13 @@ def _shortestSubList(_list):
         else:
             _min = _min
     return _min
+
+
+def _arrayGenerator(_list: list, n: int):
+    arrayGenerator = []
+    for i in range(0, n):
+        arrayGenerator.append(_list)
+    return arrayGenerator
 
 
 def Union(*args):
@@ -82,8 +90,8 @@ def Rest(_list: list):
         for i in range(1, len(_list)):
             __list.append(i)
         return __list
-    except:
-        _promptNotIterable()
+    except TypeError:
+        promptNotIterable()
 
 
 def Total(_list: list):
@@ -125,8 +133,7 @@ def Reverse(obj):
 
     # else (not isinstance(obj, str)) or (not isinstance(obj, list)) or (not isinstance(obj, tuple)):
     else:
-        _promptNotIterable()
-        # TODO: Else returns none, check with Gowtham
+        promptNotIterable()
 
 
 def Transpose(_list: list):
@@ -164,38 +171,43 @@ def ArrayReshape(_list: list, _reshape: list):
 
 
 def CenterArray(*args):
-    if len(args) == 2 and NumberQ(args[1]) and not ListQ(args[1]):
-        if args[1] <= 2:
-            return [0]
-        elif args[1] > 3:
-            _zeroPad = args[1] - 1
-            _padLeft = []
-            _padRight = []
-            for i in Range(1, _zeroPad // 2):
-                _padLeft.append(0)
-            if OddQ(args[1]):
-                for i in range(0, _zeroPad // 2):
-                    _padRight.append(0)
-            elif EvenQ(args[1]):
-                for i in range(1, _zeroPad // 2 + 1):
-                    _padRight.append(0)
-            return _padRight
-    elif len(args) == 1:
-        if args[0] < 2:
-            return [0]
-        elif args[0] >= 2:
-            _padding = int(args[0]) - 1
-            _centerArray = [1]
-            _padictionary = {'leftPad': 0, 'rightPad': 0}
-            _padding = _padding // 2
-            if OddQ(_padding):
-                _padictionary['leftPad'], _padictionary['rightPad'] = _padding, _padding + 1
-                return _padSimpleRight(_padSimpleLeft(_centerArray, _padding + 1, 0), (2 * _padding) + 2, 0)
-            elif EvenQ(_padding):
-                _padictionary['leftPad'] = _padictionary['rightPad'] = _padding, _padding
-                return _padSimpleRight(_padSimpleLeft(_centerArray, _padding + 1, 0), (2 * _padding) + 2, 0)
+    def _centerArrayAssist(*_args):
+        # _args[0] = element
+        # _args[1] = length
+        # _args[2] = padding
+        __centerArray = ConstantArray(_args[2], _args[1])
+        if EvenQ(_args[1]):
+            __centerArray[int(_args[1] // 2) - 1] = _args[0]
+        elif OddQ(_args[1]):
+            __centerArray[int(_args[1] // 2)] = _args[0]
+        return __centerArray
 
-    #This version not working at all. Will be trying a Razor approch after this commmit.
+    def _findCenter(n):
+        if OddQ(n):
+            return n // 2
+        elif EvenQ(n):
+            return n // 2 - 1
+
+    _findCenter(2)
+
+    if len(args) == 2 and not ListQ(args[1]):
+        return _centerArrayAssist(args[0], args[1], 0)
+    elif len(args) == 2 and ListQ(args[1]):
+        _centerArray = ConstantArray(0, Last(args[1]))
+        for i in range(1, Length(args[1])):
+            _centerArray = _arrayGenerator(_centerArray, args[1][i])
+        # _arrayIndex = '_centerArray'
+        # for i in args[1]:
+        #     _arrayIndex += '[' + str(_findCenter(i)) + ']'
+        # _arrayIndex += ' = 2'
+        # _centerArray = [[[0, 0, 0], [0, 0, 0], [0, 0, 0]], [[0, 0, 0], [0, 0, 0], [0, 0, 0]], [[0, 0, 0], [0, 0, 0],
+        # [0, 0, 0]]]
+        exec('_centerArray[1][1][1] = 1')
+        return _centerArray
+    elif len(args) == 3:
+        return _centerArrayAssist(args[0], args[1], args[2])
+    elif len(args) == 1:
+        return _centerArrayAssist(1, args[0], 0)
 
 
 def Tuples(_list: list, level: int):
@@ -218,7 +230,7 @@ def Tuples(_list: list, level: int):
 
 def Table(obj):
     # TODO: Add functionality to the function ;)
-    pass
+    return obj
 
 
 def PowerRange(*args):
@@ -317,7 +329,7 @@ def Subdivide(*args):
                     and IntegerQ(args[2]) and args[2] >= 1:
                 _subDivide = []
                 for i in range(0, args[2] + 1):
-                    _subDivide.append( args[0] + (i * (args[1] - args[0]) / args[2]))
+                    _subDivide.append(args[0] + (i * (args[1] - args[0]) / args[2]))
                 return _subDivide
         except TypeError:
             print("")
@@ -397,7 +409,7 @@ def SparseArray(*args):
     elif len(args) == 2 and ListQ(args[0]) and ListQ(args[1]):
         if len(args[0]) == len(args[1]):
 
-            _list = args[0]
+            # added # for PEP warning elimination _list = args[0]
             _transpose = Transpose(args[0])
             _dimensions = Max([Max(_transpose[0]), Max(_transpose[1])])
 
@@ -421,15 +433,15 @@ def SparseArray(*args):
 
 
 def _padSimpleLeft(_list: list, _padding, _element):
-    _padSimpleLeft = []
+    __padSimpleLeft = []
     if _padding > len(_list):
         for i in range(0, _padding - len(_list)):
-            _padSimpleLeft.append(_element)
-        return Join(_padSimpleLeft, _list)
+            __padSimpleLeft.append(_element)
+        return Join(__padSimpleLeft, _list)
     elif len(_list) == _padding:
         return _list
-    elif  _padding < len(_list):
-        return _list[len(_list) - _padding : len(_list) : ]
+    elif _padding < len(_list):
+        return _list[len(_list) - _padding: len(_list):]
 
 
 def PadLeft(*args):
@@ -468,10 +480,10 @@ def PadLeft(*args):
 
 def _padSimpleRight(_list: list, _padding, _element):
     if len(_list) >= _padding:
-        _padSimpleRight = []
+        __padSimpleRight = []
         for i in range(0, _padding):
-            _padSimpleRight.append(_list[i])
-        return _padSimpleRight
+            __padSimpleRight.append(_list[i])
+        return __padSimpleRight
     elif len(_list) < _padding:
         for i in range(0, _padding - len(_list)):
             _list.append(_element)
@@ -649,7 +661,7 @@ def Binlists(*args):
     if len(args) == 1:
         _max = Max(args[0])
         _min = Min(args[0])
-        _binLists = []
+        _binLists = [_min, _max]
         return _binLists
 
 
@@ -664,27 +676,64 @@ def Prepend(_list, _element):
 
 
 def ConstantArray(*args):
-
-    def _constantArrayHelp(_obj, _number):
+    def constantArrayHelp(_obj, _number):
         _constantArrayHelp = []
-        for i in range(0, Ceiling(_number)):
+        for _i in range(0, Ceiling(_number)):
             _constantArrayHelp.append(_obj)
         return _constantArrayHelp
-
     if len(args) == 2:
         if NumberQ(args[1]):
             _constantArray = []
             for i in range(0, Round(args[1])):
                 _constantArray.append(args[0])
             return _constantArray
-
         if ListQ(args[1]):
             _obj = args[0]
             for i in args[1]:
-                _obj = _constantArrayHelp(_obj, i - 1)
+                _obj = constantArrayHelp(_obj, i - 1)
             return _obj
     else:
         pass
+
+
+def KroneckerDelta(*args):
+    _kroneckerDelta = args[0]
+    for i in args:
+        _kroneckerDelta = _kroneckerDelta == i
+    if _kroneckerDelta:
+        return 1
+    else:
+        return 0
+
+
+# Matrices
+def BoxMatrix(*args):
+    _boxMatrix = []
+    if len(args) == 1 and not ListQ(args[0]):
+        for i in range(-args[0], args[0] + 1):
+            _boxRow = []
+            for j in range(-args[0], args[0] + 1):
+                _boxRow.append(1)
+            _boxMatrix.append(_boxRow)
+        return _boxMatrix
+    elif len(args) == 2:
+        _limit = args[0]
+        for i in range(-args[1], args[1] + 1):
+            _boxRow = []
+            for j in range(-args[1], args[1] + 1):
+                if (-_limit <= j <= _limit) and (-_limit <= i <= _limit):
+                    _boxRow.append(1)
+                else:
+                    _boxRow.append(0)
+            _boxMatrix.append(_boxRow)
+        return _boxMatrix
+    elif len(args) == 1 and ListQ(args[0]):
+        _list = Reverse(args[0])
+        _boxMatrix = ConstantArray(1    , 2 * First(_list) + 1)
+        for i in range(1, len(_list)):
+            _boxMatrix = _arrayGenerator(_boxMatrix, 2 * _list[i] + 1)
+        return _boxMatrix
+
 
 # EXPERIMENTAL
 #
@@ -725,4 +774,3 @@ def ConstantArray(*args):
 #     return _countList
 #
 # print(levelAnalyzer(_list))
-

@@ -104,4 +104,4 @@ def BinomialDistributionPDF(_n, _p, _x):
         elif _x < 0 or _x > _n:
             return 0
     elif _p >= 1 or _p <= 0:
-        return "Probability needs to be between 0 and 1"
+        return "Probability needs to be between 0 and 1 \n Die Wahrscheinlichkeit muss zwischen 0 und 1 liegen"

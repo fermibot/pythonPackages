@@ -16,6 +16,20 @@ from mathematica.load_all_functions import *
 # TODO: incorporate integer conversion here.
 # Print(ArrayReshape(Range(96), [1, 3, 4, 4]))
 
+#
+# _centerArray = [[[0, 0, 0,], [0, 0, 0], [0, 0, 0]], [[0, 0, 0], [0, 0, 0], [0, 0, 0]], [[0, 0, 0], [0, 0, 0], [0, 0, 0]]]
+# exec('_centerArray[1][1][1] = 2')
+# print(_centerArray)
 
-Print(CenterArray(10))
-Print(CenterArray(11))
+
+# for i in BoxMatrix(2, 4): print(i)
+
+print(BoxMatrix(ConstantArray(1, 3)))
+
+for i in Range(0, 5):
+    _sublist = []
+    for j in Range(0, 5):
+        _sublist.append(KroneckerDelta(i, j))
+    print(_sublist)
+
+print(KroneckerDelta(2, 2))

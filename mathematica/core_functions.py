@@ -28,16 +28,18 @@ def Min(_list: list):
 def promptReal():
     print("Input needs to be a real number \nDie Eingabe muss eine reelle Zahl sein")
 
+
 def Abs(x: float):
     try:
         if x >= 0:
             _x = x
-        elif x <=0:
+        elif x <= 0:
             _x = -1 * x
         return _x
     except TypeError:
         promptReal()
         # TODO: This prints a redundant none statement.
+
 
 def Sign(_x):
     if _x < 0:
@@ -84,8 +86,6 @@ def LessEqual(_list):
         for i in range(0, len(_list)):
             _lessEqual = _lessEqual and (_list[i] >= _list[i + 1])
             return _lessEqual
-
-
 
 
 def Range(i, j=None, step=None):
@@ -139,7 +139,7 @@ def Factorial2(x):
         for i in range(1, int(x / 2) + 1):
             _factorial2 = _factorial2 * i * 2
     elif OddQ(x):
-        for i in range(1, int((x  + 1)/ 2) + 1):
+        for i in range(1, int((x + 1) / 2) + 1):
             _factorial2 *= (2 * i - 1)
     return _factorial2
 

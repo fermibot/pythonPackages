@@ -1,7 +1,7 @@
 from .core_functions import *
 
-Pi = 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679821480865132
-E = 2.7182818284590452353602874713526624977572470936999595749669676277240766303535475945713821785251664274274663919320
+# Pi = 3.141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117067982148086513
+# E = 2.7182818284590452353602874713526624977572470936999595749669676277240766303535475945713821785251664274274663919320
 
 
 def Pi(precision: int=200):
@@ -61,8 +61,6 @@ def Clip(*args):
             return args[2][0]
         elif _x >= args[1][1]:
             return args[2][1]
-
-
 
 
 def Floor(x: float):
@@ -145,7 +143,6 @@ def Surd(x, n):
         return "enter a real number \n Geben Sie eine reelle Zahl ein"
 
 
-
 def Power(*args):
     if NumberQ(args[0]) and NumberQ(args[1]):
         return args[0] ** args[1]
@@ -178,8 +175,8 @@ def Power(*args):
 
 
 def Resacle(*args):
-    def _rescaleHelp(*args):
-        return (args[0] - args[1][0]) / Abs(args[1][0] - args[1][1])
+    def _rescaleHelp(*_args):
+        return (_args[0] - _args[1][0]) / Abs(_args[1][0] - _args[1][1])
 
     if len(args) == 2:
         return _rescaleHelp(args[0], args[1])
@@ -194,6 +191,6 @@ def Resacle(*args):
         return _rescale
 
 
-
 def BaseForm(number: int, base: int):
+    return [number, base]
     pass

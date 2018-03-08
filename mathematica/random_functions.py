@@ -216,7 +216,7 @@ def VonMisesDistribution(mu: float=0, kappa: float=1, sample_size: int=1):
             print(sample_size_limit())
 
 
-def RandomChoice(sequence: list, sample_size:int=None):
+def RandomChoice(sequence: list, sample_size: int=None):
     if sample_size is None:
         return random.choice(sequence)
     elif sample_size is not None:

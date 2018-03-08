@@ -11,15 +11,15 @@ def StringJoin(*args):
             return str(obj)
         elif ListQ(obj):
             _stringList = ""
-            for i in obj:
-                _stringList += str(i)
+            for _i in obj:
+                _stringList += str(_i)
             return _stringList
     if len(args) == 1:
         return _subStringJoin(args[0])
     elif len(args) > 1:
         _stringJoin = []
         for i in args:
-             _stringJoin.append(_subStringJoin(i))
+            _stringJoin.append(_subStringJoin(i))
         return _stringJoin
 
 
@@ -29,8 +29,8 @@ def ToString(*args):
             return str(obj)
         elif ListQ(obj):
             _stringList = []
-            for i in obj:
-                _stringList.append(str(i))
+            for _i in obj:
+                _stringList.append(str(_i))
             return _stringList
     if len(args) == 1:
         return _subToString(args[0])
@@ -97,7 +97,7 @@ def StringRiffle(*args):
                 _stringRiffle += ToString(j) + " "
             _stringRiffle += "\n"
         return _stringRiffle
-    if allListQ(args[0]) and len(args) ==3:
+    if allListQ(args[0]) and len(args) == 3:
         _stringRiffle = ""
         for i in args[0]:
             for j in i:
@@ -122,5 +122,3 @@ def StringRepeat(*args):
             _stringRepeat += _string
             n += 1
         return _stringRepeat
-
-
