@@ -697,9 +697,9 @@ def ConstantArray(*args):
 
 
 def KroneckerDelta(*args):
-    _kroneckerDelta = args[0]
-    for i in args:
-        _kroneckerDelta = _kroneckerDelta == i
+    _kroneckerDelta = True
+    for i in range(1, len(args)):
+        _kroneckerDelta = _kroneckerDelta and (args[i - 1] == args[i])
     if _kroneckerDelta:
         return 1
     else:

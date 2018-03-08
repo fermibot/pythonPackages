@@ -26,10 +26,9 @@ from mathematica.load_all_functions import *
 
 print(BoxMatrix(ConstantArray(1, 3)))
 
-for i in Range(0, 5):
+for k in Range(0, 5):
     _sublist = []
-    for j in Range(0, 5):
-        _sublist.append(KroneckerDelta(i, j))
-    print(_sublist)
-
-print(KroneckerDelta(2, 2))
+    for i in Range(0, 5):
+        for j in Range(0, 5):
+            _sublist.append(KroneckerDelta(i, j, k))
+        print(_sublist)
