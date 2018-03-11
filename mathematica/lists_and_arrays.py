@@ -1,6 +1,5 @@
 from .mathematical_functions import *
-# from .core_functions import *
-from .precision import *
+from .english_language import *
 
 
 def promptNotIterable():
@@ -50,11 +49,18 @@ def _shortestSubList(_list):
     return _min
 
 
-def _arrayGenerator(_list: list, n: int):
+def arrayGenerator(_list: list, n: int):
     arrayGenerator = []
     for i in range(0, n):
         arrayGenerator.append(_list)
     return arrayGenerator
+
+
+def _findCenter(n):  # finds the center of a list with either odd or even number of elements
+    if OddQ(n):
+        return n // 2
+    elif EvenQ(n):
+        return n // 2 - 1
 
 
 def Union(*args):
@@ -172,9 +178,7 @@ def ArrayReshape(_list: list, _reshape: list):
 
 def CenterArray(*args):
     def _centerArrayAssist(*_args):
-        # _args[0] = element
-        # _args[1] = length
-        # _args[2] = padding
+        # _args[0] = element; _args[1] = length; _args[2] = padding
         __centerArray = ConstantArray(_args[2], _args[1])
         if EvenQ(_args[1]):
             __centerArray[int(_args[1] // 2) - 1] = _args[0]
@@ -182,27 +186,20 @@ def CenterArray(*args):
             __centerArray[int(_args[1] // 2)] = _args[0]
         return __centerArray
 
-    def _findCenter(n):
-        if OddQ(n):
-            return n // 2
-        elif EvenQ(n):
-            return n // 2 - 1
-
-    _findCenter(2)
-
     if len(args) == 2 and not ListQ(args[1]):
         return _centerArrayAssist(args[0], args[1], 0)
     elif len(args) == 2 and ListQ(args[1]):
         _centerArray = ConstantArray(0, Last(args[1]))
-        for i in range(1, Length(args[1])):
-            _centerArray = _arrayGenerator(_centerArray, args[1][i])
-        # _arrayIndex = '_centerArray'
-        # for i in args[1]:
-        #     _arrayIndex += '[' + str(_findCenter(i)) + ']'
-        # _arrayIndex += ' = 2'
-        # _centerArray = [[[0, 0, 0], [0, 0, 0], [0, 0, 0]], [[0, 0, 0], [0, 0, 0], [0, 0, 0]], [[0, 0, 0], [0, 0, 0],
-        # [0, 0, 0]]]
-        exec('_centerArray[1][1][1] = 1')
+        _revArgs = Reverse(args[1])
+        for i in range(0, len(args[1]) - 1):
+            _centerArray = arrayGenerator(_centerArray, _revArgs[i])
+        _arrayIndex = '_centerArray'
+        for i in args[1]:
+            _arrayIndex += '[' + str(_findCenter(i)) + ']'
+        _arrayIndex += ' = '
+        _arrayIndex += str(args[0])
+        exec(_arrayIndex)
+        # TODO: need to fix this part of the argument
         return _centerArray
     elif len(args) == 3:
         return _centerArrayAssist(args[0], args[1], args[2])
@@ -729,14 +726,42 @@ def BoxMatrix(*args):
         return _boxMatrix
     elif len(args) == 1 and ListQ(args[0]):
         _list = Reverse(args[0])
-        _boxMatrix = ConstantArray(1    , 2 * First(_list) + 1)
+        _boxMatrix = ConstantArray(1, 2 * First(_list) + 1)
         for i in range(1, len(_list)):
-            _boxMatrix = _arrayGenerator(_boxMatrix, 2 * _list[i] + 1)
+            _boxMatrix = arrayGenerator(_boxMatrix, 2 * _list[i] + 1)
         return _boxMatrix
 
 
+def CrossMatrix(*args):
+    if len(args) == 1 and not ListQ(args[0]):
+        _crossMatrix = ConstantArray(0, [2 * args[0] + 1, 2 * args[0] + 1])
+        _crossMatrix[_findCenter(Length(_crossMatrix))] = ConstantArray(1, Length(_crossMatrix))
+        for i in range(0, len(_crossMatrix)):
+            _crossMatrix[i][args[0]] = 1
+        return _crossMatrix
+    elif len(args) == 1 and ListQ(args[0]):
+        [_dimensions, _indices, _preIndices, arg_len] = [[], [], [], len(args[0])]
+        for i in args[0]:
+            _preIndices.append([i])
+        for i in range(0, arg_len):
+            _indices.append(ToString(_preIndices))
+            _indices[i][i] = '[j]'
+            _indices[i] = "_crossMatrix" + StringJoin(_indices[i]).replace("'", "") + " = 1"
+        for i in args[0]:
+            _dimensions.append(2 * i + 1)
+        _crossMatrix = ConstantArray(0, Last(_dimensions))
+        for i in range(1, Length(args[0])):
+            _crossMatrix = arrayGenerator(_crossMatrix, Reverse(_dimensions)[i])
+        for i in range(0, len(args[0])):
+            for j in range(0, _dimensions[i]):
+                exec(_indices[i])
+        return _crossMatrix
+    elif len(args) == 2:
+        pass
+    elif len(args) == 3:
+        pass
+
 # EXPERIMENTAL
-#
 #
 # def _listBuilder(_list: list, _n: int):
 #     _listBuilder = []
