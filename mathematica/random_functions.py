@@ -1,4 +1,3 @@
-from mathematica.load_all_functions import *
 import random
 
 

@@ -1,4 +1,4 @@
-from mathematica.load_all_functions import *
+from .precision import *
 
 
 def Integrate(func, x):

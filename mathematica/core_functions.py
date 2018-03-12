@@ -147,3 +147,10 @@ def Factorial2(x):
 def Binomial(_n, _m):
     _n, _m = Abs(_n), Abs(_m)
     return Factorial(_n) / (Factorial(_n - _m) * Factorial(_m))
+
+
+def Boole(_obj):
+    if _obj:
+        return 1
+    elif not _obj:
+        return 0

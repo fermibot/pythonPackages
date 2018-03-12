@@ -1,5 +1,4 @@
 from .mathematical_functions import *
-from .english_language import *
 
 
 def promptNotIterable():
@@ -50,13 +49,13 @@ def _shortestSubList(_list):
 
 
 def arrayGenerator(_list: list, n: int):
-    arrayGenerator = []
+    _arrayGenerator = []
     for i in range(0, n):
-        arrayGenerator.append(_list)
-    return arrayGenerator
+        _arrayGenerator.append(_list)
+    return _arrayGenerator
 
 
-def _findCenter(n):  # finds the center of a list with either odd or even number of elements
+def findCenter(n):  # finds the center of a list with either odd or even number of elements
     if OddQ(n):
         return n // 2
     elif EvenQ(n):
@@ -176,47 +175,16 @@ def ArrayReshape(_list: list, _reshape: list):
     return _list
 
 
-def CenterArray(*args):
-    def _centerArrayAssist(*_args):
-        # _args[0] = element; _args[1] = length; _args[2] = padding
-        __centerArray = ConstantArray(_args[2], _args[1])
-        if EvenQ(_args[1]):
-            __centerArray[int(_args[1] // 2) - 1] = _args[0]
-        elif OddQ(_args[1]):
-            __centerArray[int(_args[1] // 2)] = _args[0]
-        return __centerArray
-
-    if len(args) == 2 and not ListQ(args[1]):
-        return _centerArrayAssist(args[0], args[1], 0)
-    elif len(args) == 2 and ListQ(args[1]):
-        _centerArray = ConstantArray(0, Last(args[1]))
-        _revArgs = Reverse(args[1])
-        for i in range(0, len(args[1]) - 1):
-            _centerArray = arrayGenerator(_centerArray, _revArgs[i])
-        _arrayIndex = '_centerArray'
-        for i in args[1]:
-            _arrayIndex += '[' + str(_findCenter(i)) + ']'
-        _arrayIndex += ' = '
-        _arrayIndex += str(args[0])
-        exec(_arrayIndex)
-        # TODO: need to fix this part of the argument
-        return _centerArray
-    elif len(args) == 3:
-        return _centerArrayAssist(args[0], args[1], args[2])
-    elif len(args) == 1:
-        return _centerArrayAssist(1, args[0], 0)
-
-
 def Tuples(_list: list, level: int):
-    l = len(_list)
+    _l = len(_list)
     _tuple = []
     for n in range(0, level):
         _tuplet = []
-        for j in range(0, l ** n):
+        for j in range(0, _l ** n):
             _tuplett = []
-            for r in range(0, l):
+            for r in range(0, _l):
                 _tuplettt = []
-                for k in range(0, l ** (level - n - 1)):
+                for k in range(0, _l ** (level - n - 1)):
                     _tuplettt += [_list[r]]
                 _tuplett += _tuplettt
             _tuplet += _tuplett
@@ -226,7 +194,7 @@ def Tuples(_list: list, level: int):
 
 
 def Table(obj):
-    # TODO: Add functionality to the function ;)
+    # Add functionality to the function ;)
     return obj
 
 
@@ -264,22 +232,23 @@ def PowerRange(*args):
 
 def CirclePoints(*args):
     try:
+        _Pi = Pi()
         if len(args) == 1:
             _circlePoints = []
             for i in range(0, args[0] + 1):
-                _circlePoints.append([Sin(2 * i * Pi / args[0]), Cos(2 * i * Pi / args[0])])
+                _circlePoints.append([Sin(2 * i * _Pi / args[0]), Cos(2 * i * _Pi / args[0])])
             return _circlePoints
         elif len(args) == 2 and NumberQ(args[0]):
             _circlePoints = []
             for i in range(0, args[1] + 1):
-                _circlePoints.append([args[0] * Sin(2 * i * Pi / args[1]), args[0] * Cos(2 * i * Pi / args[1])])
+                _circlePoints.append([args[0] * Sin(2 * i * _Pi / args[1]), args[0] * Cos(2 * i * _Pi / args[1])])
             return _circlePoints
         elif len(args) == 2 and ListQ(args[0]):
             _circlePoints = []
             for i in range(0, args[1] + 1):
                 _circlePoints.append([
-                    args[0][0] * Sin(((2 * i * Pi) + args[0][1]) / args[1]),
-                    args[0][0] * Cos(((2 * i * Pi) + args[0][1]) / args[1])
+                    args[0][0] * Sin(((2 * i * _Pi) + args[0][1]) / args[1]),
+                    args[0][0] * Cos(((2 * i * _Pi) + args[0][1]) / args[1])
                 ])
             return _circlePoints
         elif len(args) == 3 \
@@ -291,12 +260,12 @@ def CirclePoints(*args):
             _circlePoints = []
             for i in range(0, args[2] + 1):
                 _circlePoints.append([
-                    (args[1][0] * Sin(((2 * i * Pi) + args[1][1]) / args[2])) + args[0][0],
-                    (args[1][1] * Cos(((2 * i * Pi) + args[1][1]) / args[2])) + args[0][1]
+                    (args[1][0] * Sin(((2 * i * _Pi) + args[1][1]) / args[2])) + args[0][0],
+                    (args[1][1] * Cos(((2 * i * _Pi) + args[1][1]) / args[2])) + args[0][1]
                 ])
             return _circlePoints
     except TypeError:
-        # TODO: Add documentation.
+        #Add documentation.
         pass
 
 
@@ -332,32 +301,6 @@ def Subdivide(*args):
             print("")
 
 
-def CoordinateBoundsArray(*args):
-    # TODO: Add tuple type functionality to this implementation
-    if len(args) == 1 and ListQ(args[0]):
-        _array = []
-        xpos = args[0][0][0]
-        while xpos <= Floor(args[0][0][1]):
-            _arraylet = []
-            ypos = args[0][1][0]
-            while ypos <= Floor(args[0][1][1]):
-                _arraylet.append([xpos, ypos])
-                ypos += 1
-            _array.append(_arraylet)
-            xpos += 1
-        return _array
-
-    elif len(args) == 2:
-        if ListQ(args[0]) and NumberQ(args[1]):
-            pass
-        elif ListQ(args[0]) and ListQ(args[1]):
-            pass
-    elif len(args) == 3:
-        pass
-    elif len(args) == 4:
-        pass
-
-
 def FindDivisions(*args):
     if len(args) == 2:
         try:
@@ -373,60 +316,7 @@ def FindDivisions(*args):
             pass
     else:
         pass
-        # TODO: Print help document.
-        # TODO: Plus, I do not understand what 'Nice Numbers' mean.
-        # TODO: Need to re-write the whole function.
-
-
-def SparseArray(*args):
-    if ListQ(args[0]) and len(args) == 1:
-        _list = args[0]
-        _maxx = 0
-        _maxy = 0
-        for i in _list:
-            if i[0][0] > _maxx:
-                _maxx = i[0][0]
-                if i[0][1] > _maxy:
-                    _maxy = i[0][1]
-        _dimensions = Max([_maxx, _maxy])
-
-        _listDict = {}
-        for i in _list:
-            _listDict.update({str(i[0]): i[1]})
-
-        _sparseArray = []
-        for i in range(1, _dimensions + 1):
-            for j in range(1, _dimensions + 1):
-                if str([i, j]) in _listDict:
-                    _sparseArray.append([[i, j], _listDict[str([i, j])]])
-                elif str([i, j]) not in _listDict:
-                    _sparseArray.append([[i, j], 0])
-        return Partition(_sparseArray, _dimensions)
-
-    elif len(args) == 2 and ListQ(args[0]) and ListQ(args[1]):
-        if len(args[0]) == len(args[1]):
-
-            # added # for PEP warning elimination _list = args[0]
-            _transpose = Transpose(args[0])
-            _dimensions = Max([Max(_transpose[0]), Max(_transpose[1])])
-
-            _listDict = {}
-            for i in range(0, len(args[0])):
-                _listDict.update({str(args[0][i]): args[1][i]})
-
-            _sparseArray = []
-            for i in range(1, _dimensions + 1):
-                for j in range(1, _dimensions + 1):
-                    if str([i, j]) in _listDict:
-                        _sparseArray.append([[i, j], _listDict[str([i, j])]])
-                    elif str([i, j]) not in _listDict:
-                        _sparseArray.append([[i, j], 0])
-            return Partition(_sparseArray, _dimensions)
-        else:
-            print("The two lists need to be of equal lengths")
-    else:
-        print("No, can't do")
-        # TODO: Add documentation
+        # I do not understand what 'Nice Numbers' & Need to re-write the whole function.
 
 
 def _padSimpleLeft(_list: list, _padding, _element):
@@ -672,130 +562,80 @@ def Prepend(_list, _element):
     return _list
 
 
-def ConstantArray(*args):
-    def constantArrayHelp(_obj, _number):
-        _constantArrayHelp = []
-        for _i in range(0, Ceiling(_number)):
-            _constantArrayHelp.append(_obj)
-        return _constantArrayHelp
-    if len(args) == 2:
-        if NumberQ(args[1]):
-            _constantArray = []
-            for i in range(0, Round(args[1])):
-                _constantArray.append(args[0])
-            return _constantArray
-        if ListQ(args[1]):
-            _obj = args[0]
-            for i in args[1]:
-                _obj = constantArrayHelp(_obj, i - 1)
-            return _obj
-    else:
-        pass
+# Distances
+
+_vectorEqualityMessage = \
+    "Length of both the vectors needs to be the same. \n" \
+    "Die Länge beider Vektoren muss gleich sein. \n" \
+    "రెండు వెక్టర్స్ ఒకే పొడవు ఉండాలి."
 
 
-def KroneckerDelta(*args):
-    _kroneckerDelta = True
-    for i in range(1, len(args)):
-        _kroneckerDelta = _kroneckerDelta and (args[i - 1] == args[i])
-    if _kroneckerDelta:
-        return 1
-    else:
-        return 0
+def ManhattanDistance(_vector1: list, _vector2: list):
+    if len(_vector1) == len(_vector2):
+        _manhattanDistance = 0
+        for i in range(0, len(_vector1)):
+            _manhattanDistance += Abs(_vector1[i] - _vector2[i])
+        return _manhattanDistance
+    elif len(_vector1) != len(_vector2):
+        return _vectorEqualityMessage
 
 
-# Matrices
-def BoxMatrix(*args):
-    _boxMatrix = []
-    if len(args) == 1 and not ListQ(args[0]):
-        for i in range(-args[0], args[0] + 1):
-            _boxRow = []
-            for j in range(-args[0], args[0] + 1):
-                _boxRow.append(1)
-            _boxMatrix.append(_boxRow)
-        return _boxMatrix
-    elif len(args) == 2:
-        _limit = args[0]
-        for i in range(-args[1], args[1] + 1):
-            _boxRow = []
-            for j in range(-args[1], args[1] + 1):
-                if (-_limit <= j <= _limit) and (-_limit <= i <= _limit):
-                    _boxRow.append(1)
-                else:
-                    _boxRow.append(0)
-            _boxMatrix.append(_boxRow)
-        return _boxMatrix
-    elif len(args) == 1 and ListQ(args[0]):
-        _list = Reverse(args[0])
-        _boxMatrix = ConstantArray(1, 2 * First(_list) + 1)
-        for i in range(1, len(_list)):
-            _boxMatrix = arrayGenerator(_boxMatrix, 2 * _list[i] + 1)
-        return _boxMatrix
+def SquaredEuclideanDistance(_vector1: list, _vector2: list):
+    if len(_vector1) == len(_vector2):
+        _squaredEuclideanDistance = 0
+        for i in range(0, len(_vector1)):
+            _squaredEuclideanDistance += Abs(_vector1[i] - _vector2[i]) ** 2
+        return _squaredEuclideanDistance
+    elif len(_vector1) != len(_vector2):
+        return _vectorEqualityMessage
 
 
-def CrossMatrix(*args):
-    if len(args) == 1 and not ListQ(args[0]):
-        _crossMatrix = ConstantArray(0, [2 * args[0] + 1, 2 * args[0] + 1])
-        _crossMatrix[_findCenter(Length(_crossMatrix))] = ConstantArray(1, Length(_crossMatrix))
-        for i in range(0, len(_crossMatrix)):
-            _crossMatrix[i][args[0]] = 1
-        return _crossMatrix
-    elif len(args) == 1 and ListQ(args[0]):
-        [_dimensions, _indices, _preIndices, arg_len] = [[], [], [], len(args[0])]
-        for i in args[0]:
-            _preIndices.append([i])
-        for i in range(0, arg_len):
-            _indices.append(ToString(_preIndices))
-            _indices[i][i] = '[j]'
-            _indices[i] = "_crossMatrix" + StringJoin(_indices[i]).replace("'", "") + " = 1"
-        for i in args[0]:
-            _dimensions.append(2 * i + 1)
-        _crossMatrix = ConstantArray(0, Last(_dimensions))
-        for i in range(1, Length(args[0])):
-            _crossMatrix = arrayGenerator(_crossMatrix, Reverse(_dimensions)[i])
-        for i in range(0, len(args[0])):
-            for j in range(0, _dimensions[i]):
-                exec(_indices[i])
-        return _crossMatrix
-    elif len(args) == 2:
-        pass
-    elif len(args) == 3:
-        pass
+def EuclideanDistance(_vector1: list, _vector2: list):
+    if len(_vector1) == len(_vector2):
+        return Sqrt(SquaredEuclideanDistance(_vector1, _vector2))
+    elif len(_vector1) != len(_vector2):
+        return _vectorEqualityMessage
 
-# EXPERIMENTAL
-#
-# def _listBuilder(_list: list, _n: int):
-#     _listBuilder = []
-#     for i in range(0, _n):
-#         _listBuilder.append(_list)
-#     return _listBuilder
-#
-#
-# _list = Range(5)
-# for i in ConstantArray(5, 3):
-#     _list = _listBuilder(_list, i)
-#
-# print(_list)
-#
-#
-# def levelAnalyzer(_list: list):
-#     _list = str(_list)
-#     _elements = Union(Characters(_list))
-#     _filteredElements = []
-#     for i in _elements:
-#         if i not in ('[', ']'):
-#             _filteredElements.append(i)
-#     for i in _filteredElements:
-#         _list = _list.replace(i, '')
-#
-#     _count = 0
-#     _bracket = '['
-#     _countList = []
-#     for i in _list:
-#         if i == _bracket:
-#             _count += 1
-#         else:
-#             _countList.append(_count)
-#             _count = 0
-#     return _countList
-#
-# print(levelAnalyzer(_list))
+
+def ChessboardDistance(_vector1: list, _vector2: list):
+
+    if len(_vector1) == len(_vector1):
+        _chessboardDistanceList = []
+        for i in range(0, len(_vector1)):
+            _chessboardDistanceList.append(Abs(_vector1[i] - _vector2[i]))
+        return Max(_chessboardDistanceList)
+    elif not len(_vector1) == len(_vector2):
+        return _vectorEqualityMessage
+
+
+def BrayCurtisDistance(_vector1: list, _vector2: list):
+    if len(_vector1) == len(_vector2):
+        _brayCurtisDistanceNumerator = 0
+        _brayCurtisDistanceDenominator = 0
+        for i in range(0, len(_vector1)):
+            _brayCurtisDistanceNumerator += Abs(_vector1[i] - _vector2[i])
+            _brayCurtisDistanceDenominator += Abs(_vector1[i] + _vector2[i])
+        return _brayCurtisDistanceNumerator / _brayCurtisDistanceDenominator
+    elif len(_vector1) != len(_vector2):
+        return _vectorEqualityMessage
+
+
+def CanberraDistance(_vector1: list, _vector2: list):
+    if len(_vector1) == len(_vector2):
+        _canberraDistance = 0
+        for i in range(0, len(_vector1)):
+            _canberraDistance += Abs(_vector1[i] - _vector2[i]) / (Abs(_vector1[i]) + Abs(_vector2[i]))
+        return _canberraDistance
+    elif len(_vector1) != len(_vector2):
+        return _vectorEqualityMessage
+
+
+def HammingDistance(_vector1, _vector2):
+    if len(_vector1) == len(_vector2):
+        _hammingDistance = 0
+        for i in range(0, len(_vector1)):
+            _hammingDistance += Boole(not _vector1[i] == _vector2[i])
+        return _hammingDistance
+    elif len(_vector1) != len(_vector2):
+        return _vectorEqualityMessage
+

@@ -1,8 +1,6 @@
 
 from .calculus import *
-from .lists_and_arrays import *
-from .mathematical_functions import *
 from .random_functions import *
-from .statistics import *
-from .precision import *
-from .english_language import *
+from .statistics import *                   # also importing mathematica.mathematical_functions
+from .string_operations import *             # also importing mathematica.precision
+from .matrices_and_arrays import *          # also importing mathemaitca.lists
