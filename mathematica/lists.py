@@ -1,6 +1,16 @@
 from .mathematical_functions import *
 
 
+def dotHelp(_list1: list, _list2: list):
+    if len(_list1) == len(_list2):
+        product = 0
+        for _i in range(0, len(_list1)):
+            product += _list1[_i] * _list2[_i]
+        return product
+    elif len(_list1) != len(_list2):
+        return vectorEqualityMessage
+
+
 def promptNotIterable():
     print("The object needs to be iterable\nDas object ist nicht iterierbar")
 
@@ -265,7 +275,7 @@ def CirclePoints(*args):
                 ])
             return _circlePoints
     except TypeError:
-        #Add documentation.
+        # Add documentation.
         pass
 
 
@@ -564,7 +574,7 @@ def Prepend(_list, _element):
 
 # Distances
 
-_vectorEqualityMessage = \
+vectorEqualityMessage = \
     "Length of both the vectors needs to be the same. \n" \
     "Die Länge beider Vektoren muss gleich sein. \n" \
     "రెండు వెక్టర్స్ ఒకే పొడవు ఉండాలి."
@@ -577,7 +587,7 @@ def ManhattanDistance(_vector1: list, _vector2: list):
             _manhattanDistance += Abs(_vector1[i] - _vector2[i])
         return _manhattanDistance
     elif len(_vector1) != len(_vector2):
-        return _vectorEqualityMessage
+        return vectorEqualityMessage
 
 
 def SquaredEuclideanDistance(_vector1: list, _vector2: list):
@@ -587,14 +597,14 @@ def SquaredEuclideanDistance(_vector1: list, _vector2: list):
             _squaredEuclideanDistance += Abs(_vector1[i] - _vector2[i]) ** 2
         return _squaredEuclideanDistance
     elif len(_vector1) != len(_vector2):
-        return _vectorEqualityMessage
+        return vectorEqualityMessage
 
 
 def EuclideanDistance(_vector1: list, _vector2: list):
     if len(_vector1) == len(_vector2):
         return Sqrt(SquaredEuclideanDistance(_vector1, _vector2))
     elif len(_vector1) != len(_vector2):
-        return _vectorEqualityMessage
+        return vectorEqualityMessage
 
 
 def ChessboardDistance(_vector1: list, _vector2: list):
@@ -605,7 +615,7 @@ def ChessboardDistance(_vector1: list, _vector2: list):
             _chessboardDistanceList.append(Abs(_vector1[i] - _vector2[i]))
         return Max(_chessboardDistanceList)
     elif not len(_vector1) == len(_vector2):
-        return _vectorEqualityMessage
+        return vectorEqualityMessage
 
 
 def BrayCurtisDistance(_vector1: list, _vector2: list):
@@ -617,7 +627,7 @@ def BrayCurtisDistance(_vector1: list, _vector2: list):
             _brayCurtisDistanceDenominator += Abs(_vector1[i] + _vector2[i])
         return _brayCurtisDistanceNumerator / _brayCurtisDistanceDenominator
     elif len(_vector1) != len(_vector2):
-        return _vectorEqualityMessage
+        return vectorEqualityMessage
 
 
 def CanberraDistance(_vector1: list, _vector2: list):
@@ -627,7 +637,7 @@ def CanberraDistance(_vector1: list, _vector2: list):
             _canberraDistance += Abs(_vector1[i] - _vector2[i]) / (Abs(_vector1[i]) + Abs(_vector2[i]))
         return _canberraDistance
     elif len(_vector1) != len(_vector2):
-        return _vectorEqualityMessage
+        return vectorEqualityMessage
 
 
 def HammingDistance(_vector1, _vector2):
@@ -637,5 +647,11 @@ def HammingDistance(_vector1, _vector2):
             _hammingDistance += Boole(not _vector1[i] == _vector2[i])
         return _hammingDistance
     elif len(_vector1) != len(_vector2):
-        return _vectorEqualityMessage
+        return vectorEqualityMessage
 
+
+def VectorAngle(_vector1: list, _vector2: list):
+    if len(_vector1) == len(_vector2):
+        return ArcCos(dotHelp(_vector1, _vector2))
+    elif len(_vector1) != len(_vector2):
+        return vectorEqualityMessage

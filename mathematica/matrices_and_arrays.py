@@ -263,6 +263,33 @@ def DistanceMatrix(*args):
         return _distanceMatrixHelp(args[0], args[1])
 
 
+def Dot(_array1, _array2):
+    if allListQ([_array1, _array2]) and not MatrixQ(_array1) and not MatrixQ(_array2):
+        if len(_array1) == len(_array2):
+            return dotHelp(_array1, _array2)
+        elif len(_array1) != len(_array2):
+            return vectorEqualityMessage
+
+    elif MatrixQ(_array1) and MatrixQ(_array2):
+        [_array1, _array2] = [_array1, Transpose(_array2)]
+        _dot = []
+        for i in _array1:
+            _dotrow = []
+            for j in _array2:
+                _dotrow.append(dotHelp(i, j))
+            _dot.append(_dotrow)
+        return _dot
+
+
+def Cross(_vectors: list):
+    if not allListQ(_vectors):
+        return "The list is not even all vectors. How do you want me to calculate the cross product? " \
+               "Die Liste ist nicht einmal alle Vektoren. Wie soll ich das Kreuzprodukt berechnen?" \
+               "జాబితా అన్ని వెక్టర్స్ కూడా కాదు. క్రాస్ ఉత్పత్తిని నేను ఎలా లెక్కించగలను?"
+    elif MatrixQ(_vectors):
+        pass
+
+
 # EXPERIMENTAL
 #
 # def _listBuilder(_list: list, _n: int):

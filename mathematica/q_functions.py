@@ -3,8 +3,18 @@ def _promptReal():
     print("Input needs to be a real number \nDie Eingabe muss eine reelle Zahl sein")
 
 
-def ListQ(obj):
-    return isinstance(obj, list) or isinstance(obj, range)
+def ListQ(_obj):
+    return isinstance(_obj, list) or isinstance(_obj, range)
+
+
+def MatrixQ(_list: list):
+    if allListQ(_list):
+        _matrixQ = True
+        for i in _list:
+            _matrixQ = _matrixQ and not allListQ(i)
+        return _matrixQ
+    elif not allListQ(_list):
+        return False
 
 
 def allListQ(_list: list):
@@ -14,8 +24,8 @@ def allListQ(_list: list):
     return _truth
 
 
-def TupleQ(obj):
-    return isinstance(obj, tuple)
+def TupleQ(_obj):
+    return isinstance(_obj, tuple)
 
 
 def allTuple(_list: list):
@@ -25,8 +35,8 @@ def allTuple(_list: list):
     return _truth
 
 
-def IntegerQ(obj):
-    return isinstance(obj, int)
+def IntegerQ(_obj):
+    return isinstance(_obj, int)
 
 
 def allIntegerQ(_list: list):
@@ -36,8 +46,8 @@ def allIntegerQ(_list: list):
     return _truth
 
 
-def FloatQ(obj):
-    return isinstance(obj, float)
+def FloatQ(_obj):
+    return isinstance(_obj, float)
 
 
 def allFLoatQ(_list: list):
@@ -47,8 +57,8 @@ def allFLoatQ(_list: list):
     return _truth
 
 
-def NumberQ(obj):
-    return isinstance(obj, float) or isinstance(obj, int)
+def NumberQ(_obj):
+    return isinstance(_obj, float) or isinstance(_obj, int)
 
 
 def allNumberQ(_list: list):
@@ -58,8 +68,8 @@ def allNumberQ(_list: list):
     return _truth
 
 
-def StringQ(obj):
-    return isinstance(obj, str)
+def StringQ(_obj):
+    return isinstance(_obj, str)
 
 
 def allStringQ(_list: list):
@@ -188,3 +198,4 @@ def NonPositive(_obj):
         for i in _obj:
             _nonPositive.append(_nonPositiveHelp(i))
         return _nonPositive
+
