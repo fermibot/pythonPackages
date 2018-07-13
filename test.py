@@ -1,5 +1,6 @@
 from mathematica.load_all_functions import *
 
 
-print(Dot(ConstantArray(1, [4, 2]), ConstantArray(1, [2, 3])))
+Print(Complement(Range(10), [2, 3], [4, 5]))
 
+Print(QuickSort(ConstantArray(10)))

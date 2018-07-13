@@ -203,6 +203,22 @@ def Tuples(_list: list, level: int):
     return _tuple
 
 
+def Permutations(_list: list, *args):
+    if len(args) == 0:
+        _len = len(_list)
+    else:
+        _len = args[0]
+
+    _prePermutations = Tuples(_list, _len)
+    _permutations = []
+
+    for i in _prePermutations:
+        if UniqueAllQ(i):
+            _permutations.append(i)
+
+    return sorted(Union(_permutations))
+
+
 def Table(obj):
     # Add functionality to the function ;)
     return obj
@@ -574,8 +590,7 @@ def Prepend(_list, _element):
 
 # Distances
 
-vectorEqualityMessage = \
-    "Length of both the vectors needs to be the same. \n" \
+vectorEqualityMessage = "Length of both the vectors needs to be the same. \n" \
     "Die Länge beider Vektoren muss gleich sein. \n" \
     "రెండు వెక్టర్స్ ఒకే పొడవు ఉండాలి."
 
@@ -642,10 +657,16 @@ def CanberraDistance(_vector1: list, _vector2: list):
 
 def HammingDistance(_vector1, _vector2):
     if len(_vector1) == len(_vector2):
-        _hammingDistance = 0
-        for i in range(0, len(_vector1)):
-            _hammingDistance += Boole(not _vector1[i] == _vector2[i])
-        return _hammingDistance
+        if StringQ(_vector1) and StringQ(_vector2):
+            _hammingDistance = 0
+            for i in range(0, len(_vector1)):
+                _hammingDistance += Boole(not _vector1[i] == _vector2[i])
+            return _hammingDistance
+        elif ListQ(_vector1) and ListQ(_vector2):
+            _hammingDistance = 0
+            for i in range(0, len(_vector1)):
+                _hammingDistance += Boole(not _vector1[i] == _vector2[i])
+            return _hammingDistance
     elif len(_vector1) != len(_vector2):
         return vectorEqualityMessage
 
@@ -655,3 +676,70 @@ def VectorAngle(_vector1: list, _vector2: list):
         return ArcCos(dotHelp(_vector1, _vector2))
     elif len(_vector1) != len(_vector2):
         return vectorEqualityMessage
+
+
+def Norm(_list: list):
+    _norm = 0
+    for i in _list:
+        _norm += i ** 2
+    return Sqrt(_norm)
+
+
+def Normalize(_list: list):
+    _normalize = []
+    _norm = Norm(_list)
+    for i in _list:
+        _normalize.append(i / _norm)
+    return _normalize
+
+
+def Accumulate(_list: list):
+    _element = _list[0]
+    _accumulate = [_list[0]]
+    for i in range(1, len(_list)):
+        _element += _list[i]
+        _accumulate.append(_element)
+    return _accumulate
+
+
+def Differences(*args):
+    if len(args) == 1 and ListQ(args[0]):
+        _differences = []
+        for i in range(1, len(args[0])):
+            _differences.append(args[0][i] - args[0][i - 1])
+        return _differences
+    elif len(args) == 2 and ListQ(args[0]) and NumberQ(args[1]):
+        _differences = []
+        for i in range(1, len(args[0])):
+            _differences.append(args[0][i] - args[1] * args[0][i - 1])
+        return _differences
+    elif len(args) == 3 and ListQ(args[0]) and NumberQ(args[1]) and IntegerQ(args[2]):
+        pass
+    elif len(args) == 2 and ListQ(args[0]) and ListQ(args[1]):
+        pass
+
+
+def Intersection(*args):
+    _intersection = []
+    for i in args[0][0]:
+        if containedInAllQ(i, args[0]):
+            _intersection.append(i)
+        else:
+            _intersection = _intersection
+    return Union(_intersection)
+
+
+def Complement(_list: list, *args):
+    _complement = []
+    for i in _list:
+        _presence = False
+        for _sublist in args:
+            _presence = _presence or MemberQ(_sublist, i)
+        if not _presence:
+            _complement.append(i)
+    return _complement
+
+
+
+def QuickSort(_list:list):
+    print(_list)

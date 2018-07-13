@@ -1,4 +1,3 @@
-
 def _promptReal():
     print("Input needs to be a real number \nDie Eingabe muss eine reelle Zahl sein")
 
@@ -198,4 +197,55 @@ def NonPositive(_obj):
         for i in _obj:
             _nonPositive.append(_nonPositiveHelp(i))
         return _nonPositive
+
+
+# Contains
+def containedInAllQ(_obj, _list):
+    _containedInAllQ = True
+    for i in _list:
+        _containedInAllQ = MemberQ(i, _obj) and _containedInAllQ
+    return _containedInAllQ
+
+
+def ContainsNone():
+    pass
+
+
+def ConatainsAny():
+    pass
+
+
+def ContainsExactly():
+    pass
+
+
+def ContainsOnly():
+    pass
+
+
+def IntersectingQ(*args):
+    _intersection = []
+    for i in args[0][0]:
+        if containedInAllQ(i, args[0]):
+            _intersection.append(i)
+        else:
+            _intersection = _intersection
+    if len(_intersection) != 0:
+        return True
+    else:
+        return False
+
+
+def DisjointQ(*args):
+    return not IntersectingQ(args)
+
+
+def UniqueAllQ(_list: list):
+    def _union(_list: list):
+        _union = []
+        for i in _list:
+            if i not in _union:
+                _union.append(i)
+        return _union
+    return len(_list) == len(_union(_list))
 

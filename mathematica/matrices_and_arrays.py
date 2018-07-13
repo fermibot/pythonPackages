@@ -282,12 +282,40 @@ def Dot(_array1, _array2):
 
 
 def Cross(_vectors: list):
-    if not allListQ(_vectors):
-        return "The list is not even all vectors. How do you want me to calculate the cross product? " \
-               "Die Liste ist nicht einmal alle Vektoren. Wie soll ich das Kreuzprodukt berechnen?" \
-               "జాబితా అన్ని వెక్టర్స్ కూడా కాదు. క్రాస్ ఉత్పత్తిని నేను ఎలా లెక్కించగలను?"
+    if not MatrixQ(_vectors):
+        return "The list is not even all vectors. How do you want me to calculate the cross product? \n" \
+               "Die Liste ist nicht einmal alle Vektoren. Wie soll ich das Kreuzprodukt berechnen? \n" \
+               "జాబితా అన్ని వెక్టర్స్ కూడా కాదు. క్రాస్ ఉత్పత్తిని నేను ఎలా లెక్కించగలను? \n"
     elif MatrixQ(_vectors):
         pass
+
+
+def Det(_matrix: list):
+
+    def _elementFinder(_list: list):
+        _len = len(_list)
+        _elementFinderString = ""
+        for i in range(0, _len):
+            _elementFinderString += "_mat[" + ToString(i) + "][" + ToString(_list[i] - 1) + "] * "
+        _elementFinderString = _elementFinderString[:-3]
+        return _elementFinderString
+
+    if MatrixQ(_matrix):
+        _len = len(_matrix)
+        _det = "("
+        _indices = Permutations(Range(_len))
+        _mat = _matrix
+
+        for i in _indices:
+            _det += _elementFinder(i) + ") + ("
+        _det = _det[:-3]
+        _det = eval(_det)
+        return _det
+
+    else:
+        return "The list is not even all vectors. How do you want me to calculate the cross product? \n" \
+               "Die Liste ist nicht einmal alle Vektoren. Wie soll ich das Kreuzprodukt berechnen? \n" \
+               "జాబితా అన్ని వెక్టర్స్ కూడా కాదు. క్రాస్ ఉత్పత్తిని నేను ఎలా లెక్కించగలను? \n"
 
 
 # EXPERIMENTAL
