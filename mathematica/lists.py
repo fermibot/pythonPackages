@@ -1,5 +1,5 @@
 from .mathematical_functions import *
-
+from random import randrange
 
 def dotHelp(_list1: list, _list2: list):
     if len(_list1) == len(_list2):
@@ -693,15 +693,6 @@ def Normalize(_list: list):
     return _normalize
 
 
-def Accumulate(_list: list):
-    _element = _list[0]
-    _accumulate = [_list[0]]
-    for i in range(1, len(_list)):
-        _element += _list[i]
-        _accumulate.append(_element)
-    return _accumulate
-
-
 def Differences(*args):
     if len(args) == 1 and ListQ(args[0]):
         _differences = []
@@ -740,6 +731,37 @@ def Complement(_list: list, *args):
     return _complement
 
 
+def QuickSort(_list: list):
 
-def QuickSort(_list:list):
-    print(_list)
+    def pivot(_list: list):
+        _pivotPosition = randrange(0, len(_list))
+        _skippedRange = list(range(0, len(_list)))
+        _skippedRange.pop(_pivotPosition)
+
+        _pivot = _list[_pivotPosition]
+        _pivotList = [_pivot]
+        _prePivotList = []
+        _postPivotList = []
+
+        for _i in _skippedRange:
+            if _list[_i] < _pivot:
+                _prePivotList.append(_list[_i])
+            elif _list[_i] > _pivot:
+                _postPivotList.append(_list[_i])
+            elif _list[_i] == _pivot:
+                _pivotList.append(_list[_i])
+
+        return [_prePivotList] + _pivotList + [_postPivotList]
+
+    _list = [_list]
+
+    while someListQ(_list):
+        for i in range(0, len(_list)):
+            if ListQ(_list[i]):
+                __pivot = pivot(_list[i])
+                _list.pop(i)
+                for r in __pivot:
+                    if not ListQ(r) or len(r) != 0:
+                        _list.insert(i, r)
+
+    return Reverse(_list)

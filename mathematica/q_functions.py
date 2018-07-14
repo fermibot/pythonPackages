@@ -23,6 +23,13 @@ def allListQ(_list: list):
     return _truth
 
 
+def someListQ(_list: list):
+    _truth = False
+    for i in _list:
+        _truth = _truth or ListQ(i)
+    return _truth
+
+
 def TupleQ(_obj):
     return isinstance(_obj, tuple)
 
@@ -242,10 +249,9 @@ def DisjointQ(*args):
 
 def UniqueAllQ(_list: list):
     def _union(_list: list):
-        _union = []
+        __union = []
         for i in _list:
-            if i not in _union:
-                _union.append(i)
-        return _union
+            if i not in __union:
+                __union.append(i)
+        return __union
     return len(_list) == len(_union(_list))
-

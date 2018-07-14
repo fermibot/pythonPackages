@@ -1,6 +1,6 @@
 from mathematica.load_all_functions import *
 
+Print(QuickSort([1, 3, 4, 5, 6, 6, 7, 8]))
 
-Print(Complement(Range(10), [2, 3], [4, 5]))
 
-Print(QuickSort(ConstantArray(10)))
+RandomInteger()
