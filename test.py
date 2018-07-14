@@ -1,6 +1,12 @@
 from mathematica.load_all_functions import *
+import datetime
 
-Print(QuickSort([1, 3, 4, 5, 6, 6, 7, 8]))
 
-
-RandomInteger()
+print("Sampling " + datetime.datetime.utcnow().__str__())
+__size = 5000
+__list = RandomSample(Range(1, __size), __size)
+print("Quicksort Start " + datetime.datetime.utcnow().__str__())
+QuickSort(__list)
+print("Quicksort End   " + datetime.datetime.utcnow().__str__())
+__list.sort()
+print("Python Sort End " + datetime.datetime.utcnow().__str__())

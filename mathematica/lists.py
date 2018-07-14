@@ -751,7 +751,7 @@ def QuickSort(_list: list):
             elif _list[_i] == _pivot:
                 _pivotList.append(_list[_i])
 
-        return [_prePivotList] + _pivotList + [_postPivotList]
+        return [_postPivotList] + _pivotList + [_prePivotList]
 
     _list = [_list]
 
@@ -764,4 +764,4 @@ def QuickSort(_list: list):
                     if not ListQ(r) or len(r) != 0:
                         _list.insert(i, r)
 
-    return Reverse(_list)
+    return _list
