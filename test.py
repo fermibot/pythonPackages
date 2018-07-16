@@ -1,12 +1,6 @@
 from mathematica.load_all_functions import *
-import datetime
 
 
-print("Sampling " + datetime.datetime.utcnow().__str__())
-__size = 5000
+__size = 200
 __list = RandomSample(Range(1, __size), __size)
-print("Quicksort Start " + datetime.datetime.utcnow().__str__())
-QuickSort(__list)
-print("Quicksort End   " + datetime.datetime.utcnow().__str__())
-__list.sort()
-print("Python Sort End " + datetime.datetime.utcnow().__str__())
+QuickSortTrack(__list, 'D:\\Mathematica Files 4K\\sheldon_ross\\sheldon_ross_chapter_03\\sheldon_ross_example_3.16\\sheldon_ross_example_3.16.txt')

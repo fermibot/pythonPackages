@@ -1,5 +1,7 @@
 from .mathematical_functions import *
+from .monitoring import *
 from random import randrange
+
 
 def dotHelp(_list1: list, _list2: list):
     if len(_list1) == len(_list2):
@@ -731,37 +733,57 @@ def Complement(_list: list, *args):
     return _complement
 
 
+def _pivot(_list: list):
+    _pivotPosition = randrange(0, len(_list))
+    _skippedRange = list(range(0, len(_list)))
+    _skippedRange.pop(_pivotPosition)
+
+    _pivotValue = _list[_pivotPosition]
+    _pivotList = [_pivotValue]
+    _prePivotList = []
+    _postPivotList = []
+
+    for _i in _skippedRange:
+        if _list[_i] < _pivotValue:
+            _prePivotList.append(_list[_i])
+        elif _list[_i] > _pivotValue:
+            _postPivotList.append(_list[_i])
+        elif _list[_i] == _pivotValue:
+            _pivotList.append(_list[_i])
+
+    return [_postPivotList] + _pivotList + [_prePivotList]
+
+
 def QuickSort(_list: list):
-
-    def pivot(_list: list):
-        _pivotPosition = randrange(0, len(_list))
-        _skippedRange = list(range(0, len(_list)))
-        _skippedRange.pop(_pivotPosition)
-
-        _pivot = _list[_pivotPosition]
-        _pivotList = [_pivot]
-        _prePivotList = []
-        _postPivotList = []
-
-        for _i in _skippedRange:
-            if _list[_i] < _pivot:
-                _prePivotList.append(_list[_i])
-            elif _list[_i] > _pivot:
-                _postPivotList.append(_list[_i])
-            elif _list[_i] == _pivot:
-                _pivotList.append(_list[_i])
-
-        return [_postPivotList] + _pivotList + [_prePivotList]
-
     _list = [_list]
-
     while someListQ(_list):
         for i in range(0, len(_list)):
             if ListQ(_list[i]):
-                __pivot = pivot(_list[i])
+                __pivot = _pivot(_list[i])
                 _list.pop(i)
                 for r in __pivot:
                     if not ListQ(r) or len(r) != 0:
                         _list.insert(i, r)
-
     return _list
+
+
+def QuickSortTrack(_list: list, fileName: str):
+    TimeTagMessage("Opening file")
+    __quickSortExport = open(fileName, 'w')
+    _list = [_list]
+
+    TimeTagMessage("Sorting the input list")
+    TimeTagMessage("Writing the tracking list to the file")
+    while someListQ(_list):
+        for i in range(0, len(_list)):
+            if ListQ(_list[i]):
+                __pivot = _pivot(_list[i])
+                _list.pop(i)
+                for r in __pivot:
+                    if not ListQ(r) or len(r) != 0:
+                        _list.insert(i, r)
+        __quickSortExport.write("%s\n" % _list)
+    TimeTagMessage("Closing the file and wrapping up")
+    TimeTagMessage("Export complete ;)")
+
+
