@@ -1,4 +1,5 @@
 import datetime
 
-def TimeTagMessage(string:str):
+
+def TimeTagMessage(string):
     print(datetime.datetime.utcnow().__str__() + " " + string)

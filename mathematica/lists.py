@@ -783,7 +783,34 @@ def QuickSortTrack(_list: list, fileName: str):
                     if not ListQ(r) or len(r) != 0:
                         _list.insert(i, r)
         __quickSortExport.write("%s\n" % _list)
+
     TimeTagMessage("Closing the file and wrapping up")
+    __quickSortExport.close()
     TimeTagMessage("Export complete ;)")
 
 
+def QuickSortTrackSteps(_list: list, fileName: str, steps: int):
+    TimeTagMessage("Opening file")
+    __quickSortExport = open(fileName, 'w')
+
+    TimeTagMessage("Running " + str(steps) + " loops and writing to text file")
+    for _track in range(0, steps):
+        __track = 1
+        _list = [_list]
+        while someListQ(_list):
+            for i in range(0, len(_list)):
+                if ListQ(_list[i]):
+                    __pivot = _pivot(_list[i])
+                    _list.pop(i)
+                    for r in __pivot:
+                        if not ListQ(r) or len(r) != 0:
+                            _list.insert(i, r)
+            __track += 1
+        __quickSortExport.write("%s\n" % __track)
+
+        if _track % 1000 == 0:
+            TimeTagMessage("Writing the " + str(_track) + "th item to the file")
+
+    TimeTagMessage("Closing the file and wrapping up")
+    __quickSortExport.close()
+    TimeTagMessage("Export complete ;)")
