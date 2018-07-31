@@ -88,6 +88,35 @@ def LessEqual(_list):
             return _lessEqual
 
 
+def LessThanAll(element, _list:list):
+    truth = True
+    for i in _list:
+        truth = (element < i) and truth
+    return truth
+
+
+def LessThanEqualToAll(element, _list:list):
+    truth = True
+    for i in _list:
+        truth = (element <= i) and truth
+    return truth
+
+
+def GreaterThanAll(element, _list:list):
+    truth = True
+    for i in _list:
+        truth = (element > i) and truth
+    return truth
+
+
+def GreaterThanEqualToAll(element, _list:list):
+    truth = True
+    for i in _list:
+        truth = (element >= i) and truth
+    return truth
+
+
+
 def Range(i, j=None, step=None):
     def _Range(_lower, _upper, _step):
         __elem, __list = _lower, []
