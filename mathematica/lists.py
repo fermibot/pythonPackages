@@ -712,6 +712,14 @@ def Differences(*args):
         pass
 
 
+def ListCompare(_list1: list, _list2: list):
+    _minLength = min(len(_list1), len(_list2))
+    _truthList = []
+    for i in range(0, _minLength):
+        _truthList.append(_list1[i] == _list2[i])
+    return _truthList
+
+
 def Intersection(*args):
     _intersection = []
     for i in args[0][0]:
