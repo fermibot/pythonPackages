@@ -27,3 +27,8 @@ for i in range(100000):
 
 TimeTagMessage('Closing the file ' + __fileName)
 __file.close()
+
+
+def MyFunction():
+    return None
+
