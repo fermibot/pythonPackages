@@ -15,10 +15,10 @@ TimeTagMessage('Opening writer object')
 __writer = writer = csv.writer(__file, delimiter=',')
 
 
-_x = Range(1, 10)
+_x = Range(1, 100)
 for __x in _x:
     __xList = []
-    for i in range(100):
+    for i in range(10000):
         _randomList = [RandomReal()]
         _randomElement = RandomReal()
         while Total(_randomList) < __x:
