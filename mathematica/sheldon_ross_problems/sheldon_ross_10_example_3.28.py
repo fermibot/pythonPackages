@@ -9,7 +9,7 @@ chapterName = 'sheldon_ross_chapter_03'
 problemName = 'sheldon_ross_example_3.28'
 
 
-_x = Range(1, 100)
+_x = Range(1, 1000)
 for __x in _x:
     __xList = []
     __fileName = ConstructFileName([unknownPath, chapterName, problemName, problemName], '_1_through_100_' + str(__x) +
@@ -18,13 +18,16 @@ for __x in _x:
     __file = open(__fileName, 'w')
     TimeTagMessage('Opening writer object')
     __writer = writer = csv.writer(__file, delimiter=',')
-    for i in range(10000):
-        _randomList = [RandomReal()]
+    for i in range(1000000):
+        _randomSum = RandomReal()
+        _randomSumCount = 1
         _randomElement = RandomReal()
-        while Total(_randomList) < __x:
-            _randomList.append(_randomElement)
-        __xList.append(_randomList.__len__())
+        while _randomSum < __x:
+            _randomSum += RandomReal()
+            _randomSumCount += 1
+        __xList.append(_randomSumCount)
     TimeTagMessage('Writing row ' + str(__x) + ' the file')
     writer.writerow(__xList)
     TimeTagMessage('Closing the file ' + __fileName)
     __file.close()
+
