@@ -5,7 +5,7 @@ from mathematica.sheldon_ross_problems.sheldon_ross_utilities import *
 
 unknownPath = open('folderPath.txt').readlines()[0]
 chapterName = 'sheldon_ross_chapter_03'
-problemName = 'sheldon_ross_10_example_3.25'
+problemName = 'sheldon_ross_example_3.25'
 
 
 def bestGift():
