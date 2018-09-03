@@ -15,14 +15,14 @@ __writer = writer = csv.writer(__file, delimiter=',')
 TimeTagMessage('Writing rows to the file')
 
 
-for i in range(0, 1000):
+for i in range(0, 10000):
     _seed = RandomReal(0, 1)
     _seedList = [_seed]
     while 0 <= _seed <= 2 and _seedList.__len__() <= 10:
         _seed += RandomReal(-1, 1)
         _seedList.append(_seed)
     writer.writerow(_seedList)
-    if (i + 1) % 100 == 0:
+    if (i + 1) % 1000 == 0:
         TimeTagMessage("Writing row # " + str(i + 1) + " to the file")
 
 TimeTagMessage('Closing the file ' + _exportFileName)
