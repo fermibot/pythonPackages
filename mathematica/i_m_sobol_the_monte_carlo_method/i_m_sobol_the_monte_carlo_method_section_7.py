@@ -3,17 +3,16 @@ from mathematica.lists import *
 from mathematica.monitoring import *
 from mathematica.sheldon_ross_problems.sheldon_ross_utilities import *
 
-#
-# _seed = RandomReal(0, 1)
-# _steps = 1
-# while 0 <= _seed <= 10:
-#     _seed += RandomReal(-1, 1)
-#     _steps += 1
-# print(_steps)
 
+_neutronPaths = []
+for i in range(0, 10):
+    _seed = RandomReal(0, 1)
+    _seedList = [_seed]
+    while 0 <= _seed <= 10:
+        _seed += RandomReal(-1, 1)
+        _seedList.append(_seed)
+        if _seedList.__len__() > 10:
+            break
+        _neutronPaths.append(_seedList)
 
-
-print(RandomReal())
-print(RandomReal(0, 1))
-print(RandomReal(-1, 3))
-print(RandomReal())
+print(_neutronPaths)
