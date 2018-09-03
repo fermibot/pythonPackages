@@ -1,18 +1,29 @@
 from mathematica.random_functions import *
-from mathematica.lists import *
 from mathematica.monitoring import *
-from mathematica.sheldon_ross_problems.sheldon_ross_utilities import *
+import csv
+import os
+
+_filePath = "D:\Mathematica Files 4K\probability_problems\i_m_sobol_the_monte_carlo_method\i_m_sobol_the_monte_carlo_method_section_7"
+_exportFileName = _filePath + "\\i_m_sobol_the_monte_carlo_method_section_7" + ".csv"
+
+TimeTagMessage('Deleting the file ' + _exportFileName)
+os.remove(_exportFileName)
+TimeTagMessage('Opening file ' + _exportFileName)
+__file = open(_exportFileName, 'w')
+TimeTagMessage('Opening writer object')
+__writer = writer = csv.writer(__file, delimiter=',')
+TimeTagMessage('Writing rows to the file')
 
 
-_neutronPaths = []
-for i in range(0, 10):
+for i in range(0, 1000):
     _seed = RandomReal(0, 1)
     _seedList = [_seed]
-    while 0 <= _seed <= 10:
+    while 0 <= _seed <= 2 and _seedList.__len__() <= 10:
         _seed += RandomReal(-1, 1)
         _seedList.append(_seed)
-        if _seedList.__len__() > 10:
-            break
-        _neutronPaths.append(_seedList)
+    writer.writerow(_seedList)
+    if (i + 1) % 100 == 0:
+        TimeTagMessage("Writing row # " + str(i + 1) + " to the file")
 
-print(_neutronPaths)
+TimeTagMessage('Closing the file ' + _exportFileName)
+__file.close()

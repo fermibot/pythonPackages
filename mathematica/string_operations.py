@@ -23,6 +23,13 @@ def StringJoin(*args):
         return _stringJoin
 
 
+def StringJoinBuffer(_list: list, _buffer: str=""):
+    _stringJoinBuffer = ""
+    for i in range(0, len(_list) - 1):
+        _stringJoinBuffer += _list[i] + _buffer
+    return _stringJoinBuffer + _list[-1]
+
+
 def ToString(*args):
     def _subToString(obj):
         if not ListQ(obj):
@@ -74,6 +81,7 @@ def Characters(_string: str):
 
 
 def StringRiffle(*args):
+    #TODO: generalize this one to make sure the StringJoin Buffer becomes obsolete
     if len(args) == 1 and ListQ(args[0]) and not allListQ(args[0]):
         _stringRiffle = ""
         for i in args[0]:
