@@ -12,23 +12,27 @@ def sample_size_limit():
     return "The sample size needs to be greater zero"
 
 
-def RandomReal(a: float=None, b: float=None):
-    # TODO: change the arguments.
-    if (a is None) and (b is None):
-        return random.random()
-    elif (a is not None) and (b is None):
-        if a < 0:
-            return random.random(a, 0)
-        elif a >= 0:
-            return random.random(0, a)
-        return random.random()
-    elif (a is not None) and (b is not None):
-        if a == b:
-            return a
-        elif a < b:
-            return random.random(a, b)
-        elif a > b:
-            return random.random(b, a)
+def RandomReal(a: float=None, b: float=None, sampleSize: int=None):
+    def _randomReal(_a: float=None, _b: float=None):
+        if a is None and b is None:
+            return random.random()
+        elif (a is not None) and (b is None):
+            return a * random.random()
+        elif (a is None) and (b is not None):
+            return b * random.random()
+        elif (a is not None) and (b is not None):
+            if a == b:
+                return a
+            elif a != b:
+                _min = min([a, b])
+                _max = max([a, b])
+                return _min + (_max - _min) * random.random()
+    if sampleSize is None:
+        return _randomReal(a, b)
+    elif sampleSize is not None:
+        _randomSample = []
+        for i in range(0, sampleSize):
+            _randomSample.append(_randomReal(a, b))
 
 
 def RandomInteger(a: int=None, b: int=None, sample_size: int=None):
