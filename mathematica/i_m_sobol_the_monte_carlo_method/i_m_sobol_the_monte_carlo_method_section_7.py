@@ -1,7 +1,6 @@
 from mathematica.random_functions import *
 from mathematica.monitoring import *
 import csv
-import os
 
 for t in range(0, 1000):
     _filePath = "D:\Mathematica Files 4K\probability_problems\i_m_sobol_the_monte_carlo_method" \
@@ -13,7 +12,6 @@ for t in range(0, 1000):
     TimeTagMessage('Opening writer object')
     __writer = writer = csv.writer(__file, delimiter=',')
     TimeTagMessage('Writing rows to the file')
-
 
     for i in range(0, 10000):
         _seed = RandomReal(0, 1)
