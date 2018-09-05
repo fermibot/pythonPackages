@@ -8,8 +8,6 @@ for t in range(0, 1000):
                 "\i_m_sobol_the_monte_carlo_method_section_7"
     _exportFileName = _filePath + "\\i_m_sobol_the_monte_carlo_method_section_7_temp_" + str(t) + ".csv"
 
-#    TimeTagMessage('Deleting the file ' + _exportFileName)
-#    os.remove(_exportFileName)
     TimeTagMessage('Opening file ' + _exportFileName)
     __file = open(_exportFileName, 'w')
     TimeTagMessage('Opening writer object')
