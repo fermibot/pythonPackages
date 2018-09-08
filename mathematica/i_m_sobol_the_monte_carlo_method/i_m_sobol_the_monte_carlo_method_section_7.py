@@ -13,7 +13,7 @@ for t in range(0, 1000):
     __writer = writer = csv.writer(__file, delimiter=',')
     TimeTagMessage('Writing rows to the file')
 
-    for i in range(0, 10000):
+    for i in range(0, 1000):
         _seed = RandomReal(0, 1)
         _seedList = [_seed]
         while 0 <= _seed <= 2 and _seedList.__len__() <= 10:
