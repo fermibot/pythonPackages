@@ -24,19 +24,35 @@ def Cos(x: float):
 
 
 def Tan(x: float):
-    return Sin(x) / Cos(x)
+    _cos = Cos(x)
+    if _cos == 0:
+        return None
+    else:
+        return Sin(x) / Cos(x)
 
 
 def Sec(x):
-    return 1 / Cos(x)
+    _cos = Cos(x)
+    if _cos == 0:
+        return None
+    else:
+        return 1 / _cos
 
 
 def Csc(x):
-    return 1 / Sin(x)
+    _sin = Sin(x)
+    if _sin == 0:
+        return None
+    else:
+        return 1 / Sin(x)
 
 
 def Cot(x):
-    return Cos(x) / Sin(x)
+    _sin = Sin(x)
+    if _sin == 0:
+        return None
+    else:
+        return Cos(x) / _sin
 
 
 def ArcSin(x: float):
