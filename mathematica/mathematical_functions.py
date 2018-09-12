@@ -7,6 +7,8 @@ def Gamma(x):
 
 def Sin(x: float):
     _sin = 0
+    _Pi = Pi(100)
+    x = x % _Pi
     for i in range(50):
         _sin += (((-1)**i) * (x**((2 * i) + 1)) / (Factorial((2 * i) + 1)))
     return _sin
@@ -14,6 +16,8 @@ def Sin(x: float):
 
 def Cos(x: float):
     _cos = 0
+    _Pi = Pi(100)
+    x = x % _Pi
     for i in range(50):
         _cos += (((-1)**i) * (x**(2 * i)) / (Factorial(2 * i)))
     return _cos
