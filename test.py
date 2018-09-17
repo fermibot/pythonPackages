@@ -17,3 +17,4 @@ for x in range(0, 5):
     b = "Loading" + "." * x + "\r"
     print(b)
     time.sleep(0.2)
+
