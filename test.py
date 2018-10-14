@@ -1,20 +1,17 @@
-from mathematica.load_all_functions import *
+from mathematica.random_functions import *
 
-# for i in Range(0, Pi(200), 0.1):
-#    print([Sin(i), Cos(i), Tan(i), Sec(i), Csc(i), Cot(i)])
+_megaList = []
+for i in range(100):
+    _total = 0
+    _list = []
+    while True:
+        _rand = RandomReal(0, 1)
+        if _total + _rand <= 1:
+            _list.append(_rand)
+            _total += _rand
+        else:
+            _list.append(1 - _total)
+            break
+    _megaList.append(_list)
 
-import csv
-import time
-
-with open('text.csv') as csvfile:
-    reader = csv.reader(csvfile, delimiter=',')
-    for row in reader:
-        print(row)
-        for element in row:
-            print(element)
-
-for x in range(0, 5):
-    b = "Loading" + "." * x + "\r"
-    print(b)
-    time.sleep(0.2)
-
+print(_megaList)
