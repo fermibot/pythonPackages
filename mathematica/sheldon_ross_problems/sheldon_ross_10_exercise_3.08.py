@@ -1,7 +1,7 @@
 from mathematica.random_functions import RandomChoice, RandomInteger
 
 _masterList = []
-for r in range(0, 100000):
+for r in range(0, 1000000):
     _list = []
     _i = 1
 
