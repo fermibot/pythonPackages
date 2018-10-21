@@ -3,11 +3,18 @@ from mathematica.random_functions import RandomChoice, RandomReal
 from mathematica.lists import Transpose
 from mathematica.string_operations import StringPadLeft, StringPadRight
 
+print("Opening the text file")
 _file = open(
     'D:\Mathematica Files 4K\sheldon_ross\sheldon_ross_chapter_03\sheldon_ross_exercise_3.21\sheldon_ross_10_exercise_3.21.txt',
     'w')
 
-for i in range(0, 1000000):
+print("Initializing the loop and writing to the text file")
+
+print("_" * 106)
+
+_steps = 10000000
+_subSteps = _steps // 100
+for i in range(0, _steps):
     _n, _time = 0, 0
     while True:
         _n += 1
@@ -20,7 +27,6 @@ for i in range(0, 1000000):
         elif 2 / 3 <= _rand <= 1:
             _time += 5
     _file.write({_n, _time}.__str__() + '\n')
-    if (i + 1) % 1000 == 0:
-        # stdout.write("\rWriting line #" + str(i + 1) + " to the file.")
-        stdout.write( "\r" + ("#" * (i // 10000)))
+    if (i + 1) % _subSteps == 0:
+        stdout.write("\r" + ("\r" + ("#" * (i // _subSteps + 1)).ljust(100)) + " " + str(i // _subSteps + 1) + " %")
         stdout.flush()
