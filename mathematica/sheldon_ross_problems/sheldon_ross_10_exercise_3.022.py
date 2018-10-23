@@ -11,14 +11,14 @@ print("Initializing the loop and writing to the text file")
 
 print("_" * 106)
 
-_steps = 1000
+_steps = 10000
 _subSteps = _steps // 100
 for i in range(0, _steps):
-    _set = Range(5)
+    _set = Range(20)
     _k = 3
     _sample = RandomChoice(_set, _k)
     while True:
-        if EqualAll(_sample[-3:]):
+        if EqualAll(_sample[-_k:]):
             break
         else:
             _sample.append(RandomChoice(_set))
