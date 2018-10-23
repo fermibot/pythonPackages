@@ -88,33 +88,39 @@ def LessEqual(_list):
             return _lessEqual
 
 
-def LessThanAll(element, _list:list):
-    truth = True
+def LessThanAll(element, _list: list):
+    _truth = True
     for i in _list:
-        truth = (element < i) and truth
-    return truth
+        _truth = (element < i) and _truth
+    return _truth
 
 
-def LessThanEqualToAll(element, _list:list):
-    truth = True
+def LessThanEqualToAll(element, _list: list):
+    _truth = True
     for i in _list:
-        truth = (element <= i) and truth
-    return truth
+        _truth = (element <= i) and _truth
+    return _truth
 
 
-def GreaterThanAll(element, _list:list):
-    truth = True
+def GreaterThanAll(element, _list: list):
+    _truth = True
     for i in _list:
-        truth = (element > i) and truth
-    return truth
+        _truth = (element > i) and _truth
+    return _truth
 
 
-def GreaterThanEqualToAll(element, _list:list):
-    truth = True
+def GreaterThanEqualToAll(element, _list: list):
+    _truth = True
     for i in _list:
-        truth = (element >= i) and truth
-    return truth
+        _truth = (element >= i) and _truth
+    return _truth
 
+
+def EqualAll(_list: list):
+    _truth = True
+    for i in range(0, _list.__len__() - 1):
+        _truth = _truth and (_list[i] == _list[i + 1])
+    return _truth
 
 
 def Range(i, j=None, step=None):
@@ -152,7 +158,7 @@ def Factorial(x):
     if x == 0:
         return 1
     if (not isinstance(x, int)) or (x < 1):
-            return "Non integer functionality not yet included"
+        return "Non integer functionality not yet included"
     elif (isinstance(x, int)) and (x >= 1):
         _fact = 1
         for i in range(1, x + 1):
