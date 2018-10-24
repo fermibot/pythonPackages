@@ -1,29 +1,31 @@
 from sys import stdout
+import sys
 from mathematica.lists import EqualAll, Range
 from mathematica.random_functions import RandomChoice
 
-print("Opening the text file")
-_file = open(
-    'D:\Mathematica Files 4K\sheldon_ross\sheldon_ross_chapter_03\sheldon_ross_exercise_3.22\sheldon_ross_10_exercise_3.22.txt',
-    'w')
-
-print("Initializing the loop and writing to the text file")
-
-print("_" * 106)
-
-_steps = 10000
+_steps = 1000
 _subSteps = _steps // 100
-for i in range(0, _steps):
-    _set = Range(20)
-    _k = 3
-    _sample = RandomChoice(_set, _k)
-    while True:
-        if EqualAll(_sample[-_k:]):
-            break
-        else:
-            _sample.append(RandomChoice(_set))
-    _file.write(_sample.__str__().replace("[", "{").replace("]", "}") + '\n')
-    if (i + 1) % _subSteps == 0:
-        stdout.write("\r" + ("\r" + ("#" * (i // _subSteps + 1)).ljust(100)) + " " + str(i // _subSteps + 1) + " %")
-        stdout.flush()
+for _k in range(3, 7):
+    _progressPad = "_" * 106
+    _file = open(
+        'D:\Mathematica Files 4K\sheldon_ross\sheldon_ross_chapter_03\sheldon_ross_exercise_3.22\sheldon_ross_10_exercise_3.22_' + str(
+            _k) + '.txt', 'w')
 
+    print("\n\nWriting data to the file :" + _file.name)
+    print(_progressPad)
+
+    _set = Range(25)
+    for i in range(0, _steps):
+        _sample = RandomChoice(_set, _k)
+        while True:
+            if EqualAll(_sample[-_k:]):
+                break
+            else:
+                _sample.append(RandomChoice(_set))
+        _file.write(_sample.__str__().replace("[", "{").replace("]", "}") + '\n')
+        if (i + 1) % _subSteps == 0:
+            stdout.write("\r" + ("\r" + ("#" * (i // _subSteps + 1)).ljust(100)) + " " + str(
+                i // _subSteps + 1) + " %")
+            stdout.flush()
+print("\nClosing the file: " + _file.name)
+_file.close()
