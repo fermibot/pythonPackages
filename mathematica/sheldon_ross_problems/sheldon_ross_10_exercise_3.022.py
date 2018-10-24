@@ -3,12 +3,12 @@ import sys
 from mathematica.lists import EqualAll, Range
 from mathematica.random_functions import RandomChoice
 
-_steps = 5000
+_steps = 10000
 _subSteps = _steps // 100
 _n = 10
 _set = Range(_n)
 
-for _k in range(3, 6):
+for _k in range(3, 5):
     _progressPad = "_" * 106
     _file = open(
         'D:\Mathematica Files 4K\sheldon_ross\sheldon_ross_chapter_03\sheldon_ross_exercise_3.22\sheldon_ross_10_exercise_3.22_' + str(_n) + '_' + str(
