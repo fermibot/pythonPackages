@@ -1,10 +1,9 @@
 from sys import stdout
 from mathematica.random_functions import RandomReal
+from mathematica.lists import Range
 import csv
 
 _folderPath = 'D:\\Mathematica Files 4K\\sheldon_ross\\sheldon_ross_chapter_03\\sheldon_ross_exercise_3.26\\'
-
-_probabilities = [0.2, 0.3]
 
 
 def _randomChoiceCustom(_probability):
@@ -17,25 +16,32 @@ def _randomChoiceCustom(_probability):
 _csvfile = open(_folderPath + 'sheldon_ross_10_exercise_3.26.csv', 'w', newline='')
 _csvWriter = csv.writer(_csvfile)
 
-_steps = 100000
+_steps = 1000
 _subSteps = _steps // 100
 _progressPadTop = "-" * 106
 _progressPadBottom = "-" * 106
+_masterList = []
 
 print("\n\nWriting data to the file :" + _csvfile.name)
 print(_progressPadTop)
+
 for i in range(0, _steps):
-    _i = 0
-    _games = []
-    while True:
-        _games.append(_randomChoiceCustom(_probabilities[_i % 2]))
-        _i += 1
-        if _games[-2:] == [1, 1]:
-            break
-    _csvWriter.writerow(_games)
+    _gamesMaster = []
+    for _pB in Range(0.1, 0.9, 0.1):
+        for _pA in Range(0.1, 0.9, 0.1):
+            __i = 0
+            _games = []
+            _probabilities = [_pA, _pB]
+            while True:
+                _games.append(_randomChoiceCustom(_probabilities[__i % 2]))
+                __i += 1
+                if _games[-2:] == [1, 1]:
+                    break
+            _gamesMaster.append(_games.__len__())
+    _csvWriter.writerow(_gamesMaster)
+
     if (i + 1) % _subSteps == 0:
-        stdout.write("\r" + ("\r" + ("#" * (i // _subSteps + 1)).ljust(100)) + " " + str(
-            i // _subSteps + 1) + " %")
+        stdout.write("\r" + ("\r" + ("#" * (i // _subSteps + 1)).ljust(100)) + " " + str(i // _subSteps + 1) + " %")
         stdout.flush()
 
 print("\n" + _progressPadBottom)
