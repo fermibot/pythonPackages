@@ -3,7 +3,7 @@ from mathematica.lists import Range
 import csv
 from mathematica.sheldon_ross_support_functions import randomChoiceCustom
 
-_folderPath = 'D:\\Mathematica Files 4K\\sheldon_ross\\sheldon_ross_chapter_03\\sheldon_ross_exercise_3.027\\'
+_folderPath = 'D:\\Mathematica Files 4K\\sheldon_ross\\sheldon_ross_chapter_03\\sheldon_ross_10_exercise_3.027\\'
 
 _csvfile = open(_folderPath + 'sheldon_ross_10_exercise_3.027.csv', 'w', newline='')
 _csvWriter = csv.writer(_csvfile)

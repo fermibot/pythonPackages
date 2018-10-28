@@ -3,7 +3,7 @@ import sys
 from mathematica.lists import EqualAll, Range
 from mathematica.random_functions import RandomChoice
 
-_folderPath = 'D:\\Mathematica Files 4K\\sheldon_ross\\sheldon_ross_chapter_03\\sheldon_ross_exercise_3.22\\'
+_folderPath = 'D:\\Mathematica Files 4K\\sheldon_ross\\sheldon_ross_chapter_03\\sheldon_ross_10_exercise_3.022\\'
 for _n in [10, 15]:
     _steps = 10000
     _subSteps = _steps // 100
@@ -13,7 +13,7 @@ for _n in [10, 15]:
     for _k in range(2, 5):
         _progressPad = "_" * 106
         _file = open(
-            _folderPath + 'sheldon_ross_10_exercise_3.22_' + str(_n) + '_' + str(
+            _folderPath + 'sheldon_ross_10_exercise_3.022_' + str(_n) + '_' + str(
                 _k) + '.txt', 'w')
 
         print("\n\nWriting data to the file :" + _file.name)

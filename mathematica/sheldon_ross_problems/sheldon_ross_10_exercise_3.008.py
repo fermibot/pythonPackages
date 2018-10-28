@@ -21,6 +21,6 @@ for r in range(0, 1000000):
         _i = _i + 1
     _masterList.append(_list.index(6) + 1)
 
-_file = open('D:\Mathematica Files 4K\sheldon_ross\sheldon_ross_chapter_03\sheldon_ross_exercise_3.08\sheldon_ross_10_exercise_3.08.txt', 'w')
+_file = open('D:\Mathematica Files 4K\sheldon_ross\sheldon_ross_chapter_03\sheldon_ross_10_exercise_3.008\sheldon_ross_10_exercise_3.008.txt', 'w')
 for r in _masterList:
     _file.write(r.__str__() + '\n')

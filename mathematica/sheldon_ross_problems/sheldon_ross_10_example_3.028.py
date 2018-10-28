@@ -6,7 +6,7 @@ import csv
 
 unknownPath = open('folderPath.txt').readlines()[0]
 chapterName = 'sheldon_ross_chapter_03'
-problemName = 'sheldon_ross_example_3.28'
+problemName = 'sheldon_ross_10_example_3.028'
 
 
 _x = Range(1, 100)

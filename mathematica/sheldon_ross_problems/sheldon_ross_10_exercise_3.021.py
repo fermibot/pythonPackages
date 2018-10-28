@@ -1,11 +1,9 @@
 from sys import stdout
 from mathematica.random_functions import RandomChoice, RandomReal
-from mathematica.lists import Transpose
-from mathematica.string_operations import StringPadLeft, StringPadRight
 
 print("Opening the text file")
 _file = open(
-    'D:\Mathematica Files 4K\sheldon_ross\sheldon_ross_chapter_03\sheldon_ross_exercise_3.21\sheldon_ross_10_exercise_3.21.txt',
+    'D:\Mathematica Files 4K\sheldon_ross\sheldon_ross_chapter_03\sheldon_ross_10_exercise_3.021\sheldon_ross_10_exercise_3.021.txt',
     'w')
 
 print("Initializing the loop and writing to the text file")
