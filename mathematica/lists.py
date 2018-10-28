@@ -593,8 +593,8 @@ def Prepend(_list, _element):
 # Distances
 
 vectorEqualityMessage = "Length of both the vectors needs to be the same. \n" \
-    "Die Länge beider Vektoren muss gleich sein. \n" \
-    "రెండు వెక్టర్స్ ఒకే పొడవు ఉండాలి."
+                        "Die Länge beider Vektoren muss gleich sein. \n" \
+                        "రెండు వెక్టర్స్ ఒకే పొడవు ఉండాలి."
 
 
 def ManhattanDistance(_vector1: list, _vector2: list):
@@ -625,7 +625,6 @@ def EuclideanDistance(_vector1: list, _vector2: list):
 
 
 def ChessboardDistance(_vector1: list, _vector2: list):
-
     if len(_vector1) == len(_vector1):
         _chessboardDistanceList = []
         for i in range(0, len(_vector1)):
@@ -693,6 +692,14 @@ def Normalize(_list: list):
     for i in _list:
         _normalize.append(i / _norm)
     return _normalize
+
+
+def Unitize(_list: list):
+    _unitize = []
+    _total = Total(_list)
+    for i in _list:
+        _unitize.append(i / _total)
+    return _unitize
 
 
 def Differences(*args):
