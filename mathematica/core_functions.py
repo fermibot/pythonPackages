@@ -126,9 +126,11 @@ def EqualAll(_list: list):
 def Range(i, j=None, step=None):
     def _Range(_lower, _upper, _step):
         __elem, __list = _lower, []
-        while __elem <= _upper:
+        while True:
             __list.append(__elem)
             __elem += _step
+            if __elem >= _upper:
+                break
         return __list
 
     if step is None:
