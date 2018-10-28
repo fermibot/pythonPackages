@@ -3,13 +3,12 @@ from mathematica.lists import Range
 import csv
 from mathematica.sheldon_ross_support_functions import randomChoiceCustom
 
-_folderPath = 'D:\\Mathematica Files 4K\\sheldon_ross\\sheldon_ross_chapter_03\\sheldon_ross_exercise_3.26\\'
+_folderPath = 'D:\\Mathematica Files 4K\\sheldon_ross\\sheldon_ross_chapter_03\\sheldon_ross_exercise_3.27\\'
 
-
-_csvfile = open(_folderPath + 'sheldon_ross_10_exercise_3.26.csv', 'w', newline='')
+_csvfile = open(_folderPath + 'sheldon_ross_10_exercise_3.27.csv', 'w', newline='')
 _csvWriter = csv.writer(_csvfile)
 
-_steps = 1000
+_steps = 10000
 _subSteps = _steps // 100
 _progressPadTop = "-" * 106
 _progressPadBottom = "-" * 106
@@ -20,17 +19,14 @@ print(_progressPadTop)
 
 for i in range(0, _steps):
     _gamesMaster = []
-    for _pB in Range(0.1, 0.9, 0.1):
-        for _pA in Range(0.1, 0.9, 0.1):
-            __i = 0
-            _games = []
-            _probabilities = [_pA, _pB]
-            while True:
-                _games.append(randomChoiceCustom(_probabilities[__i % 2]))
-                __i += 1
-                if _games[-2:] == [1, 1]:
-                    break
-            _gamesMaster.append(_games.__len__())
+    for _p in Range(0.1, 0.95, 0.05):
+        _games = []
+        while True:
+            _games.append(randomChoiceCustom(_p))
+            if _games[-3:] == [0, 0, 1]:
+                break
+        _gamesMaster.append(_games.__len__())
+
     _csvWriter.writerow(_gamesMaster)
 
     if (i + 1) % _subSteps == 0:
