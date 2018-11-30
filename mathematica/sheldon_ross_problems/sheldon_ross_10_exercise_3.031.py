@@ -1,5 +1,4 @@
 from sys import stdout
-from mathematica.lists import Range
 import csv
 from mathematica.sheldon_ross_support_functions import randomChoiceCustom
 
@@ -10,7 +9,7 @@ for _p in [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.6
     _csvfile = open(_folderPath + 'sheldon_ross_10_exercise_3.031_' + _p.__str__() + '.csv', 'w', newline='')
     _csvWriter = csv.writer(_csvfile)
 
-    _steps = 100000
+    _steps = 10000
     _subSteps = _steps // 100
     _progressPadTop = "-" * 106
     _progressPadBottom = "-" * 106
