@@ -14,6 +14,7 @@ def StringJoin(*args):
             for _i in obj:
                 _stringList += str(_i)
             return _stringList
+
     if len(args) == 1:
         return _subStringJoin(args[0])
     elif len(args) > 1:
@@ -23,7 +24,7 @@ def StringJoin(*args):
         return _stringJoin
 
 
-def StringJoinBuffer(_list: list, _buffer: str=""):
+def StringJoinBuffer(_list: list, _buffer: str = ""):
     _stringJoinBuffer = ""
     for i in range(0, len(_list) - 1):
         _stringJoinBuffer += _list[i] + _buffer
@@ -39,6 +40,7 @@ def ToString(*args):
             for _i in obj:
                 _stringList.append(str(_i))
             return _stringList
+
     if len(args) == 1:
         return _subToString(args[0])
     elif len(args) > 1:
@@ -89,7 +91,7 @@ def Characters(_string: str):
 
 
 def StringRiffle(*args):
-    #TODO: generalize this one to make sure the StringJoin Buffer becomes obsolete
+    # TODO: generalize this one to make sure the StringJoin Buffer becomes obsolete
     if len(args) == 1 and ListQ(args[0]) and not allListQ(args[0]):
         _stringRiffle = ""
         for i in args[0]:
@@ -138,3 +140,14 @@ def StringRepeat(*args):
             _stringRepeat += _string
             n += 1
         return _stringRepeat
+
+
+def StringDelete(*args):
+    if len(args) == 2:
+        if allStringQ(args):
+            return args[0].replace(args[1], "")
+        elif StringQ(args[0]) and ListQ(args[1]):
+            _stringDelete = args[0]
+            for _patterns in args[1]:
+                _stringDelete = _stringDelete.replace(_patterns, "")
+            return _stringDelete
