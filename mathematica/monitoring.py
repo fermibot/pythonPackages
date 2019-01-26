@@ -2,4 +2,4 @@ import datetime
 
 
 def TimeTagMessage(string):
-    print(datetime.datetime.utcnow().__str__() + " " + string)
+    print(datetime.datetime.now().__str__() + " " + string)

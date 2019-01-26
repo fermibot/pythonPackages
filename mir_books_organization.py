@@ -3,6 +3,7 @@ from mathematica.databaseLink import SQLExecute, OpenSQLConnection
 from mathematica.lists import Last, Riffle
 from mathematica.matrices_and_arrays import ConstantArray
 from mathematica.string_operations import StringJoin
+from mathematica.monitoring import TimeTagMessage
 import os, fnmatch
 
 
@@ -25,15 +26,20 @@ for i in books:
 
 _sqlConnection = OpenSQLConnection('D:\Programming\python\PyCharm\mathematicaPython\collections.db')
 
-_maxIndex = SQLExecute(_sqlConnection, "select max(authorID) from authors").fetchall()[0][0]
+for book in _booksHave:
+    book = book[0]
+    _results = SQLExecute(_sqlConnection,
+                          "SELECT * FROM books WHERE bookName = '" + book + "'").fetchall()
+    if _results.__len__() == 0:
+        _id = SQLExecute(_sqlConnection, "SELECT Max(bookID) + 1 FROM books").fetchall()[0][0]
+        TimeTagMessage(book + " | Book not found in the table. Inserting into Authors")
+        _sqlQuery = "INSERT INTO books (bookID, bookName, series) VALUES (" + str(_id) + ", '" + \
+                    book + "', Null)"
+        # _sqlConnection.cursor().execute(_sqlQuery)
+        _sqlConnection.commit()
+    else:
+        TimeTagMessage(book + " | Book already exists in the table. Moving on ;)")
 
-
-# for i in range(0, _booksHave.__len__()):
-#     _sqlString = "INSERT INTO books VALUES (" + str(i + 1 + _maxIndex) + ", '" + _booksHave[i][0] + "', Null)"
-#     _sqlString.replace("'", "\'")
-#     print("Running the query " + _sqlString)
-#     _sqlConnection.cursor().execute(_sqlString)
-#     _sqlConnection.commit()
 
 def nameExtract(_name: str):
     if "." in _name:
@@ -47,6 +53,7 @@ def nameExtract(_name: str):
         return _name.split(' ')
 
 
+'''
 for authorList in _booksHave:
     del authorList[0]
     for author in authorList:
@@ -56,11 +63,11 @@ for authorList in _booksHave:
                               _nameExtract[0] + "' AND lastName = '" + _nameExtract[1] + "'").fetchall()
         if _results.__len__() == 0:
             _id = SQLExecute(_sqlConnection, "SELECT Max(authorID) + 1 FROM authors").fetchall()[0][0]
-            print(author + " | Author not found. Inserting into Authors")
+            TimeTagMessage(author + " | Author not found in the table. Inserting into Authors")
             _sqlQuery = "INSERT INTO authors (authorID, firstName, lastName) VALUES (" + str(_id) + ", '" + \
                         _nameExtract[0] + "', '" + _nameExtract[1] + "')"
             _sqlConnection.cursor().execute(_sqlQuery)
             _sqlConnection.commit()
-            pass
         else:
-            print(author + " | Author already exists")
+            TimeTagMessage(author + " | Author already exists in the table. Moving on ;)")
+'''
