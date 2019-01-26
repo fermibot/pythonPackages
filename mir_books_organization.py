@@ -24,7 +24,6 @@ for i in books:
     _booksHave.append(i)
 
 _sqlConnection = OpenSQLConnection('D:\Programming\python\PyCharm\mathematicaPython\collections.db')
-_updateDatabasesQ = False
 
 
 def nameExtract(_name: str):
@@ -39,25 +38,27 @@ def nameExtract(_name: str):
         return _name.split(' ')
 
 
-if False:
+_updateDatabasesQ = False
+
+if True:
     for book in _booksHave:
         book = book[0]
         _results = SQLExecute(_sqlConnection,
                               "SELECT * FROM books WHERE bookName = '" + book + "'").fetchall()
         if _results.__len__() == 0:
             _id = SQLExecute(_sqlConnection, "SELECT Max(bookID) + 1 FROM books").fetchall()[0][0]
-            TimeTagMessage(book + " | Book not found in the table. Inserting into Authors")
+            TimeTagMessage(" | " + book + " | Book not found in the table. Inserting into Authors")
             _sqlQuery = "INSERT INTO books (bookID, bookName, series) VALUES (" + str(_id) + ", '" + \
                         book + "', Null)"
             if _updateDatabasesQ:
                 _sqlConnection.cursor().execute(_sqlQuery)
                 _sqlConnection.commit()
             elif not _updateDatabasesQ:
-                print(_sqlQuery)
+                print(_sqlQuery + "\n")
         else:
-            TimeTagMessage(book + " | Book already exists in the table. Moving on ;)")
+            TimeTagMessage(" | " + book + " | Book already exists in the table. Moving on ;)")
 
-if False:
+if True:
     for authorList in _booksHave:
         del authorList[0]
         for author in authorList:
@@ -67,13 +68,13 @@ if False:
                                   _nameExtract[0] + "' AND lastName = '" + _nameExtract[1] + "'").fetchall()
             if _results.__len__() == 0:
                 _id = SQLExecute(_sqlConnection, "SELECT Max(authorID) + 1 FROM authors").fetchall()[0][0]
-                TimeTagMessage(author + " | Author not found in the table. Inserting into Authors")
+                TimeTagMessage(" | " + author + " | Author not found in the table. Inserting into Authors")
                 _sqlQuery = "INSERT INTO authors (authorID, firstName, lastName) VALUES (" + str(_id) + ", '" + \
                             _nameExtract[0] + "', '" + _nameExtract[1] + "')"
                 if _updateDatabasesQ:
                     _sqlConnection.cursor().execute(_sqlQuery)
                     _sqlConnection.commit()
                 elif not _updateDatabasesQ:
-                    print(_sqlQuery)
+                    print(_sqlQuery + "\n")
             else:
-                TimeTagMessage(author + " | Author already exists in the table. Moving on ;)")
+                TimeTagMessage(" | " + author + " | Author already exists in the table. Moving on ;)")
