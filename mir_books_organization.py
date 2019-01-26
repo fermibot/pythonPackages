@@ -1,6 +1,7 @@
 from mathematica.string_operations import StringDelete
 from mathematica.databaseLink import SQLExecute, OpenSQLConnection
 from mathematica.lists import Last, Riffle
+from mathematica.matrices_and_arrays import ConstantArray
 from mathematica.string_operations import StringJoin
 import os, fnmatch
 
@@ -39,19 +40,24 @@ def nameExtract(_name: str):
         _name = _name.split('.')
         _lastName = Last(_name)
         del _name[-1]
+        _name = Riffle(_name, ConstantArray(".", len(_name))) + ["."]
+        _name = StringJoin(_name)
         return [_name, _lastName]
     if "." not in _name:
         return _name.split(' ')
 
 
+_id = 30
 for authorList in _booksHave:
     del authorList[0]
     for author in authorList:
         _results = SQLExecute(_sqlConnection,
                               "select * from authors where firstName||lastName = '" + author + "'").fetchall()
         if _results.__len__() == 0:
-            print(author + " | Author not found inserting into SQLDatabase")
-            print(nameExtract(author))
+            _nameExtract = nameExtract(author)
+            print(author + " | Author not found. Inserting into Authors")
+            print("INSERT INTO authors (authorID, firstName, lastName) VALUES (" + str(_id) + ", '" + _nameExtract[
+                0] + ", '" + _nameExtract[1] + "')")
             print("")
             pass
         else:
