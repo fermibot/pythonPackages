@@ -13,7 +13,10 @@ def find(pattern, path):
 
 
 _directory = 'D:\Mir Book Processing'
-books = find('*', _directory)  # finds all the files that match the pattern '*'
-for i in books:  # runs a loop across the list of the files found
-    print(StringDelete(i, [_directory,'\\']))
-    print("")
+_dataGrid = []
+books = find('*', _directory)
+print('The number of books i found is ' + books.__len__().__str__() + "\n")
+for i in books:
+   _dataGrid.append(StringDelete(i, [_directory, '\\']).split(' - '))
+
+print(_dataGrid)
