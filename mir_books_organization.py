@@ -47,20 +47,22 @@ def nameExtract(_name: str):
         return _name.split(' ')
 
 
-_id = 30
 for authorList in _booksHave:
     del authorList[0]
     for author in authorList:
+        _nameExtract = nameExtract(author)
         _results = SQLExecute(_sqlConnection,
-                              "select * from authors where firstName||lastName = '" + author + "'").fetchall()
+                              "SELECT * FROM authors WHERE firstName = '" +
+                              _nameExtract[0] + "' AND lastName = '" + _nameExtract[1] + "'").fetchall()
         if _results.__len__() == 0:
-            _nameExtract = nameExtract(author)
+            _id = SQLExecute(_sqlConnection, "SELECT Max(authorID) + 1 FROM authors").fetchall()[0][0]
             print(author + " | Author not found. Inserting into Authors")
-            print("INSERT INTO authors (authorID, firstName, lastName) VALUES (" + str(_id) + ", '" + _nameExtract[
-                0] + ", '" + _nameExtract[1] + "')")
+            _sqlQuery = "INSERT INTO authors (authorID, firstName, lastName) VALUES (" + str(_id) + ", '" + \
+                        _nameExtract[0] + "', '" + _nameExtract[1] + "')"
+            _sqlConnection.cursor().execute(_sqlQuery)
+            _sqlConnection.commit()
             print("")
             pass
         else:
             print(author + " | Author already exists")
-            print(nameExtract(author))
             print("")
