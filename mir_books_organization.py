@@ -61,8 +61,6 @@ for authorList in _booksHave:
                         _nameExtract[0] + "', '" + _nameExtract[1] + "')"
             _sqlConnection.cursor().execute(_sqlQuery)
             _sqlConnection.commit()
-            print("")
             pass
         else:
             print(author + " | Author already exists")
-            print("")
