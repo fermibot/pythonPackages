@@ -1,6 +1,6 @@
 from mathematica.string_operations import StringDelete
 from mathematica.databaseLink import SQLExecute, OpenSQLConnection
-from mathematica.lists import Last, Riffle
+from mathematica.lists import Last, Riffle, Rest
 from mathematica.matrices_and_arrays import ConstantArray
 from mathematica.string_operations import StringJoin
 from mathematica.monitoring import TimeTagMessage
@@ -22,6 +22,7 @@ books = find('*', _directory)
 for i in books:
     i = StringDelete(i, [_directory, '\\', '.pdf', '.djvu']).split(' - ')
     _booksHave.append(i)
+print(_booksHave)
 
 _sqlConnection = OpenSQLConnection('D:\Programming\python\PyCharm\mathematicaPython\collections.db')
 
@@ -60,7 +61,7 @@ if True:
 
 if True:
     for authorList in _booksHave:
-        del authorList[0]
+        authorList = Rest(authorList)
         for author in authorList:
             _nameExtract = nameExtract(author)
             _results = SQLExecute(_sqlConnection,

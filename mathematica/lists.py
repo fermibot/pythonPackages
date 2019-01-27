@@ -105,7 +105,7 @@ def Rest(_list: list):
     try:
         __list = []
         for i in range(1, len(_list)):
-            __list.append(i)
+            __list.append(_list[i])
         return __list
     except TypeError:
         promptNotIterable()
