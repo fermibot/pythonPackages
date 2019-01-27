@@ -22,7 +22,7 @@ books = find('*', _directory)
 for i in books:
     i = StringDelete(i, [_directory, '\\', '.pdf', '.djvu']).split(' - ')
     _booksHave.append(i)
-print(_booksHave)
+# print(_booksHave)
 
 _sqlConnection = OpenSQLConnection('D:\Programming\python\PyCharm\mathematicaPython\collections.db')
 
@@ -60,7 +60,8 @@ if True:
         else:
             TimeTagMessage(" | Book already exists in the table. Moving on.\t\t\t | " + book)
 
-TimeTagMessage("\nStarting Authors Upload")
+print("")
+TimeTagMessage("Starting Authors Upload")
 if True:
     for authorList in _booksHave:
         authorList = Rest(authorList)
@@ -81,4 +82,3 @@ if True:
                     print(_sqlQuery + "\n")
             else:
                 TimeTagMessage(" | Author already exists in the table. Moving on.\t\t\t | " + author)
-
