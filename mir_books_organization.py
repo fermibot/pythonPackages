@@ -24,7 +24,7 @@ for i in books:
     _booksHave.append(i)
 # print(_booksHave)
 
-_sqlConnection = OpenSQLConnection('D:\Programming\python\PyCharm\mathematicaPython\collections.db')
+_sqlConnection = OpenSQLConnection('D:\Programming\python\PyCharm\_databases\collections.db')
 
 
 def nameExtract(_name: str):
@@ -51,7 +51,7 @@ if True:
             _id = SQLExecute(_sqlConnection, "SELECT Max(bookID) + 1 FROM books").fetchall()[0][0]
             TimeTagMessage(" | Book not found in the table. Inserting into books.\t | " + book)
             _sqlQuery = "INSERT INTO books (bookID, bookName, series) VALUES (" + str(_id) + ", '" + \
-                        book + "', Null)"
+                        book + "', NULL)"
             if _updateDatabasesQ:
                 _sqlConnection.cursor().execute(_sqlQuery)
                 _sqlConnection.commit()
