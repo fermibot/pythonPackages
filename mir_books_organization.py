@@ -57,7 +57,7 @@ if True:
             elif not _updateDatabasesQ:
                 print(_sqlQuery + "\n")
         else:
-            TimeTagMessage(" | " + book + " | Book already exists in the table. Moving on ;)")
+            TimeTagMessage(" | " + book + " | Book already exists in the table. Moving on ;)\n")
 
 if True:
     for authorList in _booksHave:
@@ -78,4 +78,4 @@ if True:
                 elif not _updateDatabasesQ:
                     print(_sqlQuery + "\n")
             else:
-                TimeTagMessage(" | " + author + " | Author already exists in the table. Moving on ;)")
+                TimeTagMessage(" | " + author + " | Author already exists in the table. Moving on ;)\n")
