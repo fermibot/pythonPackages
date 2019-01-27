@@ -51,7 +51,7 @@ if True:
         book = book[0]
         _results = SQLExecute(_sqlConnection,
                               "SELECT * FROM books WHERE bookName = '" + book + "'").fetchall()
-        _pre = " | Progress " + str(_bookTrack01) + " off " + str(_bookLength)
+        _prefix = " | Progress " + str(_bookTrack01) + " off " + str(_bookLength)
         if _results.__len__() == 0:
             _id = SQLExecute(_sqlConnection, "SELECT Max(bookID) + 1 FROM books").fetchall()[0][0]
             TimeTagMessage(" | Progress " + str(_bookTrack01) + " off " + str(
@@ -64,7 +64,7 @@ if True:
             elif not _updateDatabasesQ:
                 print(_sqlQuery + "\n")
         else:
-            TimeTagMessage(_pre + " | Book already exists in the table. Moving on.\t\t | " + book)
+            TimeTagMessage(_prefix + " | Book already exists in the table. Moving on.\t\t | " + book)
         _bookTrack01 += 1
 
 print("")
@@ -80,12 +80,12 @@ if True:
             _results = SQLExecute(_sqlConnection,
                                   "SELECT * FROM authors WHERE firstName = '" +
                                   _nameExtract[0] + "' AND lastName = '" + _nameExtract[1] + "'").fetchall()
-            _pre = " | Book " + str(_bookTrack02) + " off " + str(_bookLength) + " | Author " + str(
+            _prefix = " | Book " + str(_bookTrack02) + " off " + str(_bookLength) + " | Author " + str(
                 _authorTrack) + " off " + str(
                 _authorLength)
             if _results.__len__() == 0:
                 _id = SQLExecute(_sqlConnection, "SELECT Max(authorID) + 1 FROM authors").fetchall()[0][0]
-                TimeTagMessage(_pre + " | Author not found in the table. Inserting into authors.\t | " + author)
+                TimeTagMessage(_prefix + " | Author not found in the table. Inserting into authors.\t | " + author)
                 _sqlQuery = "INSERT INTO authors (authorID, firstName, lastName) VALUES (" + str(_id) + ", '" + \
                             _nameExtract[0] + "', '" + _nameExtract[1] + "')"
                 if _updateDatabasesQ:
@@ -94,6 +94,6 @@ if True:
                 elif not _updateDatabasesQ:
                     print(_sqlQuery + "\n")
             else:
-                TimeTagMessage(_pre + " | Author already exists in the table. Moving on.\t\t\t | " + author)
+                TimeTagMessage(_prefix + " | Author already exists in the table. Moving on.\t\t\t | " + author)
             _authorTrack += 1
         _bookTrack02 += 1
