@@ -16,7 +16,7 @@ def find(pattern, path):
     return result
 
 
-_directory = 'D:\Mir Book Processing'
+_directory = 'D:\FERMIBOT\mir books\Mir books processing'
 _booksHave = []
 books = find('*', _directory)
 for i in books:
@@ -24,7 +24,7 @@ for i in books:
     _booksHave.append(i)
 # print(_booksHave)
 
-_sqlConnection = OpenSQLConnection('D:\Programming\python\PyCharm\_databases\collections.db')
+_sqlConnection = OpenSQLConnection('D:\FERMIBOT\Pycharm_Projects\collections.db')
 
 
 def nameExtract(_name: str):
