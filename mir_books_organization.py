@@ -16,7 +16,7 @@ def find(pattern, path):
     return result
 
 
-_directory = 'D:\Mir Book Processing'
+_directory = 'D:\Mir Books Processing'
 _booksHave = []
 books = find('*', _directory)
 for i in books:
