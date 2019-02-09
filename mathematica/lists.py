@@ -103,10 +103,7 @@ def Catenate(_list: list):
 
 def Rest(_list: list):
     try:
-        __list = []
-        for i in range(1, len(_list)):
-            __list.append(_list[i])
-        return __list
+        return _list[1:_list.__len__()]
     except TypeError:
         promptNotIterable()
 
