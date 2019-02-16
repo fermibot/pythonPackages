@@ -99,8 +99,8 @@ if True:
                 _bookId) + " AND authorFK = " + str(_authorId)
             _authorBookSQLResults = SQLExecute(_sqlConnection, _authorBookSQLResults).fetchall()
             if _authorBookSQLResults.__len__() == 0:
-                print(
-                    _extraTab + "Association not found in the table. Now creating the link.")
+                print(_extraTab + "Association not found in the table. Now creating the link.")
+                print("-" * 150)
                 _getMaxId = "SELECT max(ID) + 1 FROM authorBook"
                 authorBookID = SQLExecute(_sqlConnection, _getMaxId).fetchall()[0][0]
                 authorBookID = ToString(authorBookID)
@@ -115,7 +115,7 @@ if True:
             else:
                 print(
                     _extraTab + "| Author-Book association found in the table. I am moving on!")
-                print("-"*150)
+                print("-" * 150)
 
             _authorTrack += 1
         _bookTrack01 += 1
