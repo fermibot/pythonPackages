@@ -2,7 +2,7 @@ from mathematica.string_operations import StringDelete
 from mathematica.databaseLink import SQLExecute, OpenSQLConnection
 from mathematica.lists import Last, Riffle, Rest
 from mathematica.matrices_and_arrays import ConstantArray
-from mathematica.string_operations import StringJoin
+from mathematica.string_operations import StringJoin, ToString
 from mathematica.monitoring import TimeTagMessage
 import os, fnmatch
 
@@ -25,6 +25,7 @@ for data in books:
 # print(_booksHave)
 
 _sqlConnection = OpenSQLConnection('D:\Programming\_databases\collections.db')
+_extraTab = "\t" * 16
 
 
 def nameExtract(_name: str):
@@ -55,7 +56,7 @@ if True:
         for book in _booksHave:
             book = book[0]
             _bookSQLResults = SQLExecute(_sqlConnection,
-                                  "SELECT * FROM books WHERE bookName = '" + book + "'").fetchall()
+                                         "SELECT * FROM books WHERE bookName = '" + book + "'").fetchall()
             _prefix = " | Progress " + str(_bookTrack01) + " off " + str(_bookLength)
             if _bookSQLResults.__len__() == 0:
                 _bookId = SQLExecute(_sqlConnection, "SELECT Max(bookID) + 1 FROM books").fetchall()[0][0]
@@ -84,8 +85,9 @@ if True:
             for _author in authorList:
                 _nameExtract = nameExtract(_author)
                 _authorSQLResults = SQLExecute(_sqlConnection,
-                                      "SELECT * FROM authors WHERE firstName = '" +
-                                               _nameExtract[0] + "' AND lastName = '" + _nameExtract[1] + "'").fetchall()
+                                               "SELECT * FROM authors WHERE firstName = '" +
+                                               _nameExtract[0] + "' AND lastName = '" + _nameExtract[
+                                                   1] + "'").fetchall()
                 _prefix = " | Book " + str(_bookTrack02) + " off " + str(_bookLength) + " | Author " + str(
                     _authorTrack) + " off " + str(
                     _authorLength)
@@ -104,5 +106,30 @@ if True:
                 else:
                     _authorId = _authorSQLResults[0][0]
                     TimeTagMessage(_prefix + " | Author already exists in the table. Moving on.\t\t | " + _author)
+
+                _authorBookSQLResults = "SELECT * FROM authorBook WHERE bookFK =" + str(
+                    _bookId) + " AND authorFK = " + str(_authorId)
+                _authorBookSQLResults = SQLExecute(_sqlConnection, _authorBookSQLResults).fetchall()
+                if _authorBookSQLResults.__len__() == 0:
+                    print(
+                        _extraTab + "Association not found in the table. Now creating the link")
+                    _getMaxId = "SELECT max(ID) + 1 FROM authorBook"
+                    authorBookID = SQLExecute(_sqlConnection, _getMaxId).fetchall()[0][0]
+                    authorBookID = ToString(authorBookID)
+                    authorFK = ToString(_authorId)
+                    bookFK = ToString(_bookId)
+                    linkQuery = "INSERT INTO authorBook (ID, authorFK, bookFK) VALUES (" + authorBookID + ", " + authorFK + ', ' + bookFK + ")"
+                    print(linkQuery);
+                    break
+                    if _updateDatabasesQ:
+                        _sqlConnection.cursor().execute(linkQuery)
+                        _sqlConnection.commit()
+                    elif not _updateDatabasesQ:
+                        print(linkQuery + "\n")
+
+                else:
+                    print(
+                        _extraTab + "Association between this author and book found in the table. I am moving on!")
+
                 _authorTrack += 1
             _bookTrack02 += 1
