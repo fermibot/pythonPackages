@@ -53,10 +53,10 @@ if True:
         book = book[0]
         _bookSQLResults = SQLExecute(_sqlConnection,
                                      "SELECT * FROM books WHERE bookName = '" + book + "'").fetchall()
-        _prefix = " | Progress " + str(_bookTrack01) + " off " + str(_bookLength)
+        _prefix = " | Book " + str(_bookTrack01) + " off " + str(_bookLength)
         if _bookSQLResults.__len__() == 0:
             _bookId = SQLExecute(_sqlConnection, "SELECT Max(bookID) + 1 FROM books").fetchall()[0][0]
-            TimeTagMessage(" | Progress " + str(_bookTrack01) + " off " + str(
+            TimeTagMessage(" | Book " + str(_bookTrack01) + " off " + str(
                 _bookLength) + " | Book not found in the table. Inserting into books.\t | " + book)
             _sqlQuery = "INSERT INTO books (bookID, bookName, series) VALUES (" + str(_bookId) + ", '" + \
                         book + "', NULL)"
@@ -68,7 +68,6 @@ if True:
         else:
             _bookId = _bookSQLResults[0][0]
             TimeTagMessage(_prefix + " | Book already exists in the table. Moving on.\t\t\t\t\t\t | " + book)
-        _bookTrack01 += 1
 
         _authorTrack = 1
         _authorLength = authorList.__len__()
@@ -94,14 +93,14 @@ if True:
                     print(_sqlQuery + "\n")
             else:
                 _authorId = _authorSQLResults[0][0]
-                TimeTagMessage(_prefix + " | Author already exists in the table. Moving on.\t\t | " + _author)
+                TimeTagMessage(_prefix + " | Author already exists in the table. Moving on.\t | " + _author)
 
             _authorBookSQLResults = "SELECT * FROM authorBook WHERE bookFK =" + str(
                 _bookId) + " AND authorFK = " + str(_authorId)
             _authorBookSQLResults = SQLExecute(_sqlConnection, _authorBookSQLResults).fetchall()
             if _authorBookSQLResults.__len__() == 0:
                 print(
-                    _extraTab + "Association not found in the table. Now creating the link")
+                    _extraTab + "Association not found in the table. Now creating the link.")
                 _getMaxId = "SELECT max(ID) + 1 FROM authorBook"
                 authorBookID = SQLExecute(_sqlConnection, _getMaxId).fetchall()[0][0]
                 authorBookID = ToString(authorBookID)
@@ -113,9 +112,10 @@ if True:
                     _sqlConnection.commit()
                 elif not _updateDatabasesQ:
                     print(linkQuery + "\n")
-
             else:
                 print(
-                    _extraTab + "Association between this author and book found in the table. I am moving on!")
+                    _extraTab + "| Author-Book association found in the table. I am moving on!")
+                print("-"*150)
 
             _authorTrack += 1
+        _bookTrack01 += 1
