@@ -113,8 +113,7 @@ if True:
                 elif not _updateDatabasesQ:
                     print(linkQuery + "\n")
             else:
-                print(
-                    _extraTab + "| Author-Book association found in the table. I am moving on!")
+                print(_extraTab + "| Author-Book association found in the table. I am moving on!")
                 print("-" * 150)
 
             _authorTrack += 1
