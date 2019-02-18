@@ -4,7 +4,8 @@ from mathematica.lists import Last, Riffle, Rest
 from mathematica.matrices_and_arrays import ConstantArray
 from mathematica.string_operations import StringJoin, ToString
 from mathematica.monitoring import TimeTagMessage
-import os, fnmatch
+import os
+import fnmatch
 
 
 def find(pattern, path):
