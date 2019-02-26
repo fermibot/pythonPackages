@@ -162,10 +162,11 @@ def Factorial(x):
     if (not isinstance(x, int)) or (x < 1):
         return "Non integer functionality not yet included"
     elif (isinstance(x, int)) and (x >= 1):
-        _fact = 1
-        for i in range(1, x + 1):
-            _fact = _fact * i
-        return _fact
+        if x == 1:
+            result = 1
+        elif x > 1:
+            result = x * Factorial(x - 1)
+    return result
 
 
 def Factorial2(x):
