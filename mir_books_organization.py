@@ -59,8 +59,8 @@ if True:
             _bookId = SQLExecute(_sqlConnection, "SELECT Max(bookID) + 1 FROM books").fetchall()[0][0]
             TimeTagMessage(" | Book " + str(_bookTrack01) + " off " + str(
                 _bookLength) + " | Book not found in the table. Inserting into books.\t | " + book)
-            _sqlQuery = "INSERT INTO books (bookID, bookName, series) VALUES (" + str(_bookId) + ", '" + \
-                        book + "', NULL)"
+            _sqlQuery = "INSERT INTO books (bookID, bookName, series) VALUES (" + str(
+                _bookId) + ", '" + book + "', NULL)"
             if _updateDatabasesQ:
                 _sqlConnection.cursor().execute(_sqlQuery)
                 _sqlConnection.commit()
