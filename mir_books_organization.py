@@ -23,9 +23,9 @@ books = find('*', _directory)
 for data in books:
     data = StringDelete(data, [_directory, '\\', '.pdf', '.djvu']).split(' - ')
     _booksHave.append(data)
-# print(_booksHave)
 
 _sqlConnection = OpenSQLConnection('D:\Programming\_databases\collections.db')
+_sqlCursor = _sqlConnection.cursor()
 _extraTab = "\t" * 16
 
 
@@ -52,8 +52,7 @@ if True:
     for book in _booksHave:
         authorList = Rest(book)
         book = book[0]
-        _bookSQLResults = SQLExecute(_sqlConnection,
-                                     "SELECT * FROM books WHERE bookName = '" + book + "'").fetchall()
+        _bookSQLResults = SQLExecute(_sqlConnection, "SELECT * FROM books WHERE bookName = '%s'" % book).fetchall()
         _prefix = f" | Book {_bookTrack01} off {_bookLength}"
         if _bookSQLResults.__len__() == 0:
             _bookId = SQLExecute(_sqlConnection, "SELECT Max(bookID) + 1 FROM books").fetchall()[0][0]
@@ -65,7 +64,7 @@ if True:
                 _sqlConnection.cursor().execute(_sqlQuery)
                 _sqlConnection.commit()
             elif not _updateDatabasesQ:
-                print(_sqlQuery + "\n")
+                print(f"{_sqlQuery}\n")
         else:
             _bookId = _bookSQLResults[0][0]
             TimeTagMessage(f"{_prefix} | Book already exists in the table. Moving on.\t\t\t\t\t\t | {book}")
