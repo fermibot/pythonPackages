@@ -102,7 +102,7 @@ if True:
                 authorBookID = ToString(authorBookID)
                 authorFK = ToString(_authorId)
                 bookFK = ToString(_bookId)
-                linkQuery = f"INSERT INTO authorBook (ID, authorFK, bookFK) VALUES (" + authorBookID + ", " + authorFK + \
+                linkQuery = "INSERT INTO authorBook (ID, authorFK, bookFK) VALUES (" + authorBookID + ", " + authorFK + \
                             ', ' + bookFK + ")"
                 if _updateDatabasesQ:
                     _sqlConnection.cursor().execute(linkQuery)
