@@ -80,8 +80,8 @@ if True:
             if _authorSQLResults.__len__() == 0:
                 _authorId = SQLExecute(_sqlConnection, "SELECT Max(authorID) + 1 FROM authors").fetchall()[0][0]
                 TimeTagMessage(f"{_prefix} | Author not found in the table. Inserting into authors.\t | {_author}")
-                _sqlQuery = "INSERT INTO authors (authorID, firstName, lastName) VALUES (" + str(
-                    _authorId) + ", '" + nameExtract[0] + "', '" + _nameExtract[1] + "')"
+                _sqlQuery = "INSERT INTO authors (authorID, firstName, lastName) VALUES (" + str(_authorId) + ", '" + \
+                            _nameExtract[0] + "', '" + _nameExtract[1] + "')"
                 if _updateDatabasesQ:
                     _sqlConnection.cursor().execute(_sqlQuery)
                     _sqlConnection.commit()
