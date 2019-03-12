@@ -6,6 +6,7 @@ FROM books
 	LEFT OUTER JOIN authorBook a ON books.bookID = a.bookFK
 	LEFT OUTER JOIN authors ON authorFK = authorID
 WHERE Author IS NOT NULL
+			AND bookname LIKE '%opt%'
 ORDER BY BookSeries, Book, Author;
 
 -- SELECT
