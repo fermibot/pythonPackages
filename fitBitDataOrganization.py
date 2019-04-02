@@ -22,7 +22,7 @@ mD = {'m0': 'TimeElapsed', 'm1': 'Processing file#', 'm2': 'Processing line numb
       'm5': 'record found in the database, moving on',
       'm6': 'printing info to a logfile',
       'm7': 'Duplicate records found',
-      'm8': 'This file has already been processed. Moving on'
+      'm8': 'This file has already been processed, moving on'
       }
 
 _fCt = 1
@@ -55,7 +55,7 @@ with open(f'D:\Programming\_databases\{metricType}.txt', 'w+') as logFile:
                                 _sqlConnection.cursor().execute(_insertQuery)
                                 _sqlConnection.commit()
                             elif len(_sqlResults) == 1:
-                                sys.stdout.write(f"\r{_messagePrefix}::.")
+                                sys.stdout.write(f"\r{_messagePrefix}::{mD['m5']}")
                             elif len(_sqlResults) > 1:
                                 sys.stdout.write(f"\r{_messagePrefix}::{mD['m4']}")
                                 logFile.write(f"{mD['m4']}:: {line[0]}.")
