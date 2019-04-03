@@ -1,10 +1,8 @@
 import os
 import json
-from mathematica.databaseLink import SQLExecute, OpenSQLConnection
+from mathematica.databaseLink import OpenSQLConnection
 import sys
 import time
-from datetime import datetime
-import contextlib
 
 startTime = time.time()
 
