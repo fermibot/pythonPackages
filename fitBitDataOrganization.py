@@ -91,35 +91,34 @@ with open(f"D:\Programming\_databases\{'altitude'}.txt", 'w+') as altitudeLogFil
                         altitudeLogFile.write(f"{mD['m7']}::{file}")
                 _fCt += 1
 
-            if True:
-                if file[:11] == 'heart_rate-':
-                    with open(path + '\\' + file) as inJsonFile:
-                        inJsonData = json.load(inJsonFile)
-                        [_dtMin, _dtMax] = [inJsonData[0]['dateTime'], inJsonData[-1]['dateTime']]
-                        _timeDelta = time.strftime("%H:%M:%S", time.gmtime(time.time() - startTime))
-                        _tableCheck = "SELECT * FROM biometricsHeartRate WHERE dateTimeID IN (\'" + _dtMin + "\', \'" + _dtMax + "\')"
-                        _tableCheck = _sqlConnection.execute(_tableCheck).fetchall()
-                        if len(_tableCheck) == 2:
-                            sys.stdout.write(f"\r{_timeDelta}::FileCount {_fCt}::{mD['m8']}::{file}")
-                            time.sleep(0.01)
-                        if len(_tableCheck) < 2:
-                            _rCt = 0
-                            for record in inJsonData:
-                                line = heartRateExtractor(record)
-                                _sqlResults = _sqlConnection.execute(heartRate.sqlChecker(record)).fetchall()
-                                _messagePrefix = f"{mD['m0']} {_timeDelta}::FileCount {_fCt}::{mD['m2']} {_rCt}"
-                                if len(_sqlResults) == 0:
-                                    sys.stdout.write(f"\r{_messagePrefix}::{mD['m3']}")
-                                    _sqlConnection.cursor().execute(heartRate.inserter(record))
-                                    _sqlConnection.commit()
-                                elif len(_sqlResults) == 1:
-                                    sys.stdout.write(f"\r{_messagePrefix}::{mD['m5']}")
-                                elif len(_sqlResults) > 1:
-                                    sys.stdout.write(f"\r{_messagePrefix}::{mD['m4']}")
-                                    heart_rateLogFile.write(f"{mD['m4']}:: {line[0]}.")
-                                _rCt += 1
-                            inJsonFile.close()
-                        if len(_tableCheck) > 2:
-                            sys.stdout.write(f"\rSeems like there is an issue with this file. {mD['m6']}")
-                            heart_rateLogFile.write(f"{mD['m7']}::{file}")
-                    _fCt += 1
+            if file[:11] == 'heart_rate-':
+                with open(path + '\\' + file) as inJsonFile:
+                    inJsonData = json.load(inJsonFile)
+                    [_dtMin, _dtMax] = [inJsonData[0]['dateTime'], inJsonData[-1]['dateTime']]
+                    _timeDelta = time.strftime("%H:%M:%S", time.gmtime(time.time() - startTime))
+                    _tableCheck = "SELECT * FROM biometricsHeartRate WHERE dateTimeID IN (\'" + _dtMin + "\', \'" + _dtMax + "\')"
+                    _tableCheck = _sqlConnection.execute(_tableCheck).fetchall()
+                    if len(_tableCheck) == 2:
+                        sys.stdout.write(f"\r{_timeDelta}::FileCount {_fCt}::{mD['m8']}::{file}")
+                        time.sleep(0.01)
+                    if len(_tableCheck) < 2:
+                        _rCt = 0
+                        for record in inJsonData:
+                            line = heartRateExtractor(record)
+                            _sqlResults = _sqlConnection.execute(heartRate.sqlChecker(record)).fetchall()
+                            _messagePrefix = f"{mD['m0']} {_timeDelta}::FileCount {_fCt}::{mD['m2']} {_rCt}"
+                            if len(_sqlResults) == 0:
+                                sys.stdout.write(f"\r{_messagePrefix}::{mD['m3']}")
+                                _sqlConnection.cursor().execute(heartRate.inserter(record))
+                                _sqlConnection.commit()
+                            elif len(_sqlResults) == 1:
+                                sys.stdout.write(f"\r{_messagePrefix}::{mD['m5']}")
+                            elif len(_sqlResults) > 1:
+                                sys.stdout.write(f"\r{_messagePrefix}::{mD['m4']}")
+                                heart_rateLogFile.write(f"{mD['m4']}:: {line[0]}.")
+                            _rCt += 1
+                        inJsonFile.close()
+                    if len(_tableCheck) > 2:
+                        sys.stdout.write(f"\rSeems like there is an issue with this file. {mD['m6']}")
+                        heart_rateLogFile.write(f"{mD['m7']}::{file}")
+                _fCt += 1
