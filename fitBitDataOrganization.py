@@ -34,7 +34,8 @@ class heartRateClass:
         return "SELECT * FROM biometricsHeartRate WHERE dateTimeID = \'" + data['dateTime'] + "\'"
 
     def inserter(self, data: dict):
-        return "INSERT INTO biometricsHeartRate VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
+        _rec = heartRateExtractor(data)
+        return "INSERT INTO biometricsHeartRate VALUES ('" + _rec[0] + "', " + str(_rec[1]) + ", " + str(_rec[2]) + ")"
 
 
 heartRate = heartRateClass()
@@ -66,7 +67,7 @@ with open(f"D:\Programming\_databases\{'altitude'}.txt", 'w+') as altitudeLogFil
                     _tableCheck = _sqlConnection.execute(_tableCheck).fetchall()
                     if len(_tableCheck) == 2:
                         sys.stdout.write(f"\r{_timeDelta}::FileCount {_fCt}::{mD['m8']}::{file}")
-                        time.sleep(0.1)
+                        time.sleep(0.01)
                     if len(_tableCheck) < 2:
                         _rCt = 0
                         for record in inJsonData:
@@ -90,7 +91,7 @@ with open(f"D:\Programming\_databases\{'altitude'}.txt", 'w+') as altitudeLogFil
                         altitudeLogFile.write(f"{mD['m7']}::{file}")
                 _fCt += 1
 
-            if False:
+            if True:
                 if file[:11] == 'heart_rate-':
                     with open(path + '\\' + file) as inJsonFile:
                         inJsonData = json.load(inJsonFile)
@@ -100,20 +101,16 @@ with open(f"D:\Programming\_databases\{'altitude'}.txt", 'w+') as altitudeLogFil
                         _tableCheck = _sqlConnection.execute(_tableCheck).fetchall()
                         if len(_tableCheck) == 2:
                             sys.stdout.write(f"\r{_timeDelta}::FileCount {_fCt}::{mD['m8']}::{file}")
-                            time.sleep(0.1)
+                            time.sleep(0.01)
                         if len(_tableCheck) < 2:
-                            inJsonData = map(heartRateInfoExtractor, inJsonData)
                             _rCt = 0
-                            for line in inJsonData:
-                                _sqlResults = _sqlConnection.execute(
-                                    "SELECT * FROM biometricsHeartRate WHERE dateTimeID = \'" + line[
-                                        0] + "\'").fetchall()
+                            for record in inJsonData:
+                                line = heartRateExtractor(record)
+                                _sqlResults = _sqlConnection.execute(heartRate.sqlChecker(record)).fetchall()
                                 _messagePrefix = f"{mD['m0']} {_timeDelta}::FileCount {_fCt}::{mD['m2']} {_rCt}"
                                 if len(_sqlResults) == 0:
                                     sys.stdout.write(f"\r{_messagePrefix}::{mD['m3']}")
-                                    _insertQuery = "INSERT INTO biometricsHeartRate VALUES ('" \
-                                                   + line[0] + "', " + str(line[1]) + ", " + str(line[2]) + ")"
-                                    _sqlConnection.cursor().execute(_insertQuery)
+                                    _sqlConnection.cursor().execute(heartRate.inserter(record))
                                     _sqlConnection.commit()
                                 elif len(_sqlResults) == 1:
                                     sys.stdout.write(f"\r{_messagePrefix}::{mD['m5']}")
