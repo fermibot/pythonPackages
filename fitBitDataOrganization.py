@@ -62,7 +62,7 @@ mD = {'m0': 'TimeElapsed', 'm1': 'Processing file#', 'm2': 'Processing line numb
 
 _fCt = 1
 
-metricType = ['altitude-', 'heart_rate-']
+metricType = {'altitude-': 9, 'heart_rate-': 11}
 
 with open(f"D:\Programming\_databases\{'altitude'}.txt", 'w+') as altitudeLogFile, \
         open(f"D:\Programming\_databases\{'heart_rate'}.txt", 'w+') as heart_rateLogFile:
