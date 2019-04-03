@@ -78,7 +78,7 @@ mD = {'m0': 'TimeElapsed', 'm1': 'Processing file#', 'm2': 'Processing line numb
 
 _fCt = 1
 
-metricType = {'altitude-': 9, 'heart_rate-': 11}
+metricType = {'altitude-': 9, 'distance-': 9, 'heart_rate-': 11}
 
 with open(f"D:\Programming\_databases\{'altitude'}.txt", 'w+') as altitudeLogFile, \
         open(f"D:\Programming\_databases\{'heart_rate'}.txt", 'w+') as heart_rateLogFile, \
@@ -101,7 +101,7 @@ with open(f"D:\Programming\_databases\{'altitude'}.txt", 'w+') as altitudeLogFil
                             _sqlResults = _sqlConnection.execute(distance.recordCheck(record)).fetchall()
                             _messagePrefix = f"{mD['m0']} {_timeDelta}::FileCount {_fCt}::{mD['m2']} {_rCt}"
                             if len(_sqlResults) == 0:
-                                sys.stdout.write(f"\r{_messagePrefix}::{mD['m3']}")
+                                sys.stdout.write(f"\r{_messagePrefix}::{mD['m3']}::{file}")
                                 _insertQuery = distance.inserter(record)
                                 _sqlConnection.cursor().execute(_insertQuery)
                                 _sqlConnection.commit()
@@ -132,7 +132,7 @@ with open(f"D:\Programming\_databases\{'altitude'}.txt", 'w+') as altitudeLogFil
                             _sqlResults = _sqlConnection.execute(altitude.recordCheck(record)).fetchall()
                             _messagePrefix = f"{mD['m0']} {_timeDelta}::FileCount {_fCt}::{mD['m2']} {_rCt}"
                             if len(_sqlResults) == 0:
-                                sys.stdout.write(f"\r{_messagePrefix}::{mD['m3']}")
+                                sys.stdout.write(f"\r{_messagePrefix}::{mD['m3']::{file}}")
                                 _insertQuery = altitude.inserter(record)
                                 _sqlConnection.cursor().execute(_insertQuery)
                                 _sqlConnection.commit()
@@ -164,7 +164,7 @@ with open(f"D:\Programming\_databases\{'altitude'}.txt", 'w+') as altitudeLogFil
                             _sqlResults = _sqlConnection.execute(heartRate.recordCheck(record)).fetchall()
                             _messagePrefix = f"{mD['m0']} {_timeDelta}::FileCount {_fCt}::{mD['m2']} {_rCt}"
                             if len(_sqlResults) == 0:
-                                sys.stdout.write(f"\r{_messagePrefix}::{mD['m3']}")
+                                sys.stdout.write(f"\r{_messagePrefix}::{mD['m3']}::{file}")
                                 _sqlConnection.cursor().execute(heartRate.inserter(record))
                                 _sqlConnection.commit()
                             elif len(_sqlResults) == 1:
