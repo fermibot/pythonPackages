@@ -13,6 +13,10 @@ _sqlConnection = OpenSQLConnection('D:\\Programming\\_databases\\fitbitData.db')
 _sqlCursor = _sqlConnection.cursor()
 
 
+def timeDelta(_startTime):
+    return time.strftime("%H:%M:%S", time.gmtime(time.time() - _startTime))
+
+
 def heartRateExtractor(data: dict):
     return [data['dateTime'], data['value']['bpm'], data['value']['confidence']]
 
@@ -22,7 +26,10 @@ def altitudeExtractor(data: dict):
 
 
 class altitudeClass:
-    def sqlChecker(self, data: dict):
+    def tableCheck(self, _dateMin, _dateMax):
+        return "SELECT * FROM biometricsAltitude WHERE dateTimeID IN (\'" + _dateMin + "\', \'" + _dateMax + "\')"
+
+    def recordCheck(self, data: dict):
         return "SELECT * FROM biometricsAltitude WHERE dateTimeID = \'" + data['dateTime'] + "\'"
 
     def inserter(self, data: dict):
@@ -30,12 +37,15 @@ class altitudeClass:
 
 
 class heartRateClass:
-    def sqlChecker(self, data: dict):
-        return "SELECT * FROM biometricsHeartRate WHERE dateTimeID = \'" + data['dateTime'] + "\'"
-
     def inserter(self, data: dict):
         _rec = heartRateExtractor(data)
         return "INSERT INTO biometricsHeartRate VALUES ('" + _rec[0] + "', " + str(_rec[1]) + ", " + str(_rec[2]) + ")"
+
+    def tableCheck(self, _dateMin, _dateMax):
+        return "SELECT * FROM biometricsHeartRate WHERE dateTimeID IN (\'" + _dateMin + "\', \'" + _dateMax + "\')"
+
+    def recordCheck(self, data: dict):
+        return "SELECT * FROM biometricsHeartRate WHERE dateTimeID = \'" + data['dateTime'] + "\'"
 
 
 heartRate = heartRateClass()
@@ -62,9 +72,8 @@ with open(f"D:\Programming\_databases\{'altitude'}.txt", 'w+') as altitudeLogFil
                 with open(path + '\\' + file) as inJsonFile:
                     inJsonData = json.load(inJsonFile)
                     [_dtMin, _dtMax] = [inJsonData[0]['dateTime'], inJsonData[-1]['dateTime']]
-                    _timeDelta = time.strftime("%H:%M:%S", time.gmtime(time.time() - startTime))
-                    _tableCheck = "SELECT * FROM biometricsAltitude WHERE dateTimeID IN (\'" + _dtMin + "\', \'" + _dtMax + "\')"
-                    _tableCheck = _sqlConnection.execute(_tableCheck).fetchall()
+                    _timeDelta = timeDelta(startTime)
+                    _tableCheck = _sqlConnection.execute(altitude.tableCheck(_dtMin, _dtMax)).fetchall()
                     if len(_tableCheck) == 2:
                         sys.stdout.write(f"\r{_timeDelta}::FileCount {_fCt}::{mD['m8']}::{file}")
                         time.sleep(0.01)
@@ -72,7 +81,7 @@ with open(f"D:\Programming\_databases\{'altitude'}.txt", 'w+') as altitudeLogFil
                         _rCt = 0
                         for record in inJsonData:
                             line = altitudeExtractor(record)
-                            _sqlResults = _sqlConnection.execute(altitude.sqlChecker(record)).fetchall()
+                            _sqlResults = _sqlConnection.execute(altitude.recordCheck(record)).fetchall()
                             _messagePrefix = f"{mD['m0']} {_timeDelta}::FileCount {_fCt}::{mD['m2']} {_rCt}"
                             if len(_sqlResults) == 0:
                                 sys.stdout.write(f"\r{_messagePrefix}::{mD['m3']}")
@@ -95,9 +104,8 @@ with open(f"D:\Programming\_databases\{'altitude'}.txt", 'w+') as altitudeLogFil
                 with open(path + '\\' + file) as inJsonFile:
                     inJsonData = json.load(inJsonFile)
                     [_dtMin, _dtMax] = [inJsonData[0]['dateTime'], inJsonData[-1]['dateTime']]
-                    _timeDelta = time.strftime("%H:%M:%S", time.gmtime(time.time() - startTime))
-                    _tableCheck = "SELECT * FROM biometricsHeartRate WHERE dateTimeID IN (\'" + _dtMin + "\', \'" + _dtMax + "\')"
-                    _tableCheck = _sqlConnection.execute(_tableCheck).fetchall()
+                    _timeDelta = timeDelta(startTime)
+                    _tableCheck = _sqlConnection.execute(heartRate.tableCheck(_dtMin, _dtMax)).fetchall()
                     if len(_tableCheck) == 2:
                         sys.stdout.write(f"\r{_timeDelta}::FileCount {_fCt}::{mD['m8']}::{file}")
                         time.sleep(0.01)
@@ -105,7 +113,7 @@ with open(f"D:\Programming\_databases\{'altitude'}.txt", 'w+') as altitudeLogFil
                         _rCt = 0
                         for record in inJsonData:
                             line = heartRateExtractor(record)
-                            _sqlResults = _sqlConnection.execute(heartRate.sqlChecker(record)).fetchall()
+                            _sqlResults = _sqlConnection.execute(heartRate.recordCheck(record)).fetchall()
                             _messagePrefix = f"{mD['m0']} {_timeDelta}::FileCount {_fCt}::{mD['m2']} {_rCt}"
                             if len(_sqlResults) == 0:
                                 sys.stdout.write(f"\r{_messagePrefix}::{mD['m3']}")
