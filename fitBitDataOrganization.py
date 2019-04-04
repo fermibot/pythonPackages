@@ -11,6 +11,10 @@ _sqlConnection = OpenSQLConnection('D:\\Programming\\_databases\\fitbitData.db')
 _sqlCursor = _sqlConnection.cursor()
 
 
+def _dateValueExtractor(data: dict):
+    return [data['dateTime'], data['value']]
+
+
 def timeDelta(_startTime):
     return time.strftime("%H:%M:%S", time.gmtime(time.time() - _startTime))
 
@@ -29,6 +33,18 @@ def caloriesExtractor(data: dict):
 
 def heartRateExtractor(data: dict):
     return [data['dateTime'], data['value']['bpm'], data['value']['confidence']]
+
+
+def lightlyActiveMinutesExtractor(data: dict):
+    return _dateValueExtractor(data)
+
+
+def moderatelyActiveMinutesExtractor(data: dict):
+    return _dateValueExtractor(data)
+
+
+def veryActiveMinutesExtractor(data: dict):
+    return _dateValueExtractor(data)
 
 
 class altitudeClass:
@@ -74,6 +90,25 @@ class heartRateClass:
 
     def recordCheck(self, data: dict):
         return "SELECT * FROM biometricsHeartRate WHERE dateTimeID = \'" + data['dateTime'] + "\'"
+
+
+class lightlyActiveMinutesClass:
+    def tableCheck(self, _dateMin, _dateMax):
+        return "SELECT * FROM lightlyActiveMinutes WHERE dateTimeID IN (\'" + _dateMin + "\', \'" + _dateMax + "\')"
+
+    def recordCheck(self, data: dict):
+        return "SELECT * FROM lightlyActiveMinutes WHERE dateTimeID = \'" + data['dateTime'] + "\'"
+
+    def inserter(self, data: dict):
+        return "INSERT INTO lightlyActiveMinutes VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
+
+
+class moderatelyActiveMinuteClass:
+    pass
+
+
+class veryActiveMinutesClass:
+    pass
 
 
 heartRate = heartRateClass()
