@@ -149,7 +149,10 @@ metricType = {'altitude-': 9, 'calories-': 9, 'distance-': 9, 'heart_rate-': 11}
 with open(f"D:\Programming\_databases\{'altitude'}.txt", 'w+') as altitudeLogFile, \
         open(f"D:\Programming\_databases\{'heart_rate'}.txt", 'w+') as heartRateLogFile, \
         open(f"D:\Programming\_databases\{'distance'}.txt", 'w+') as distanceLogFile, \
-        open(f"D:\Programming\_databases\{'calories'}.txt", 'w+') as caloriesLogFile:
+        open(f"D:\Programming\_databases\{'calories'}.txt", 'w+') as caloriesLogFile, \
+        open(f"D:\Programming\_databases\{'lightlyActiveMinutes'}.txt", 'w+') as lightlyActiveMinutesLogFile, \
+        open(f"D:\Programming\_databases\{'moderatelyActiveMinutes'}.txt", 'w+') as moderatelyActiveMinutesLogFile, \
+        open(f"D:\Programming\_databases\{'veryActiveMinutes'}.txt", 'w+') as veryActiveMinutesLogFile:
     for path, item, files in os.walk(directory):
         for file in files:
             with open(path + "\\" + file) as inJsonFile:
@@ -172,6 +175,19 @@ with open(f"D:\Programming\_databases\{'altitude'}.txt", 'w+') as altitudeLogFil
                     _class = heartRate
                     _logFile = heartRateLogFile
                     _extractFunction = heartRateExtractor
+                elif file[:23] == 'lightly_active_minutes-':
+                    _class = lightlyActiveMinutes
+                    _logFile = lightlyActiveMinutesLogFile
+                    _extractFunction = lightlyActiveMinutesExtractor
+                elif file[:26] == 'moderately_active_minutes-':
+                    _class = moderatelyActiveMinutes
+                    _logFile = moderatelyActiveMinutesLogFile
+                    _extractFunction = moderatelyActiveMinutesExtractor
+                elif file[:20] == 'very_active_minutes-':
+                    _class = veryActiveMinutes
+                    _logFile = veryActiveMinutesLogFile
+                    _extractFunction = veryActiveMinutesExtractor
+
                 _tableCheck = _sqlConnection.execute(_class.tableCheck(_dtMin, _dtMax)).fetchall()
 
                 if len(_tableCheck) == 2:
