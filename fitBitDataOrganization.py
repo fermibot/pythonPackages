@@ -125,14 +125,6 @@ class veryActiveMinutesClass:
         return "INSERT INTO veryActiveMinutes VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
 
 
-heartRate = heartRateClass()
-altitude = altitudeClass()
-distance = distanceClass()
-calories = caloriesClass()
-lightlyActiveMinutes = lightlyActiveMinutesClass()
-moderatelyActiveMinutes = moderatelyActiveMinutesClass()
-veryActiveMinutes = veryActiveMinutesClass()
-
 mD = {'m0': 'TimeElapsed', 'm1': 'Processing file#', 'm2': 'Processing line number',
       'm3': 'record not found in the database, now inserting',
       'm4': 'suspicious record found, ',
