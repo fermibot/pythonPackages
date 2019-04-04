@@ -103,18 +103,35 @@ class lightlyActiveMinutesClass:
         return "INSERT INTO lightlyActiveMinutes VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
 
 
-class moderatelyActiveMinuteClass:
-    pass
+class moderatelyActiveMinutesClass:
+    def tableCheck(self, _dateMin, _dateMax):
+        return "SELECT * FROM moderatelyActiveMinutes WHERE dateTimeID IN (\'" + _dateMin + "\', \'" + _dateMax + "\')"
+
+    def recordCheck(self, data: dict):
+        return "SELECT * FROM moderatelyActiveMinutes WHERE dateTimeID = \'" + data['dateTime'] + "\'"
+
+    def inserter(self, data: dict):
+        return "INSERT INTO moderatelyActiveMinutes VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
 
 
 class veryActiveMinutesClass:
-    pass
+    def tableCheck(self, _dateMin, _dateMax):
+        return "SELECT * FROM veryActiveMinutes WHERE dateTimeID IN (\'" + _dateMin + "\', \'" + _dateMax + "\')"
+
+    def recordCheck(self, data: dict):
+        return "SELECT * FROM veryActiveMinutes WHERE dateTimeID = \'" + data['dateTime'] + "\'"
+
+    def inserter(self, data: dict):
+        return "INSERT INTO veryActiveMinutes VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
 
 
 heartRate = heartRateClass()
 altitude = altitudeClass()
 distance = distanceClass()
 calories = caloriesClass()
+lightlyActiveMinutes = lightlyActiveMinutesClass()
+moderatelyActiveMinutes = moderatelyActiveMinutesClass()
+veryActiveMinutes = veryActiveMinutesClass()
 
 mD = {'m0': 'TimeElapsed', 'm1': 'Processing file#', 'm2': 'Processing line number',
       'm3': 'record not found in the database, now inserting',
