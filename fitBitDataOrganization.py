@@ -160,31 +160,31 @@ with open(f"D:\Programming\_databases\{'altitude'}.txt", 'w+') as altitudeLogFil
                 [_dtMin, _dtMax] = [inJsonData[0]['dateTime'], inJsonData[-1]['dateTime']]
                 _timeDelta = timeDelta(startTime)
                 if file[:9] == 'altitude-':
-                    _class = altitude
+                    _class = altitudeClass()
                     _logFile = altitudeLogFile
                     _extractFunction = altitudeExtractor
                 elif file[:9] == 'calories-':
-                    _class = calories
+                    _class = caloriesClass()
                     _logFile = caloriesLogFile
                     _extractFunction = caloriesExtractor
                 elif file[:9] == 'distance-':
-                    _class = distance
+                    _class = distanceClass()
                     _logFile = distanceLogFile
                     _extractFunction = distanceExtractor
                 elif file[:11] == 'heart_rate-':
-                    _class = heartRate
+                    _class = heartRateClass()
                     _logFile = heartRateLogFile
                     _extractFunction = heartRateExtractor
                 elif file[:23] == 'lightly_active_minutes-':
-                    _class = lightlyActiveMinutes
+                    _class = lightlyActiveMinutesClass()
                     _logFile = lightlyActiveMinutesLogFile
                     _extractFunction = lightlyActiveMinutesExtractor
                 elif file[:26] == 'moderately_active_minutes-':
-                    _class = moderatelyActiveMinutes
+                    _class = moderatelyActiveMinutesClass()
                     _logFile = moderatelyActiveMinutesLogFile
                     _extractFunction = moderatelyActiveMinutesExtractor
                 elif file[:20] == 'very_active_minutes-':
-                    _class = veryActiveMinutes
+                    _class = veryActiveMinutesClass()
                     _logFile = veryActiveMinutesLogFile
                     _extractFunction = veryActiveMinutesExtractor
 
