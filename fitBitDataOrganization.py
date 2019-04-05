@@ -166,14 +166,15 @@ mD = {'m0': 'TimeElapsed', 'm1': 'Processing file#', 'm2': 'Processing line numb
 _fCt = 1
 
 metricType = {'altitude-': 9, 'calories-': 9, 'distance-': 9, 'heart_rate-': 11}
+exportDirectory = "D:\\Programming\\_databases\\"
 
-with open(f"D:\Programming\_databases\{'altitude'}.txt", 'w+') as altitudeLF, \
-        open(f"D:\Programming\_databases\{'heart_rate'}.txt", 'w+') as heartRateLF, \
-        open(f"D:\Programming\_databases\{'distance'}.txt", 'w+') as distanceLF, \
-        open(f"D:\Programming\_databases\{'calories'}.txt", 'w+') as caloriesLF, \
-        open(f"D:\Programming\_databases\{'lightlyActiveMinutes'}.txt", 'w+') as lAMinutesLF, \
-        open(f"D:\Programming\_databases\{'moderatelyActiveMinutes'}.txt", 'w+') as mAMinutesLF, \
-        open(f"D:\Programming\_databases\{'veryActiveMinutes'}.txt", 'w+') as vAMLogFile:
+with open(f"{exportDirectory}{'altitude'}.txt", 'w+') as altitudeLF, \
+        open(f"{exportDirectory}{'heart_rate'}.txt", 'w+') as heartRateLF, \
+        open(f"{exportDirectory}{'distance'}.txt", 'w+') as distanceLF, \
+        open(f"{exportDirectory}{'calories'}.txt", 'w+') as caloriesLF, \
+        open(f"{exportDirectory}{'lightlyActiveMinutes'}.txt", 'w+') as lAMinutesLF, \
+        open(f"{exportDirectory}{'moderatelyActiveMinutes'}.txt", 'w+') as mAMinutesLF, \
+        open(f"{exportDirectory}{'veryActiveMinutes'}.txt", 'w+') as vAMLogFile:
     for path, item, files in os.walk(directory):
         for file in files:
             with open(path + "\\" + file) as inJsonFile:
