@@ -35,15 +35,15 @@ def heartRateExtractor(data: dict):
     return [data['dateTime'], data['value']['bpm'], data['value']['confidence']]
 
 
-def lightlyActiveMinutesExtractor(data: dict):
+def laMinutesExtractor(data: dict):
     return _dateValueExtractor(data)
 
 
-def moderatelyActiveMinutesExtractor(data: dict):
+def mAMinutesExtractor(data: dict):
     return _dateValueExtractor(data)
 
 
-def veryActiveMinutesExtractor(data: dict):
+def vAMinutesExtractor(data: dict):
     return _dateValueExtractor(data)
 
 
@@ -92,7 +92,7 @@ class heartRateClass:
         return "SELECT * FROM biometricsHeartRate WHERE dateTimeID = \'" + data['dateTime'] + "\'"
 
 
-class lightlyActiveMinutesClass:
+class lAMinutesClass:
     def tableCheck(self, _dateMin, _dateMax):
         return "SELECT * FROM lightlyActiveMinutes WHERE dateTimeID IN (\'" + _dateMin + "\', \'" + _dateMax + "\')"
 
@@ -103,7 +103,7 @@ class lightlyActiveMinutesClass:
         return "INSERT INTO lightlyActiveMinutes VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
 
 
-class moderatelyActiveMinutesClass:
+class mAMinutesClass:
     def tableCheck(self, _dateMin, _dateMax):
         return "SELECT * FROM moderatelyActiveMinutes WHERE dateTimeID IN (\'" + _dateMin + "\', \'" + _dateMax + "\')"
 
@@ -114,7 +114,7 @@ class moderatelyActiveMinutesClass:
         return "INSERT INTO moderatelyActiveMinutes VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
 
 
-class veryActiveMinutesClass:
+class vAMinutesClass:
     def tableCheck(self, _dateMin, _dateMax):
         return "SELECT * FROM veryActiveMinutes WHERE dateTimeID IN (\'" + _dateMin + "\', \'" + _dateMax + "\')"
 
@@ -123,6 +123,35 @@ class veryActiveMinutesClass:
 
     def inserter(self, data: dict):
         return "INSERT INTO veryActiveMinutes VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
+
+
+def databaseRecorder(fileName, _inJsonData, _class, _extractFunction, _logFile):
+    [_dtMin, _dtMax] = [_inJsonData[0]['dateTime'], _inJsonData[-1]['dateTime']]
+    _tableCheck = _sqlConnection.execute(_class.tableCheck(_dtMin, _dtMax)).fetchall()
+    _timeDelta = timeDelta(startTime)
+    if len(_tableCheck) == 2:
+        sys.stdout.write(f"\r{_timeDelta}::FileCount {_fCt}::{mD['m8']}::{fileName}")
+        time.sleep(.2)
+    if len(_tableCheck) < 2:
+        _rCt = 0
+        for record in _inJsonData:
+            line = _extractFunction(record)
+            _sqlResults = _sqlConnection.execute(_class.recordCheck(record)).fetchall()
+            _messagePrefix = f"{mD['m0']} {_timeDelta}::FileCount {_fCt}::{mD['m2']} {_rCt}"
+            if len(_sqlResults) == 0:
+                sys.stdout.write(f"\r{_messagePrefix}::{mD['m3']}::{fileName}")
+                _sqlConnection.cursor().execute(_class.inserter(record))
+                _sqlConnection.commit()
+            elif len(_sqlResults) == 1:
+                sys.stdout.write(f"\r{_messagePrefix}::{mD['m5']}::file {fileName}")
+            elif len(_sqlResults) > 1:
+                sys.stdout.write(f"\r{_messagePrefix}::{mD['m4']}")
+                _logFile.write(f"{mD['m4']}:: {line[0]}.")
+            _rCt += 1
+        inJsonFile.close()
+    if len(_tableCheck) > 2:
+        sys.stdout.write(f"\rSeems like there is an issue with this file. {mD['m6']}")
+        _logFile.write(f"{mD['m7']}::{fileName}")
 
 
 mD = {'m0': 'TimeElapsed', 'm1': 'Processing file#', 'm2': 'Processing line number',
@@ -142,67 +171,28 @@ with open(f"D:\Programming\_databases\{'altitude'}.txt", 'w+') as altitudeLogFil
         open(f"D:\Programming\_databases\{'heart_rate'}.txt", 'w+') as heartRateLogFile, \
         open(f"D:\Programming\_databases\{'distance'}.txt", 'w+') as distanceLogFile, \
         open(f"D:\Programming\_databases\{'calories'}.txt", 'w+') as caloriesLogFile, \
-        open(f"D:\Programming\_databases\{'lightlyActiveMinutes'}.txt", 'w+') as lightlyActiveMinutesLogFile, \
-        open(f"D:\Programming\_databases\{'moderatelyActiveMinutes'}.txt", 'w+') as moderatelyActiveMinutesLogFile, \
-        open(f"D:\Programming\_databases\{'veryActiveMinutes'}.txt", 'w+') as veryActiveMinutesLogFile:
+        open(f"D:\Programming\_databases\{'lightlyActiveMinutes'}.txt", 'w+') as lAMinutesLogFile, \
+        open(f"D:\Programming\_databases\{'moderatelyActiveMinutes'}.txt", 'w+') as mAMinutesLogFile, \
+        open(f"D:\Programming\_databases\{'veryActiveMinutes'}.txt", 'w+') as vALogFile:
     for path, item, files in os.walk(directory):
         for file in files:
             with open(path + "\\" + file) as inJsonFile:
+                sys.stdout.write(f"\r{file}")
                 inJsonData = json.load(inJsonFile)
-                [_dtMin, _dtMax] = [inJsonData[0]['dateTime'], inJsonData[-1]['dateTime']]
-                _timeDelta = timeDelta(startTime)
                 if file[:9] == 'altitude-':
-                    _class = altitudeClass()
-                    _logFile = altitudeLogFile
-                    _extractFunction = altitudeExtractor
+                    databaseRecorder(file, inJsonData, altitudeClass(), altitudeExtractor, altitudeLogFile)
                 elif file[:9] == 'calories-':
-                    _class = caloriesClass()
-                    _logFile = caloriesLogFile
-                    _extractFunction = caloriesExtractor
+                    databaseRecorder(file, inJsonData, caloriesClass(), caloriesExtractor, caloriesLogFile)
                 elif file[:9] == 'distance-':
-                    _class = distanceClass()
-                    _logFile = distanceLogFile
-                    _extractFunction = distanceExtractor
+                    databaseRecorder(file, inJsonData, distanceClass(), distanceExtractor, distanceLogFile)
                 elif file[:11] == 'heart_rate-':
-                    _class = heartRateClass()
-                    _logFile = heartRateLogFile
-                    _extractFunction = heartRateExtractor
+                    databaseRecorder(file, inJsonData, heartRateClass(), heartRateExtractor, heartRateLogFile)
                 elif file[:23] == 'lightly_active_minutes-':
-                    _class = lightlyActiveMinutesClass()
-                    _logFile = lightlyActiveMinutesLogFile
-                    _extractFunction = lightlyActiveMinutesExtractor
+                    databaseRecorder(file, inJsonData, lAMinutesClass(), laMinutesExtractor, lAMinutesLogFile)
                 elif file[:26] == 'moderately_active_minutes-':
-                    _class = moderatelyActiveMinutesClass()
-                    _logFile = moderatelyActiveMinutesLogFile
-                    _extractFunction = moderatelyActiveMinutesExtractor
+                    databaseRecorder(file, inJsonData, mAMinutesClass(), mAMinutesExtractor, mAMinutesLogFile)
                 elif file[:20] == 'very_active_minutes-':
-                    _class = veryActiveMinutesClass()
-                    _logFile = veryActiveMinutesLogFile
-                    _extractFunction = veryActiveMinutesExtractor
-
-                _tableCheck = _sqlConnection.execute(_class.tableCheck(_dtMin, _dtMax)).fetchall()
-
-                if len(_tableCheck) == 2:
-                    sys.stdout.write(f"\r{_timeDelta}::FileCount {_fCt}::{mD['m8']}::{file}")
-                    time.sleep(0.01)
-                if len(_tableCheck) < 2:
-                    _rCt = 0
-                    for record in inJsonData:
-                        line = _extractFunction(record)
-                        _sqlResults = _sqlConnection.execute(_class.recordCheck(record)).fetchall()
-                        _messagePrefix = f"{mD['m0']} {_timeDelta}::FileCount {_fCt}::{mD['m2']} {_rCt}"
-                        if len(_sqlResults) == 0:
-                            sys.stdout.write(f"\r{_messagePrefix}::{mD['m3']}::{file}")
-                            _sqlConnection.cursor().execute(_class.inserter(record))
-                            _sqlConnection.commit()
-                        elif len(_sqlResults) == 1:
-                            sys.stdout.write(f"\r{_messagePrefix}::{mD['m5']}::file {file}")
-                        elif len(_sqlResults) > 1:
-                            sys.stdout.write(f"\r{_messagePrefix}::{mD['m4']}")
-                            _logFile.write(f"{mD['m4']}:: {line[0]}.")
-                        _rCt += 1
-                    inJsonFile.close()
-                if len(_tableCheck) > 2:
-                    sys.stdout.write(f"\rSeems like there is an issue with this file. {mD['m6']}")
-                    _logFile.write(f"{mD['m7']}::{file}")
+                    databaseRecorder(file, inJsonData, vAMinutesClass(), vAMinutesExtractor, vALogFile)
+                else:
+                    pass
                 _fCt += 1
