@@ -130,14 +130,14 @@ def databaseRecorder(fileName, _inJsonData, _class, _extractFunction, _logFile):
     _tableCheck = _sqlConnection.execute(_class.tableCheck(_dtMin, _dtMax)).fetchall()
     _timeDelta = timeDelta(startTime)
     if len(_tableCheck) == 2:
-        sys.stdout.write(f"\r{_timeDelta}::FileCount {_fCt}::{mD['m8']}::{fileName}")
+        sys.stdout.write(f"\r{_timeDelta}::FileCount {_fileTrack}::{mD['m8']}::{fileName}")
         time.sleep(.2)
     if len(_tableCheck) < 2:
-        _rCt = 0
+        _rowTrack = 0
         for record in _inJsonData:
             line = _extractFunction(record)
             _sqlResults = _sqlConnection.execute(_class.recordCheck(record)).fetchall()
-            _messagePrefix = f"{mD['m0']} {_timeDelta}::FileCount {_fCt}::{mD['m2']} {_rCt}"
+            _messagePrefix = f"{mD['m0']} {_timeDelta}::FileCount {_fileTrack}::{mD['m2']} {_rowTrack}"
             if len(_sqlResults) == 0:
                 sys.stdout.write(f"\r{_messagePrefix}::{mD['m3']}::{fileName}")
                 _sqlConnection.cursor().execute(_class.inserter(record))
@@ -147,7 +147,7 @@ def databaseRecorder(fileName, _inJsonData, _class, _extractFunction, _logFile):
             elif len(_sqlResults) > 1:
                 sys.stdout.write(f"\r{_messagePrefix}::{mD['m4']}")
                 _logFile.write(f"{mD['m4']}:: {line[0]}.")
-            _rCt += 1
+            _rowTrack += 1
         inJsonFile.close()
     if len(_tableCheck) > 2:
         sys.stdout.write(f"\rSeems like there is an issue with this file. {mD['m6']}")
@@ -163,7 +163,7 @@ mD = {'m0': 'TimeElapsed', 'm1': 'Processing file#', 'm2': 'Processing line numb
       'm8': 'This file has already been processed, moving on'
       }
 
-_fCt = 1
+_fileTrack = 1
 
 metricType = {'altitude-': 9, 'calories-': 9, 'distance-': 9, 'heart_rate-': 11}
 exportDirectory = "D:\\Programming\\_databases\\"
@@ -196,4 +196,4 @@ with open(f"{exportDirectory}{'altitude'}.txt", 'w+') as altitudeLF, \
                     databaseRecorder(file, inJsonData, vAMinutesClass(), vAMinutesExtractor, vAMLogFile)
                 else:
                     pass
-                _fCt += 1
+                _fileTrack += 1
