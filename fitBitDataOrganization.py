@@ -11,7 +11,7 @@ _sqlConnection = OpenSQLConnection('D:\\Programming\\_databases\\fitbitData.db')
 _sqlCursor = _sqlConnection.cursor()
 
 
-def _dateValueExtractor(data: dict):
+def _dateValueExtractor(data: dict) -> list:
     return [data['dateTime'], data['value']]
 
 
@@ -48,80 +48,101 @@ def heartRateExtractor(data: dict):
 
 
 class altitudeClass:
-    def tableCheck(self, _dateMin, _dateMax):
+    @staticmethod
+    def tableCheck(_dateMin, _dateMax):
         return "SELECT * FROM biometricsAltitude WHERE dateTimeID IN (\'" + _dateMin + "\', \'" + _dateMax + "\')"
 
-    def recordCheck(self, data: dict):
+    @staticmethod
+    def recordCheck(data: dict):
         return "SELECT * FROM biometricsAltitude WHERE dateTimeID = \'" + data['dateTime'] + "\'"
 
-    def inserter(self, data: dict):
+    @staticmethod
+    def inserter(data: dict):
         return "INSERT INTO biometricsAltitude VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
 
 
 class caloriesClass:
-    def tableCheck(self, _dateMin, _dateMax):
+    @staticmethod
+    def tableCheck(_dateMin, _dateMax):
         return "SELECT * FROM biometricsCalories WHERE dateTimeID IN (\'" + _dateMin + "\', \'" + _dateMax + "\')"
 
-    def recordCheck(self, data: dict):
+    @staticmethod
+    def recordCheck(data: dict):
         return "SELECT * FROM biometricsCalories WHERE dateTimeID = \'" + data['dateTime'] + "\'"
 
-    def inserter(self, data: dict):
+    @staticmethod
+    def inserter(data: dict):
         return "INSERT INTO biometricsCalories VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
 
 
 class distanceClass:
-    def tableCheck(self, _dateMin, _dateMax):
+    @staticmethod
+    def tableCheck(_dateMin, _dateMax):
         return "SELECT * FROM biometricsDistance WHERE dateTimeID IN (\'" + _dateMin + "\', \'" + _dateMax + "\')"
 
-    def recordCheck(self, data: dict):
+    @staticmethod
+    def recordCheck(data: dict):
         return "SELECT * FROM biometricsDistance WHERE dateTimeID = \'" + data['dateTime'] + "\'"
 
-    def inserter(self, data: dict):
+    @staticmethod
+    def inserter(data: dict):
         return "INSERT INTO biometricsDistance VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
 
 
 class heartRateClass:
-    def inserter(self, data: dict):
+    @staticmethod
+    def inserter(data: dict):
         _rec = heartRateExtractor(data)
         return "INSERT INTO biometricsHeartRate VALUES ('" + _rec[0] + "', " + str(_rec[1]) + ", " + str(_rec[2]) + ")"
 
-    def tableCheck(self, _dateMin, _dateMax):
+    @staticmethod
+    def tableCheck(_dateMin, _dateMax):
         return "SELECT * FROM biometricsHeartRate WHERE dateTimeID IN (\'" + _dateMin + "\', \'" + _dateMax + "\')"
 
-    def recordCheck(self, data: dict):
+    @staticmethod
+    def recordCheck(data: dict):
         return "SELECT * FROM biometricsHeartRate WHERE dateTimeID = \'" + data['dateTime'] + "\'"
 
 
 class lAMinutesClass:
-    def tableCheck(self, _dateMin, _dateMax):
+    @staticmethod
+    def tableCheck(_dateMin, _dateMax):
         return "SELECT * FROM lightlyActiveMinutes WHERE dateTimeID IN (\'" + _dateMin + "\', \'" + _dateMax + "\')"
 
-    def recordCheck(self, data: dict):
+    @staticmethod
+    def recordCheck(data: dict):
         return "SELECT * FROM lightlyActiveMinutes WHERE dateTimeID = \'" + data['dateTime'] + "\'"
 
-    def inserter(self, data: dict):
+    @staticmethod
+    def inserter(data: dict):
         return "INSERT INTO lightlyActiveMinutes VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
 
 
 class mAMinutesClass:
-    def tableCheck(self, _dateMin, _dateMax):
+    @staticmethod
+    def tableCheck(_dateMin, _dateMax):
         return "SELECT * FROM moderatelyActiveMinutes WHERE dateTimeID IN (\'" + _dateMin + "\', \'" + _dateMax + "\')"
 
-    def recordCheck(self, data: dict):
+    @staticmethod
+    def recordCheck(data: dict):
         return "SELECT * FROM moderatelyActiveMinutes WHERE dateTimeID = \'" + data['dateTime'] + "\'"
 
-    def inserter(self, data: dict):
+    @staticmethod
+    def inserter(data: dict):
         return "INSERT INTO moderatelyActiveMinutes VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
 
 
 class vAMinutesClass:
-    def tableCheck(self, _dateMin, _dateMax):
+    @staticmethod
+    def tableCheck(_dateMin, _dateMax):
         return "SELECT * FROM veryActiveMinutes WHERE dateTimeID IN (\'" + _dateMin + "\', \'" + _dateMax + "\')"
 
-    def recordCheck(self, data: dict):
+    @staticmethod
+    def recordCheck(data: dict):
         return "SELECT * FROM veryActiveMinutes WHERE dateTimeID = \'" + data['dateTime'] + "\'"
 
-    def inserter(self, data: dict):
+    @staticmethod
+    def inserter(data: dict):
         return "INSERT INTO veryActiveMinutes VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
 
 
@@ -131,7 +152,7 @@ def databaseRecorder(fileName, _inJsonData, _class, _extractFunction, _logFile):
     _timeDelta = timeDelta(startTime)
     if len(_tableCheck) == 2:
         sys.stdout.write(f"\r{_timeDelta}::FileCount {_fileTrack}::{mD['m8']}::{fileName}")
-        time.sleep(.2)
+        time.sleep(0)
     if len(_tableCheck) < 2:
         _rowTrack = 0
         for record in _inJsonData:
