@@ -167,32 +167,32 @@ _fCt = 1
 
 metricType = {'altitude-': 9, 'calories-': 9, 'distance-': 9, 'heart_rate-': 11}
 
-with open(f"D:\Programming\_databases\{'altitude'}.txt", 'w+') as altitudeLogFile, \
-        open(f"D:\Programming\_databases\{'heart_rate'}.txt", 'w+') as heartRateLogFile, \
-        open(f"D:\Programming\_databases\{'distance'}.txt", 'w+') as distanceLogFile, \
-        open(f"D:\Programming\_databases\{'calories'}.txt", 'w+') as caloriesLogFile, \
-        open(f"D:\Programming\_databases\{'lightlyActiveMinutes'}.txt", 'w+') as lAMinutesLogFile, \
-        open(f"D:\Programming\_databases\{'moderatelyActiveMinutes'}.txt", 'w+') as mAMinutesLogFile, \
-        open(f"D:\Programming\_databases\{'veryActiveMinutes'}.txt", 'w+') as vALogFile:
+with open(f"D:\Programming\_databases\{'altitude'}.txt", 'w+') as altitudeLF, \
+        open(f"D:\Programming\_databases\{'heart_rate'}.txt", 'w+') as heartRateLF, \
+        open(f"D:\Programming\_databases\{'distance'}.txt", 'w+') as distanceLF, \
+        open(f"D:\Programming\_databases\{'calories'}.txt", 'w+') as caloriesLF, \
+        open(f"D:\Programming\_databases\{'lightlyActiveMinutes'}.txt", 'w+') as lAMinutesLF, \
+        open(f"D:\Programming\_databases\{'moderatelyActiveMinutes'}.txt", 'w+') as mAMinutesLF, \
+        open(f"D:\Programming\_databases\{'veryActiveMinutes'}.txt", 'w+') as vAMLogFile:
     for path, item, files in os.walk(directory):
         for file in files:
             with open(path + "\\" + file) as inJsonFile:
                 sys.stdout.write(f"\r{file}")
                 inJsonData = json.load(inJsonFile)
                 if file[:9] == 'altitude-':
-                    databaseRecorder(file, inJsonData, altitudeClass(), altitudeExtractor, altitudeLogFile)
+                    databaseRecorder(file, inJsonData, altitudeClass(), altitudeExtractor, altitudeLF)
                 elif file[:9] == 'calories-':
-                    databaseRecorder(file, inJsonData, caloriesClass(), caloriesExtractor, caloriesLogFile)
+                    databaseRecorder(file, inJsonData, caloriesClass(), caloriesExtractor, caloriesLF)
                 elif file[:9] == 'distance-':
-                    databaseRecorder(file, inJsonData, distanceClass(), distanceExtractor, distanceLogFile)
+                    databaseRecorder(file, inJsonData, distanceClass(), distanceExtractor, distanceLF)
                 elif file[:11] == 'heart_rate-':
-                    databaseRecorder(file, inJsonData, heartRateClass(), heartRateExtractor, heartRateLogFile)
+                    databaseRecorder(file, inJsonData, heartRateClass(), heartRateExtractor, heartRateLF)
                 elif file[:23] == 'lightly_active_minutes-':
-                    databaseRecorder(file, inJsonData, lAMinutesClass(), laMinutesExtractor, lAMinutesLogFile)
+                    databaseRecorder(file, inJsonData, lAMinutesClass(), laMinutesExtractor, lAMinutesLF)
                 elif file[:26] == 'moderately_active_minutes-':
-                    databaseRecorder(file, inJsonData, mAMinutesClass(), mAMinutesExtractor, mAMinutesLogFile)
+                    databaseRecorder(file, inJsonData, mAMinutesClass(), mAMinutesExtractor, mAMinutesLF)
                 elif file[:20] == 'very_active_minutes-':
-                    databaseRecorder(file, inJsonData, vAMinutesClass(), vAMinutesExtractor, vALogFile)
+                    databaseRecorder(file, inJsonData, vAMinutesClass(), vAMinutesExtractor, vAMLogFile)
                 else:
                     pass
                 _fCt += 1
