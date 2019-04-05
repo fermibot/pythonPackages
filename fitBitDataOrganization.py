@@ -20,19 +20,15 @@ def timeDelta(_startTime):
 
 
 def altitudeExtractor(data: dict):
-    return [data['dateTime'], data['value']]
+    return _dateValueExtractor(data)
 
 
 def distanceExtractor(data: dict):
-    return [data['dateTime'], data['value']]
+    return _dateValueExtractor(data)
 
 
 def caloriesExtractor(data: dict):
-    return [data['dateTime'], data['value']]
-
-
-def heartRateExtractor(data: dict):
-    return [data['dateTime'], data['value']['bpm'], data['value']['confidence']]
+    return _dateValueExtractor(data)
 
 
 def laMinutesExtractor(data: dict):
@@ -45,6 +41,10 @@ def mAMinutesExtractor(data: dict):
 
 def vAMinutesExtractor(data: dict):
     return _dateValueExtractor(data)
+
+
+def heartRateExtractor(data: dict):
+    return [data['dateTime'], data['value']['bpm'], data['value']['confidence']]
 
 
 class altitudeClass:
