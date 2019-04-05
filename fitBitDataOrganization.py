@@ -136,6 +136,7 @@ def databaseRecorder(fileName, _inJsonData, _class, _extractFunction, _logFile):
         _rowTrack = 0
         for record in _inJsonData:
             line = _extractFunction(record)
+            _timeDelta = timeDelta(startTime)
             _sqlResults = _sqlConnection.execute(_class.recordCheck(record)).fetchall()
             _messagePrefix = f"{mD['m0']} {_timeDelta}::FileCount {_fileTrack}::{mD['m2']} {_rowTrack}"
             if len(_sqlResults) == 0:
