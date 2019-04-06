@@ -223,3 +223,4 @@ with open(f"{exportDirectory}{'altitude'}.txt", 'w+') as altitudeLF, \
                     else:
                         pass
                     _fileTrack += 1
+print("Database import complete")
