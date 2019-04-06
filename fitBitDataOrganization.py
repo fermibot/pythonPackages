@@ -203,13 +203,17 @@ with open(f"{exportDirectory}{'altitude'}.txt", 'w+') as altitudeLF, \
                 if len(file) > 9 and file[-4:] == 'json':
                     inJsonData = json.load(inJsonFile)
                     if file[:9] == 'altitude-':
-                        databaseRecorder(file, inJsonData, altitudeClass(), altitudeExtractor, altitudeLF)
+                        pass
+                        # databaseRecorder(file, inJsonData, altitudeClass(), altitudeExtractor, altitudeLF)
                     elif file[:9] == 'calories-':
-                        databaseRecorder(file, inJsonData, caloriesClass(), caloriesExtractor, caloriesLF)
+                        pass
+                        # databaseRecorder(file, inJsonData, caloriesClass(), caloriesExtractor, caloriesLF)
                     elif file[:9] == 'distance-':
-                        databaseRecorder(file, inJsonData, distanceClass(), distanceExtractor, distanceLF)
+                        pass
+                        # databaseRecorder(file, inJsonData, distanceClass(), distanceExtractor, distanceLF)
                     elif file[:11] == 'heart_rate-':
-                        databaseRecorder(file, inJsonData, heartRateClass(), heartRateExtractor, heartRateLF)
+                        pass
+                        # databaseRecorder(file, inJsonData, heartRateClass(), heartRateExtractor, heartRateLF)
                     elif file[:23] == 'lightly_active_minutes-':
                         databaseRecorder(file, inJsonData, lAMinutesClass(), laMinutesExtractor, lAMinutesLF)
                     elif file[:26] == 'moderately_active_minutes-':
