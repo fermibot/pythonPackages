@@ -157,15 +157,15 @@ class mAMinutesClass:
 class sMinutesClass:
     @staticmethod
     def tableCheck(_dateMin, _dateMax):
-        return "SELECT * FROM  WHERE dateTimeID IN (\'" + _dateMin + "\', \'" + _dateMax + "\')"
+        return "SELECT * FROM sedentaryMinutes WHERE dateTimeID IN (\'" + _dateMin + "\', \'" + _dateMax + "\')"
 
     @staticmethod
     def recordCheck(data: dict):
-        return "SELECT * FROM  WHERE dateTimeID = \'" + data['dateTime'] + "\'"
+        return "SELECT * FROM sedentaryMinutes WHERE dateTimeID = \'" + data['dateTime'] + "\'"
 
     @staticmethod
     def inserter(data: dict):
-        return "INSERT INTO  VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
+        return "INSERT INTO sedentaryMinutes VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
 
 
 class vAMinutesClass:
@@ -241,31 +241,23 @@ with open(f"{exportDirectory}{'altitude'}.txt", 'w+') as altitudeLF, \
                 if len(file) > 9 and file[-4:] == 'json':
                     inJsonData = json.load(inJsonFile)
                     if file[:9] == 'altitude-':
-                        pass
-                        # databaseRecorder(file, inJsonData, altitudeClass(), altitudeExtractor, altitudeLF)
+                        databaseRecorder(file, inJsonData, altitudeClass(), altitudeExtractor, altitudeLF)
                     elif file[:9] == 'calories-':
-                        pass
-                        # databaseRecorder(file, inJsonData, caloriesClass(), caloriesExtractor, caloriesLF)
+                        databaseRecorder(file, inJsonData, caloriesClass(), caloriesExtractor, caloriesLF)
                     elif file[:9] == 'distance-':
-                        pass
-                        # databaseRecorder(file, inJsonData, distanceClass(), distanceExtractor, distanceLF)
+                        databaseRecorder(file, inJsonData, distanceClass(), distanceExtractor, distanceLF)
                     elif file[:11] == 'heart_rate-':
-                        pass
-                        # databaseRecorder(file, inJsonData, heartRateClass(), heartRateExtractor, heartRateLF)
+                        databaseRecorder(file, inJsonData, heartRateClass(), heartRateExtractor, heartRateLF)
                     elif file[:6] == 'steps-':
                         databaseRecorder(file, inJsonData, stepsClass(), stepsExtractor, stepsLF)
                     elif file[:23] == 'lightly_active_minutes-':
-                        pass
-                        # databaseRecorder(file, inJsonData, lAMinutesClass(), laMinutesExtractor, lAMinutesLF)
+                        databaseRecorder(file, inJsonData, lAMinutesClass(), laMinutesExtractor, lAMinutesLF)
                     elif file[:26] == 'moderately_active_minutes-':
-                        pass
-                        # databaseRecorder(file, inJsonData, mAMinutesClass(), mAMinutesExtractor, mAMinutesLF)
-                    elif file[:] == 'sedentary_minutes-':
-                        pass
-                        # databaseRecorder(file, inJsonData, sMinutesClass(), sMinutesExtractor, sMinutesLF)
+                        databaseRecorder(file, inJsonData, mAMinutesClass(), mAMinutesExtractor, mAMinutesLF)
+                    elif file[:18] == 'sedentary_minutes-':
+                        databaseRecorder(file, inJsonData, sMinutesClass(), sMinutesExtractor, sMinutesLF)
                     elif file[:20] == 'very_active_minutes-':
-                        pass
-                        # databaseRecorder(file, inJsonData, vAMinutesClass(), vAMinutesExtractor, vAMLogFile)
+                        databaseRecorder(file, inJsonData, vAMinutesClass(), vAMinutesExtractor, vAMLogFile)
                     else:
                         pass
                     _fileTrack += 1
