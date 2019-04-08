@@ -43,6 +43,10 @@ def mAMinutesExtractor(data: dict):
     return _dateValueExtractor(data)
 
 
+def sMinutesExtractor(data: dict):
+    return _dateValueExtractor(data)
+
+
 def vAMinutesExtractor(data: dict):
     return _dateValueExtractor(data)
 
@@ -150,6 +154,20 @@ class mAMinutesClass:
         return "INSERT INTO moderatelyActiveMinutes VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
 
 
+class sMinutesClass:
+    @staticmethod
+    def tableCheck(_dateMin, _dateMax):
+        return "SELECT * FROM  WHERE dateTimeID IN (\'" + _dateMin + "\', \'" + _dateMax + "\')"
+
+    @staticmethod
+    def recordCheck(data: dict):
+        return "SELECT * FROM  WHERE dateTimeID = \'" + data['dateTime'] + "\'"
+
+    @staticmethod
+    def inserter(data: dict):
+        return "INSERT INTO  VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
+
+
 class vAMinutesClass:
     @staticmethod
     def tableCheck(_dateMin, _dateMax):
@@ -215,6 +233,7 @@ with open(f"{exportDirectory}{'altitude'}.txt", 'w+') as altitudeLF, \
         open(f"{exportDirectory}{'sleep'}.txt", 'w+') as stepsLF, \
         open(f"{exportDirectory}{'lightlyActiveMinutes'}.txt", 'w+') as lAMinutesLF, \
         open(f"{exportDirectory}{'moderatelyActiveMinutes'}.txt", 'w+') as mAMinutesLF, \
+        open(f"{exportDirectory}{'moderatelyActiveMinutes'}.txt", 'w+') as sMinutesLF, \
         open(f"{exportDirectory}{'veryActiveMinutes'}.txt", 'w+') as vAMLogFile:
     for path, item, files in os.walk(directory):
         for file in files:
@@ -222,21 +241,31 @@ with open(f"{exportDirectory}{'altitude'}.txt", 'w+') as altitudeLF, \
                 if len(file) > 9 and file[-4:] == 'json':
                     inJsonData = json.load(inJsonFile)
                     if file[:9] == 'altitude-':
-                        databaseRecorder(file, inJsonData, altitudeClass(), altitudeExtractor, altitudeLF)
+                        pass
+                        # databaseRecorder(file, inJsonData, altitudeClass(), altitudeExtractor, altitudeLF)
                     elif file[:9] == 'calories-':
-                        databaseRecorder(file, inJsonData, caloriesClass(), caloriesExtractor, caloriesLF)
+                        pass
+                        # databaseRecorder(file, inJsonData, caloriesClass(), caloriesExtractor, caloriesLF)
                     elif file[:9] == 'distance-':
-                        databaseRecorder(file, inJsonData, distanceClass(), distanceExtractor, distanceLF)
+                        pass
+                        # databaseRecorder(file, inJsonData, distanceClass(), distanceExtractor, distanceLF)
                     elif file[:11] == 'heart_rate-':
-                        databaseRecorder(file, inJsonData, heartRateClass(), heartRateExtractor, heartRateLF)
+                        pass
+                        # databaseRecorder(file, inJsonData, heartRateClass(), heartRateExtractor, heartRateLF)
                     elif file[:6] == 'steps-':
                         databaseRecorder(file, inJsonData, stepsClass(), stepsExtractor, stepsLF)
                     elif file[:23] == 'lightly_active_minutes-':
-                        databaseRecorder(file, inJsonData, lAMinutesClass(), laMinutesExtractor, lAMinutesLF)
+                        pass
+                        # databaseRecorder(file, inJsonData, lAMinutesClass(), laMinutesExtractor, lAMinutesLF)
                     elif file[:26] == 'moderately_active_minutes-':
-                        databaseRecorder(file, inJsonData, mAMinutesClass(), mAMinutesExtractor, mAMinutesLF)
+                        pass
+                        # databaseRecorder(file, inJsonData, mAMinutesClass(), mAMinutesExtractor, mAMinutesLF)
+                    elif file[:] == 'sedentary_minutes-':
+                        pass
+                        # databaseRecorder(file, inJsonData, sMinutesClass(), sMinutesExtractor, sMinutesLF)
                     elif file[:20] == 'very_active_minutes-':
-                        databaseRecorder(file, inJsonData, vAMinutesClass(), vAMinutesExtractor, vAMLogFile)
+                        pass
+                        # databaseRecorder(file, inJsonData, vAMinutesClass(), vAMinutesExtractor, vAMLogFile)
                     else:
                         pass
                     _fileTrack += 1
