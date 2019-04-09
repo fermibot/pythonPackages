@@ -19,42 +19,6 @@ def timeDelta(_startTime):
     return time.strftime("%H:%M:%S", time.gmtime(time.time() - _startTime))
 
 
-def altitudeExtractor(data: dict):
-    return _dateValueExtractor(data)
-
-
-def distanceExtractor(data: dict):
-    return _dateValueExtractor(data)
-
-
-def caloriesExtractor(data: dict):
-    return _dateValueExtractor(data)
-
-
-def stepsExtractor(data: dict):
-    return _dateValueExtractor(data)
-
-
-def laMinutesExtractor(data: dict):
-    return _dateValueExtractor(data)
-
-
-def mAMinutesExtractor(data: dict):
-    return _dateValueExtractor(data)
-
-
-def sMinutesExtractor(data: dict):
-    return _dateValueExtractor(data)
-
-
-def vAMinutesExtractor(data: dict):
-    return _dateValueExtractor(data)
-
-
-def heartRateExtractor(data: dict):
-    return [data['dateTime'], data['value']['bpm'], data['value']['confidence']]
-
-
 class altitudeClass:
     @staticmethod
     def tableCheck(_dateMin, _dateMax):
@@ -67,6 +31,10 @@ class altitudeClass:
     @staticmethod
     def inserter(data: dict):
         return "INSERT INTO biometricsAltitude VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
+
+    @staticmethod
+    def extractor(data: dict):
+        return _dateValueExtractor(data)
 
 
 class caloriesClass:
@@ -82,6 +50,10 @@ class caloriesClass:
     def inserter(data: dict):
         return "INSERT INTO biometricsCalories VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
 
+    @staticmethod
+    def extractor(data: dict):
+        return _dateValueExtractor(data)
+
 
 class distanceClass:
     @staticmethod
@@ -96,12 +68,17 @@ class distanceClass:
     def inserter(data: dict):
         return "INSERT INTO biometricsDistance VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
 
+    @staticmethod
+    def extractor(data: dict):
+        return _dateValueExtractor(data)
+
 
 class heartRateClass:
+
     @staticmethod
     def inserter(data: dict):
-        _rec = heartRateExtractor(data)
-        return "INSERT INTO biometricsHeartRate VALUES ('" + _rec[0] + "', " + str(_rec[1]) + ", " + str(_rec[2]) + ")"
+        return "INSERT INTO biometricsHeartRate VALUES ('" + data['dateTime'] + "', " + str(
+            data['value']['bpm']) + ", " + str(data['value']['confidence']) + ")"
 
     @staticmethod
     def tableCheck(_dateMin, _dateMax):
@@ -110,6 +87,10 @@ class heartRateClass:
     @staticmethod
     def recordCheck(data: dict):
         return "SELECT * FROM biometricsHeartRate WHERE dateTimeID = \'" + data['dateTime'] + "\'"
+
+    @staticmethod
+    def heartRateExtractor(data: dict):
+        return [data['dateTime'], data['value']['bpm'], data['value']['confidence']]
 
 
 class stepsClass:
@@ -125,6 +106,10 @@ class stepsClass:
     def inserter(data: dict):
         return "INSERT INTO steps VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
 
+    @staticmethod
+    def extractor(data: dict):
+        return _dateValueExtractor(data)
+
 
 class lAMinutesClass:
     @staticmethod
@@ -138,6 +123,10 @@ class lAMinutesClass:
     @staticmethod
     def inserter(data: dict):
         return "INSERT INTO lightlyActiveMinutes VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
+
+    @staticmethod
+    def extractor(data: dict):
+        return _dateValueExtractor(data)
 
 
 class mAMinutesClass:
@@ -153,6 +142,10 @@ class mAMinutesClass:
     def inserter(data: dict):
         return "INSERT INTO moderatelyActiveMinutes VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
 
+    @staticmethod
+    def extractor(data: dict):
+        return _dateValueExtractor(data)
+
 
 class sMinutesClass:
     @staticmethod
@@ -166,6 +159,10 @@ class sMinutesClass:
     @staticmethod
     def inserter(data: dict):
         return "INSERT INTO sedentaryMinutes VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
+
+    @staticmethod
+    def extractor(data: dict):
+        return _dateValueExtractor(data)
 
 
 class vAMinutesClass:
@@ -181,8 +178,12 @@ class vAMinutesClass:
     def inserter(data: dict):
         return "INSERT INTO veryActiveMinutes VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
 
+    @staticmethod
+    def extractor(data: dict):
+        return _dateValueExtractor(data)
 
-def databaseRecorder(fileName, _inJsonData, _class, _extractFunction, _logFile):
+
+def databaseRecorder(fileName, _inJsonData, _class, _logFile):
     [_dtMin, _dtMax] = [_inJsonData[0]['dateTime'], _inJsonData[-1]['dateTime']]
     _tableCheck = _sqlConnection.execute(_class.tableCheck(_dtMin, _dtMax)).fetchall()
     _timeDelta = timeDelta(startTime)
@@ -192,7 +193,7 @@ def databaseRecorder(fileName, _inJsonData, _class, _extractFunction, _logFile):
     if len(_tableCheck) < 2:
         _rowTrack = 0
         for record in _inJsonData:
-            line = _extractFunction(record)
+            line = _class.extractor(record)
             _timeDelta = timeDelta(startTime)
             _sqlResults = _sqlConnection.execute(_class.recordCheck(record)).fetchall()
             _messagePrefix = f"{mD['m0']} {_timeDelta}::FileCount {_fileTrack}::{mD['m2']} {_rowTrack}"
@@ -241,23 +242,23 @@ with open(f"{exportDirectory}{'altitude'}.txt", 'w+') as altitudeLF, \
                 if len(file) > 9 and file[-4:] == 'json':
                     inJsonData = json.load(inJsonFile)
                     if file[:9] == 'altitude-':
-                        databaseRecorder(file, inJsonData, altitudeClass(), altitudeExtractor, altitudeLF)
+                        databaseRecorder(file, inJsonData, altitudeClass(), altitudeLF)
                     elif file[:9] == 'calories-':
-                        databaseRecorder(file, inJsonData, caloriesClass(), caloriesExtractor, caloriesLF)
+                        databaseRecorder(file, inJsonData, caloriesClass(), caloriesLF)
                     elif file[:9] == 'distance-':
-                        databaseRecorder(file, inJsonData, distanceClass(), distanceExtractor, distanceLF)
+                        databaseRecorder(file, inJsonData, distanceClass(), distanceLF)
                     elif file[:11] == 'heart_rate-':
-                        databaseRecorder(file, inJsonData, heartRateClass(), heartRateExtractor, heartRateLF)
+                        databaseRecorder(file, inJsonData, heartRateClass(), heartRateLF)
                     elif file[:6] == 'steps-':
-                        databaseRecorder(file, inJsonData, stepsClass(), stepsExtractor, stepsLF)
+                        databaseRecorder(file, inJsonData, stepsClass(), stepsLF)
                     elif file[:23] == 'lightly_active_minutes-':
-                        databaseRecorder(file, inJsonData, lAMinutesClass(), laMinutesExtractor, lAMinutesLF)
+                        databaseRecorder(file, inJsonData, lAMinutesClass(), lAMinutesLF)
                     elif file[:26] == 'moderately_active_minutes-':
-                        databaseRecorder(file, inJsonData, mAMinutesClass(), mAMinutesExtractor, mAMinutesLF)
+                        databaseRecorder(file, inJsonData, mAMinutesClass(), mAMinutesLF)
                     elif file[:18] == 'sedentary_minutes-':
-                        databaseRecorder(file, inJsonData, sMinutesClass(), sMinutesExtractor, sMinutesLF)
+                        databaseRecorder(file, inJsonData, sMinutesClass(), sMinutesLF)
                     elif file[:20] == 'very_active_minutes-':
-                        databaseRecorder(file, inJsonData, vAMinutesClass(), vAMinutesExtractor, vAMLogFile)
+                        databaseRecorder(file, inJsonData, vAMinutesClass(), vAMLogFile)
                     else:
                         pass
                     _fileTrack += 1
