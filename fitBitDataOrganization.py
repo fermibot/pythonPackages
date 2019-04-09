@@ -93,6 +93,35 @@ class heartRateClass:
         return [data['dateTime'], data['value']['bpm'], data['value']['confidence']]
 
 
+def timeInHTZonesSupport(data: dict):
+    _vIZones = data['value']['valuesInZones']
+    return [data['dateTime'], _vIZones['IN_DEFAULT_ZONE_1'], _vIZones['IN_DEFAULT_ZONE_2'],
+            _vIZones['IN_DEFAULT_ZONE_3'], _vIZones['BELOW_DEFAULT_ZONE_1']]
+
+
+class timeInHRZonesClass:
+    @staticmethod
+    def inserter(data: dict):
+        _extract = timeInHTZonesSupport(data)
+        return "INSERT INTO timeInHRZones VALUES ('" + _extract[0] + "', " \
+               + str(_extract[1]) + ", " \
+               + str(_extract[2]) + ", " \
+               + str(_extract[3]) + ", " \
+               + str(_extract[4]) + ")"
+
+    @staticmethod
+    def tableCheck(_dateMin, _dateMax):
+        return "SELECT * FROM timeInHRZones WHERE dateTimeID IN (\'" + _dateMin + "\', \'" + _dateMax + "\')"
+
+    @staticmethod
+    def recordCheck(data: dict):
+        return "SELECT * FROM timeInHRZones  WHERE dateTimeID = \'" + data['dateTime'] + "\'"
+
+    @staticmethod
+    def extractor(data: dict):
+        return timeInHTZonesSupport(data)
+
+
 class stepsClass:
     @staticmethod
     def tableCheck(_dateMin, _dateMax):
@@ -235,6 +264,7 @@ with open(f"{exportDirectory}{'altitude'}.txt", 'w+') as altitudeLF, \
         open(f"{exportDirectory}{'lightlyActiveMinutes'}.txt", 'w+') as lAMinutesLF, \
         open(f"{exportDirectory}{'moderatelyActiveMinutes'}.txt", 'w+') as mAMinutesLF, \
         open(f"{exportDirectory}{'moderatelyActiveMinutes'}.txt", 'w+') as sMinutesLF, \
+        open(f"{exportDirectory}{'timeInHRZones'}.txt", 'w+') as timeInHRZonesLF, \
         open(f"{exportDirectory}{'veryActiveMinutes'}.txt", 'w+') as vAMLogFile:
     for path, item, files in os.walk(directory):
         for file in files:
@@ -249,6 +279,8 @@ with open(f"{exportDirectory}{'altitude'}.txt", 'w+') as altitudeLF, \
                         databaseRecorder(file, inJsonData, distanceClass(), distanceLF)
                     elif file[:11] == 'heart_rate-':
                         databaseRecorder(file, inJsonData, heartRateClass(), heartRateLF)
+                    elif file[:25] == 'time_in_heart_rate_zones-':
+                        databaseRecorder(file, inJsonData, timeInHRZonesClass(), timeInHRZonesLF)
                     elif file[:6] == 'steps-':
                         databaseRecorder(file, inJsonData, stepsClass(), stepsLF)
                     elif file[:23] == 'lightly_active_minutes-':
