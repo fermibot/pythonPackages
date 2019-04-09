@@ -89,7 +89,7 @@ class heartRateClass:
         return "SELECT * FROM biometricsHeartRate WHERE dateTimeID = \'" + data['dateTime'] + "\'"
 
     @staticmethod
-    def heartRateExtractor(data: dict):
+    def extractor(data: dict):
         return [data['dateTime'], data['value']['bpm'], data['value']['confidence']]
 
 
