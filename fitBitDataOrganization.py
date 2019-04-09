@@ -22,15 +22,15 @@ def timeDelta(_startTime):
 class altitudeClass:
     @staticmethod
     def tableCheck(_dateMin, _dateMax):
-        return "SELECT * FROM biometricsAltitude WHERE dateTimeID IN (\'" + _dateMin + "\', \'" + _dateMax + "\')"
+        return "SELECT * FROM altitude WHERE dateTimeID IN (\'" + _dateMin + "\', \'" + _dateMax + "\')"
 
     @staticmethod
     def recordCheck(data: dict):
-        return "SELECT * FROM biometricsAltitude WHERE dateTimeID = \'" + data['dateTime'] + "\'"
+        return "SELECT * FROM altitude WHERE dateTimeID = \'" + data['dateTime'] + "\'"
 
     @staticmethod
     def inserter(data: dict):
-        return "INSERT INTO biometricsAltitude VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
+        return "INSERT INTO altitude VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
 
     @staticmethod
     def extractor(data: dict):
@@ -40,15 +40,15 @@ class altitudeClass:
 class caloriesClass:
     @staticmethod
     def tableCheck(_dateMin, _dateMax):
-        return "SELECT * FROM biometricsCalories WHERE dateTimeID IN (\'" + _dateMin + "\', \'" + _dateMax + "\')"
+        return "SELECT * FROM calories WHERE dateTimeID IN (\'" + _dateMin + "\', \'" + _dateMax + "\')"
 
     @staticmethod
     def recordCheck(data: dict):
-        return "SELECT * FROM biometricsCalories WHERE dateTimeID = \'" + data['dateTime'] + "\'"
+        return "SELECT * FROM calories WHERE dateTimeID = \'" + data['dateTime'] + "\'"
 
     @staticmethod
     def inserter(data: dict):
-        return "INSERT INTO biometricsCalories VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
+        return "INSERT INTO calories VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
 
     @staticmethod
     def extractor(data: dict):
@@ -58,15 +58,15 @@ class caloriesClass:
 class distanceClass:
     @staticmethod
     def tableCheck(_dateMin, _dateMax):
-        return "SELECT * FROM biometricsDistance WHERE dateTimeID IN (\'" + _dateMin + "\', \'" + _dateMax + "\')"
+        return "SELECT * FROM distance WHERE dateTimeID IN (\'" + _dateMin + "\', \'" + _dateMax + "\')"
 
     @staticmethod
     def recordCheck(data: dict):
-        return "SELECT * FROM biometricsDistance WHERE dateTimeID = \'" + data['dateTime'] + "\'"
+        return "SELECT * FROM distance WHERE dateTimeID = \'" + data['dateTime'] + "\'"
 
     @staticmethod
     def inserter(data: dict):
-        return "INSERT INTO biometricsDistance VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
+        return "INSERT INTO distance VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
 
     @staticmethod
     def extractor(data: dict):
@@ -77,16 +77,16 @@ class heartRateClass:
 
     @staticmethod
     def inserter(data: dict):
-        return "INSERT INTO biometricsHeartRate VALUES ('" + data['dateTime'] + "', " + str(
+        return "INSERT INTO heartRate VALUES ('" + data['dateTime'] + "', " + str(
             data['value']['bpm']) + ", " + str(data['value']['confidence']) + ")"
 
     @staticmethod
     def tableCheck(_dateMin, _dateMax):
-        return "SELECT * FROM biometricsHeartRate WHERE dateTimeID IN (\'" + _dateMin + "\', \'" + _dateMax + "\')"
+        return "SELECT * FROM heartRate WHERE dateTimeID IN (\'" + _dateMin + "\', \'" + _dateMax + "\')"
 
     @staticmethod
     def recordCheck(data: dict):
-        return "SELECT * FROM biometricsHeartRate WHERE dateTimeID = \'" + data['dateTime'] + "\'"
+        return "SELECT * FROM heartRate WHERE dateTimeID = \'" + data['dateTime'] + "\'"
 
     @staticmethod
     def extractor(data: dict):
