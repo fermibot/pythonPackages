@@ -6,8 +6,8 @@ import time
 
 startTime = time.time()
 
-directory = 'C:\\Users\\Alcatraz\\Downloads\\MyFitbitData\\AshwiniKumarKounduri\\user-site-export'
-_sqlConnection = OpenSQLConnection('D:\\Programming\\_databases\\fitbitData.db')
+directory = 'F:\\Programming\\Databases\\MyFitbitData\\AshwiniKumarKounduri\\user-site-export'
+_sqlConnection = OpenSQLConnection('F:\\Programming\\Databases\\fitbitData.db')
 _sqlCursor = _sqlConnection.cursor()
 
 
@@ -254,7 +254,7 @@ mD = {'m0': 'TimeElapsed', 'm1': 'Processing file#', 'm2': 'Processing line numb
 _fileTrack = 1
 
 metricType = {'altitude-': 9, 'calories-': 9, 'distance-': 9, 'heart_rate-': 11}
-exportDirectory = "D:\\Programming\\_databases\\"
+exportDirectory = "F:\\Programming\\Databases\\"
 
 with open(f"{exportDirectory}{'altitude'}.txt", 'w+') as altitudeLF, \
         open(f"{exportDirectory}{'heart_rate'}.txt", 'w+') as heartRateLF, \
@@ -273,22 +273,28 @@ with open(f"{exportDirectory}{'altitude'}.txt", 'w+') as altitudeLF, \
                     inJsonData = json.load(inJsonFile)
                     if file[:9] == 'altitude-':
                         databaseRecorder(file, inJsonData, altitudeClass(), altitudeLF)
+
                     elif file[:9] == 'calories-':
                         databaseRecorder(file, inJsonData, caloriesClass(), caloriesLF)
+
                     elif file[:9] == 'distance-':
                         databaseRecorder(file, inJsonData, distanceClass(), distanceLF)
+
                     elif file[:11] == 'heart_rate-':
                         databaseRecorder(file, inJsonData, heartRateClass(), heartRateLF)
+
                     elif file[:25] == 'time_in_heart_rate_zones-':
                         databaseRecorder(file, inJsonData, timeInHRZonesClass(), timeInHRZonesLF)
                     elif file[:6] == 'steps-':
                         databaseRecorder(file, inJsonData, stepsClass(), stepsLF)
+
                     elif file[:23] == 'lightly_active_minutes-':
                         databaseRecorder(file, inJsonData, lAMinutesClass(), lAMinutesLF)
                     elif file[:26] == 'moderately_active_minutes-':
                         databaseRecorder(file, inJsonData, mAMinutesClass(), mAMinutesLF)
                     elif file[:18] == 'sedentary_minutes-':
                         databaseRecorder(file, inJsonData, sMinutesClass(), sMinutesLF)
+
                     elif file[:20] == 'very_active_minutes-':
                         databaseRecorder(file, inJsonData, vAMinutesClass(), vAMLogFile)
                     else:
