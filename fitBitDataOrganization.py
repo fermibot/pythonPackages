@@ -93,7 +93,7 @@ class heartRateClass:
         return [data['dateTime'], data['value']['bpm'], data['value']['confidence']]
 
 
-def timeInHTZonesSupport(data: dict):
+def timeInHRZonesSupport(data: dict):
     _vIZones = data['value']['valuesInZones']
     return [data['dateTime'], _vIZones['IN_DEFAULT_ZONE_1'], _vIZones['IN_DEFAULT_ZONE_2'],
             _vIZones['IN_DEFAULT_ZONE_3'], _vIZones['BELOW_DEFAULT_ZONE_1']]
@@ -102,7 +102,7 @@ def timeInHTZonesSupport(data: dict):
 class timeInHRZonesClass:
     @staticmethod
     def inserter(data: dict):
-        _extract = timeInHTZonesSupport(data)
+        _extract = timeInHRZonesSupport(data)
         return "INSERT INTO timeInHRZones VALUES ('" + _extract[0] + "', " \
                + str(_extract[1]) + ", " \
                + str(_extract[2]) + ", " \
@@ -119,7 +119,7 @@ class timeInHRZonesClass:
 
     @staticmethod
     def extractor(data: dict):
-        return timeInHTZonesSupport(data)
+        return timeInHRZonesSupport(data)
 
 
 class stepsClass:
