@@ -10,6 +10,15 @@ directory = 'C:\\Users\\Alcatraz\\Downloads\\MyFitbitData\\AshwiniKumarKounduri\
 _sqlConnection = OpenSQLConnection('D:\\Programming\\_databases\\fitbitData.db')
 _sqlCursor = _sqlConnection.cursor()
 
+_sqlCursor.execute("DELETE FROM lightlyActiveMinutes")
+_sqlConnection.commit()
+_sqlCursor.execute("DELETE FROM moderatelyActiveMinutes")
+_sqlConnection.commit()
+_sqlCursor.execute("DELETE FROM sedentaryMinutes")
+_sqlConnection.commit()
+_sqlCursor.execute("DELETE FROM veryActiveMinutes")
+_sqlConnection.commit()
+
 
 def _dateValueExtractor(data: dict) -> list:
     return [data['dateTime'], data['value']]
