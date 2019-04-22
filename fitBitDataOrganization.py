@@ -24,6 +24,10 @@ def _dateValueExtractor(data: dict) -> list:
     return [data['dateTime'], data['value']]
 
 
+def yearReformat(dateTimeID: str) -> str:
+    return dateTimeID.replace('/18 ', '/2018 ').replace('/19 ', '/2019 ')
+
+
 def timeDelta(_startTime):
     return time.strftime("%H:%M:%S", time.gmtime(time.time() - _startTime))
 
