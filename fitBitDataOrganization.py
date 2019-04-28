@@ -3,6 +3,7 @@ import json
 from mathematica.databaseLink import OpenSQLConnection
 import sys
 import time
+import datetime
 
 startTime = time.time()
 
@@ -28,22 +29,38 @@ def yearReformat(dateTimeID: str) -> str:
     return dateTimeID.replace('/18 ', '/2018 ').replace('/19 ', '/2019 ')
 
 
+def parseDate(dateString: str) -> str:
+    try:
+        returnDate = datetime.datetime.strptime(dateString, '%m/%d/%y %H:%M:%S').strftime('%Y-%m-%d %H:%M:%S')
+        return returnDate
+    except ValueError:
+        return None
+
+
 def timeDelta(_startTime):
     return time.strftime("%H:%M:%S", time.gmtime(time.time() - _startTime))
+
+
+def tableCheckGeneral(_tableName, _dateMin, _dateMax):
+    return f"SELECT * FROM {_tableName} WHERE dateTimeID IN ('{parseDate(_dateMin)}','{parseDate(_dateMax)}')"
+
+
+def recordCheckGeneral(_tableName, _dateTime):
+    return f"SELECT * FROM {_tableName} WHERE dateTimeID = '{parseDate(_dateTime)}'"
 
 
 class altitudeClass:
     @staticmethod
     def tableCheck(_dateMin, _dateMax):
-        return "SELECT * FROM altitude WHERE dateTimeID IN (\'" + _dateMin + "\', \'" + _dateMax + "\')"
+        return tableCheckGeneral('altitude', _dateMin, _dateMax)
 
     @staticmethod
     def recordCheck(data: dict):
-        return "SELECT * FROM altitude WHERE dateTimeID = \'" + data['dateTime'] + "\'"
+        return recordCheckGeneral('altitude', data['dateTime'])
 
     @staticmethod
     def inserter(data: dict):
-        return "INSERT INTO altitude VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
+        return "INSERT INTO altitude VALUES ('" + parseDate(data['dateTime']) + "', " + str(data['value']) + ")"
 
     @staticmethod
     def extractor(data: dict):
@@ -53,15 +70,15 @@ class altitudeClass:
 class caloriesClass:
     @staticmethod
     def tableCheck(_dateMin, _dateMax):
-        return "SELECT * FROM calories WHERE dateTimeID IN (\'" + _dateMin + "\', \'" + _dateMax + "\')"
+        return tableCheckGeneral('calories', _dateMin, _dateMax)
 
     @staticmethod
     def recordCheck(data: dict):
-        return "SELECT * FROM calories WHERE dateTimeID = \'" + data['dateTime'] + "\'"
+        return recordCheckGeneral('calories', data['dateTime'])
 
     @staticmethod
     def inserter(data: dict):
-        return "INSERT INTO calories VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
+        return "INSERT INTO calories VALUES ('" + parseDate(data['dateTime']) + "', " + str(data['value']) + ")"
 
     @staticmethod
     def extractor(data: dict):
@@ -71,15 +88,15 @@ class caloriesClass:
 class distanceClass:
     @staticmethod
     def tableCheck(_dateMin, _dateMax):
-        return "SELECT * FROM distance WHERE dateTimeID IN (\'" + _dateMin + "\', \'" + _dateMax + "\')"
+        return tableCheckGeneral('distance', _dateMin, _dateMax)
 
     @staticmethod
     def recordCheck(data: dict):
-        return "SELECT * FROM distance WHERE dateTimeID = \'" + data['dateTime'] + "\'"
+        return recordCheckGeneral('distance', data['dateTime'])
 
     @staticmethod
     def inserter(data: dict):
-        return "INSERT INTO distance VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
+        return "INSERT INTO distance VALUES ('" + parseDate(data['dateTime']) + "', " + str(data['value']) + ")"
 
     @staticmethod
     def extractor(data: dict):
@@ -90,16 +107,16 @@ class heartRateClass:
 
     @staticmethod
     def inserter(data: dict):
-        return "INSERT INTO heartRate VALUES ('" + data['dateTime'] + "', " + str(
+        return "INSERT INTO heartRate VALUES ('" + parseDate(data['dateTime']) + "', " + str(
             data['value']['bpm']) + ", " + str(data['value']['confidence']) + ")"
 
     @staticmethod
     def tableCheck(_dateMin, _dateMax):
-        return "SELECT * FROM heartRate WHERE dateTimeID IN (\'" + _dateMin + "\', \'" + _dateMax + "\')"
+        return tableCheckGeneral('heartRate', _dateMin, _dateMax)
 
     @staticmethod
     def recordCheck(data: dict):
-        return "SELECT * FROM heartRate WHERE dateTimeID = \'" + data['dateTime'] + "\'"
+        return recordCheckGeneral('heartRate', parseDate(data['dateTime']))
 
     @staticmethod
     def extractor(data: dict):
@@ -108,7 +125,7 @@ class heartRateClass:
 
 def timeInHRZonesSupport(data: dict):
     _vIZones = data['value']['valuesInZones']
-    return [data['dateTime'], _vIZones['IN_DEFAULT_ZONE_1'], _vIZones['IN_DEFAULT_ZONE_2'],
+    return [parseDate(data['dateTime']), _vIZones['IN_DEFAULT_ZONE_1'], _vIZones['IN_DEFAULT_ZONE_2'],
             _vIZones['IN_DEFAULT_ZONE_3'], _vIZones['BELOW_DEFAULT_ZONE_1']]
 
 
@@ -124,11 +141,11 @@ class timeInHRZonesClass:
 
     @staticmethod
     def tableCheck(_dateMin, _dateMax):
-        return "SELECT * FROM timeInHRZones WHERE dateTimeID IN (\'" + _dateMin + "\', \'" + _dateMax + "\')"
+        return tableCheckGeneral('timeInHRZones', _dateMin, _dateMax)
 
     @staticmethod
     def recordCheck(data: dict):
-        return "SELECT * FROM timeInHRZones  WHERE dateTimeID = \'" + data['dateTime'] + "\'"
+        return recordCheckGeneral('timeInHRZones', parseDate(data['dateTime']))
 
     @staticmethod
     def extractor(data: dict):
@@ -138,15 +155,15 @@ class timeInHRZonesClass:
 class stepsClass:
     @staticmethod
     def tableCheck(_dateMin, _dateMax):
-        return "SELECT * FROM steps WHERE dateTimeID IN (\'" + _dateMin + "\', \'" + _dateMax + "\')"
+        return tableCheckGeneral('steps', _dateMin, _dateMax)
 
     @staticmethod
     def recordCheck(data: dict):
-        return "SELECT * FROM steps WHERE dateTimeID = \'" + data['dateTime'] + "\'"
+        return recordCheckGeneral('steps', parseDate(data['dateTime']))
 
     @staticmethod
     def inserter(data: dict):
-        return "INSERT INTO steps VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
+        return "INSERT INTO steps VALUES ('" + parseDate(data['dateTime']) + "', " + str(data['value']) + ")"
 
     @staticmethod
     def extractor(data: dict):
@@ -156,15 +173,16 @@ class stepsClass:
 class lAMinutesClass:
     @staticmethod
     def tableCheck(_dateMin, _dateMax):
-        return "SELECT * FROM lightlyActiveMinutes WHERE dateTimeID IN (\'" + _dateMin + "\', \'" + _dateMax + "\')"
+        return tableCheckGeneral('lightlyActiveMinutes', _dateMin, _dateMax)
 
     @staticmethod
     def recordCheck(data: dict):
-        return "SELECT * FROM lightlyActiveMinutes WHERE dateTimeID = \'" + data['dateTime'] + "\'"
+        return recordCheckGeneral('lightlyActiveMinutes', parseDate(data['dateTime']))
 
     @staticmethod
     def inserter(data: dict):
-        return "INSERT INTO lightlyActiveMinutes VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
+        return "INSERT INTO lightlyActiveMinutes VALUES ('" + parseDate(data['dateTime']) + "', " + str(
+            data['value']) + ")"
 
     @staticmethod
     def extractor(data: dict):
@@ -174,15 +192,16 @@ class lAMinutesClass:
 class mAMinutesClass:
     @staticmethod
     def tableCheck(_dateMin, _dateMax):
-        return "SELECT * FROM moderatelyActiveMinutes WHERE dateTimeID IN (\'" + _dateMin + "\', \'" + _dateMax + "\')"
+        return tableCheckGeneral('moderatelyActiveMinutes', _dateMin, _dateMax)
 
     @staticmethod
     def recordCheck(data: dict):
-        return "SELECT * FROM moderatelyActiveMinutes WHERE dateTimeID = \'" + data['dateTime'] + "\'"
+        return recordCheckGeneral('moderatelyActiveMinutes', parseDate(data['dateTime']))
 
     @staticmethod
     def inserter(data: dict):
-        return "INSERT INTO moderatelyActiveMinutes VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
+        return "INSERT INTO moderatelyActiveMinutes VALUES ('" + parseDate(data['dateTime']) + "', " + str(
+            data['value']) + ")"
 
     @staticmethod
     def extractor(data: dict):
@@ -192,15 +211,15 @@ class mAMinutesClass:
 class sMinutesClass:
     @staticmethod
     def tableCheck(_dateMin, _dateMax):
-        return "SELECT * FROM sedentaryMinutes WHERE dateTimeID IN (\'" + _dateMin + "\', \'" + _dateMax + "\')"
+        return tableCheckGeneral('sedentaryMinutes', _dateMin, _dateMax)
 
     @staticmethod
     def recordCheck(data: dict):
-        return "SELECT * FROM sedentaryMinutes WHERE dateTimeID = \'" + data['dateTime'] + "\'"
+        return recordCheckGeneral('sedentaryMinutes', parseDate(data['dateTime']))
 
     @staticmethod
     def inserter(data: dict):
-        return "INSERT INTO sedentaryMinutes VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
+        return "INSERT INTO sedentaryMinutes VALUES ('" + parseDate(data['dateTime']) + "', " + str(data['value']) + ")"
 
     @staticmethod
     def extractor(data: dict):
@@ -210,15 +229,15 @@ class sMinutesClass:
 class vAMinutesClass:
     @staticmethod
     def tableCheck(_dateMin, _dateMax):
-        return "SELECT * FROM veryActiveMinutes WHERE dateTimeID IN (\'" + _dateMin + "\', \'" + _dateMax + "\')"
+        return tableCheckGeneral('veryActiveMinutes', _dateMin, _dateMax)
 
     @staticmethod
     def recordCheck(data: dict):
-        return "SELECT * FROM veryActiveMinutes WHERE dateTimeID = \'" + data['dateTime'] + "\'"
+        return recordCheckGeneral('veryActiveMinutes', parseDate(data['dateTime']))
 
     @staticmethod
     def inserter(data: dict):
-        return "INSERT INTO veryActiveMinutes VALUES ('" + data['dateTime'] + "', " + str(data['value']) + ")"
+        return "INSERT INTO veryActiveMinutes VALUES ('" + parseDate(data['dateTime']) + "', " + str(data['value']) + ")"
 
     @staticmethod
     def extractor(data: dict):
@@ -283,28 +302,29 @@ with open(f"{exportDirectory}{'altitude'}.txt", 'w+') as altitudeLF, \
         for file in files:
             with open(path + "\\" + file) as inJsonFile:
                 if len(file) > 9 and file[-4:] == 'json':
-                    inJsonData = json.load(inJsonFile)
-                    if file[:9] == 'altitude-':
-                        databaseRecorder(file, inJsonData, altitudeClass(), altitudeLF)
-                    elif file[:9] == 'calories-':
-                        databaseRecorder(file, inJsonData, caloriesClass(), caloriesLF)
-                    elif file[:9] == 'distance-':
-                        databaseRecorder(file, inJsonData, distanceClass(), distanceLF)
-                    elif file[:11] == 'heart_rate-':
-                        databaseRecorder(file, inJsonData, heartRateClass(), heartRateLF)
-                    elif file[:25] == 'time_in_heart_rate_zones-':
-                        databaseRecorder(file, inJsonData, timeInHRZonesClass(), timeInHRZonesLF)
-                    elif file[:6] == 'steps-':
-                        databaseRecorder(file, inJsonData, stepsClass(), stepsLF)
-                    elif file[:23] == 'lightly_active_minutes-':
-                        databaseRecorder(file, inJsonData, lAMinutesClass(), lAMinutesLF)
-                    elif file[:26] == 'moderately_active_minutes-':
-                        databaseRecorder(file, inJsonData, mAMinutesClass(), mAMinutesLF)
-                    elif file[:18] == 'sedentary_minutes-':
-                        databaseRecorder(file, inJsonData, sMinutesClass(), sMinutesLF)
-                    elif file[:20] == 'very_active_minutes-':
-                        databaseRecorder(file, inJsonData, vAMinutesClass(), vAMLogFile)
-                    else:
-                        pass
-                    _fileTrack += 1
+                    if 'minutes' in file:
+                        inJsonData = json.load(inJsonFile)
+                        if file[:9] == 'altitude-':
+                            databaseRecorder(file, inJsonData, altitudeClass(), altitudeLF)
+                        elif file[:9] == 'calories-':
+                            databaseRecorder(file, inJsonData, caloriesClass(), caloriesLF)
+                        elif file[:9] == 'distance-':
+                            databaseRecorder(file, inJsonData, distanceClass(), distanceLF)
+                        elif file[:11] == 'heart_rate-':
+                            databaseRecorder(file, inJsonData, heartRateClass(), heartRateLF)
+                        elif file[:25] == 'time_in_heart_rate_zones-':
+                            databaseRecorder(file, inJsonData, timeInHRZonesClass(), timeInHRZonesLF)
+                        elif file[:6] == 'steps-':
+                            databaseRecorder(file, inJsonData, stepsClass(), stepsLF)
+                        elif file[:23] == 'lightly_active_minutes-':
+                            databaseRecorder(file, inJsonData, lAMinutesClass(), lAMinutesLF)
+                        elif file[:26] == 'moderately_active_minutes-':
+                            databaseRecorder(file, inJsonData, mAMinutesClass(), mAMinutesLF)
+                        elif file[:18] == 'sedentary_minutes-':
+                            databaseRecorder(file, inJsonData, sMinutesClass(), sMinutesLF)
+                        elif file[:20] == 'very_active_minutes-':
+                            databaseRecorder(file, inJsonData, vAMinutesClass(), vAMLogFile)
+                        else:
+                            pass
+                        _fileTrack += 1
 print("Database import complete")
