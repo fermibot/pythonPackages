@@ -1,30 +1,45 @@
 import glob
-import csv
 import sys
 import re
+import datetime
+import csv
 
 
 def yearReplace(dateString: str) -> str:
     if dateString.split('\t')[0].__len__() != 10:
         time = re.findall('..:..:..', dateString)[0]
-        return dateString.replace('/18 ', '/2018 ').replace('/19 ', '/2019 ').replace('/', '-').replace(time,
-                                                                                                        time)
+        year = ('20' + re.findall('/.. ', dateString)[0][1:]).strip(' ') + '-'
+        return year + dateString.replace('/18 ', ' ').replace('/19 ', ' ').replace('/', '-').replace(time, time + '')
 
 
 tsvDirectory = "D:\\Programming\\_databases\\fitbitDateReformatting\\"
 
 
 def reformatAllFiles():
-    for file in glob.glob(tsvDirectory + "main_*.tsv"):
-        lineTrack = 1
-        with open(file) as tsvInFile, \
-                open(file.replace('.tsv', '_reformatted.tsv').replace('main_', 'main-'), 'w') as tsvOutFile:
-            for line in tsvInFile:
-                if line.split('\t')[0].__len__() != 10:
-                    sys.stdout.write(f"\rNow processing file::{file} line#::{lineTrack}")
-                    tsvOutFile.write(yearReplace(line))
-                    lineTrack += 1
+    fileTrack = 1
+    for file in glob.glob(tsvDirectory + "main_*.csv"):
+        if True:
+            with open(file, newline='') as csvInFile, \
+                    open(file.replace('main', 'reformatted'), mode='w', newline='') as csvOutFile:
+                csvReader = csv.reader(csvInFile, delimiter=',')
+                csvWriter = csv.writer(csvOutFile)
+                rowTrack = 1
+                for row in csvReader:
+                    row[0] = parseDate(row[0])
+                    if row[0] is not None:
+                        csvWriter.writerow(row)
+                    rowTrack += 1
+                    sys.stdout.write(f"\rNow formatting {file}:: File# {fileTrack} :: Row# {rowTrack}")
+        fileTrack += 1
+
+
+def parseDate(dateString: str) -> str:
+    try:
+        return datetime.datetime.strptime(dateString, '%m/%d/%y %H:%M:%S')
+    except ValueError:
+        return None
 
 
 if __name__ == '__main__':
+    # print(parseDate('09/21/18 00:00:00'))
     reformatAllFiles()
