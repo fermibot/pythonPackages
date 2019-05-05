@@ -116,7 +116,7 @@ class heartRateClass:
 
     @staticmethod
     def recordCheck(data: dict):
-        return recordCheckGeneral('heartRate', parseDate(data['dateTime']))
+        return recordCheckGeneral('heartRate', data['dateTime'])
 
     @staticmethod
     def extractor(data: dict):
@@ -145,7 +145,7 @@ class timeInHRZonesClass:
 
     @staticmethod
     def recordCheck(data: dict):
-        return recordCheckGeneral('timeInHRZones', parseDate(data['dateTime']))
+        return recordCheckGeneral('timeInHRZones', data['dateTime'])
 
     @staticmethod
     def extractor(data: dict):
@@ -159,11 +159,11 @@ class stepsClass:
 
     @staticmethod
     def recordCheck(data: dict):
-        return recordCheckGeneral('steps', parseDate(data['dateTime']))
+        return recordCheckGeneral('steps', data['dateTime'])
 
     @staticmethod
     def inserter(data: dict):
-        return "INSERT INTO steps VALUES ('" + parseDate(data['dateTime']) + "', " + str(data['value']) + ")"
+        return f"INSERT INTO steps VALUES ('" + parseDate(data['dateTime']) + "', " + str(data['value']) + ")"
 
     @staticmethod
     def extractor(data: dict):
@@ -177,7 +177,7 @@ class lAMinutesClass:
 
     @staticmethod
     def recordCheck(data: dict):
-        return recordCheckGeneral('lightlyActiveMinutes', parseDate(data['dateTime']))
+        return recordCheckGeneral('lightlyActiveMinutes', data['dateTime'])
 
     @staticmethod
     def inserter(data: dict):
@@ -196,7 +196,7 @@ class mAMinutesClass:
 
     @staticmethod
     def recordCheck(data: dict):
-        return recordCheckGeneral('moderatelyActiveMinutes', parseDate(data['dateTime']))
+        return recordCheckGeneral('moderatelyActiveMinutes', data['dateTime'])
 
     @staticmethod
     def inserter(data: dict):
@@ -215,7 +215,7 @@ class sMinutesClass:
 
     @staticmethod
     def recordCheck(data: dict):
-        return recordCheckGeneral('sedentaryMinutes', parseDate(data['dateTime']))
+        return recordCheckGeneral('sedentaryMinutes', data['dateTime'])
 
     @staticmethod
     def inserter(data: dict):
@@ -233,11 +233,12 @@ class vAMinutesClass:
 
     @staticmethod
     def recordCheck(data: dict):
-        return recordCheckGeneral('veryActiveMinutes', parseDate(data['dateTime']))
+        return recordCheckGeneral('veryActiveMinutes', data['dateTime'])
 
     @staticmethod
     def inserter(data: dict):
-        return "INSERT INTO veryActiveMinutes VALUES ('" + parseDate(data['dateTime']) + "', " + str(data['value']) + ")"
+        return "INSERT INTO veryActiveMinutes VALUES ('" + parseDate(data['dateTime']) + "', " + str(
+            data['value']) + ")"
 
     @staticmethod
     def extractor(data: dict):
@@ -261,13 +262,13 @@ def databaseRecorder(fileName, _inJsonData, _class, _logFile):
             if len(_sqlResults) == 0:
                 sys.stdout.write(f"\r{_messagePrefix}::{mD['m3']}::{fileName}")
                 _sqlConnection.cursor().execute(_class.inserter(record))
-                _sqlConnection.commit()
             elif len(_sqlResults) == 1:
                 sys.stdout.write(f"\r{_messagePrefix}::{mD['m5']}::file {fileName}")
             elif len(_sqlResults) > 1:
                 sys.stdout.write(f"\r{_messagePrefix}::{mD['m4']}")
                 _logFile.write(f"{mD['m4']}:: {line[0]}.")
             _rowTrack += 1
+        _sqlConnection.commit()
         inJsonFile.close()
     if len(_tableCheck) > 2:
         sys.stdout.write(f"\rSeems like there is an issue with this file. {mD['m6']}")
@@ -302,29 +303,34 @@ with open(f"{exportDirectory}{'altitude'}.txt", 'w+') as altitudeLF, \
         for file in files:
             with open(path + "\\" + file) as inJsonFile:
                 if len(file) > 9 and file[-4:] == 'json':
-                    if 'minutes' in file:
-                        inJsonData = json.load(inJsonFile)
-                        if file[:9] == 'altitude-':
-                            databaseRecorder(file, inJsonData, altitudeClass(), altitudeLF)
-                        elif file[:9] == 'calories-':
-                            databaseRecorder(file, inJsonData, caloriesClass(), caloriesLF)
-                        elif file[:9] == 'distance-':
-                            databaseRecorder(file, inJsonData, distanceClass(), distanceLF)
-                        elif file[:11] == 'heart_rate-':
-                            databaseRecorder(file, inJsonData, heartRateClass(), heartRateLF)
-                        elif file[:25] == 'time_in_heart_rate_zones-':
-                            databaseRecorder(file, inJsonData, timeInHRZonesClass(), timeInHRZonesLF)
-                        elif file[:6] == 'steps-':
-                            databaseRecorder(file, inJsonData, stepsClass(), stepsLF)
-                        elif file[:23] == 'lightly_active_minutes-':
-                            databaseRecorder(file, inJsonData, lAMinutesClass(), lAMinutesLF)
-                        elif file[:26] == 'moderately_active_minutes-':
-                            databaseRecorder(file, inJsonData, mAMinutesClass(), mAMinutesLF)
-                        elif file[:18] == 'sedentary_minutes-':
-                            databaseRecorder(file, inJsonData, sMinutesClass(), sMinutesLF)
-                        elif file[:20] == 'very_active_minutes-':
-                            databaseRecorder(file, inJsonData, vAMinutesClass(), vAMLogFile)
-                        else:
-                            pass
-                        _fileTrack += 1
+                    # if 'minutes' in file:
+                    inJsonData = json.load(inJsonFile)
+                    if file[:9] == 'altitude-':
+                        databaseRecorder(file, inJsonData, altitudeClass(), altitudeLF)
+                    elif file[:9] == 'calories-':
+                        databaseRecorder(file, inJsonData, caloriesClass(), caloriesLF)
+                    elif file[:9] == 'distance-':
+                        databaseRecorder(file, inJsonData, distanceClass(), distanceLF)
+                    elif file[:11] == 'heart_rate-':
+                        databaseRecorder(file, inJsonData, heartRateClass(), heartRateLF)
+                        pass
+                    elif file[:25] == 'time_in_heart_rate_zones-':
+                        pass
+                        databaseRecorder(file, inJsonData, timeInHRZonesClass(), timeInHRZonesLF)
+                    elif file[:6] == 'steps-':
+                        databaseRecorder(file, inJsonData, stepsClass(), stepsLF)
+                    elif file[:23] == 'lightly_active_minutes-':
+                        databaseRecorder(file, inJsonData, lAMinutesClass(), lAMinutesLF)
+                    elif file[:26] == 'moderately_active_minutes-':
+                        databaseRecorder(file, inJsonData, mAMinutesClass(), mAMinutesLF)
+                    elif file[:18] == 'sedentary_minutes-':
+                        databaseRecorder(file, inJsonData, sMinutesClass(), sMinutesLF)
+                    elif file[:20] == 'very_active_minutes-':
+                        databaseRecorder(file, inJsonData, vAMinutesClass(), vAMLogFile)
+                    else:
+                        pass
+                    _fileTrack += 1
+                else:
+                    pass
+
 print("Database import complete")
