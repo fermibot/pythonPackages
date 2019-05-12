@@ -192,3 +192,10 @@ def Boole(_obj):
         return 1
     elif not _obj:
         return 0
+
+
+def XOR(bit1, bit2):
+    if (bit1 and bit2) or (not bit1 and not bit2):
+        return False
+    else:
+        return True
