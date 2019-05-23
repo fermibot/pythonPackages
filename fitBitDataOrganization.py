@@ -29,7 +29,7 @@ def yearReformat(dateTimeID: str) -> str:
     return dateTimeID.replace('/18 ', '/2018 ').replace('/19 ', '/2019 ')
 
 
-def parseDate(dateString: str) -> str:
+def parseDate(dateString: str) -> str or None:
     try:
         returnDate = datetime.datetime.strptime(dateString, '%m/%d/%y %H:%M:%S').strftime('%Y-%m-%d %H:%M:%S')
         return returnDate
@@ -49,7 +49,7 @@ def recordCheckGeneral(_tableName, _dateTime):
     return f"SELECT * FROM {_tableName} WHERE dateTimeID = '{parseDate(_dateTime)}'"
 
 
-class altitudeClass:
+class AltitudeClass:
     @staticmethod
     def tableCheck(_dateMin, _dateMax):
         return tableCheckGeneral('altitude', _dateMin, _dateMax)
@@ -67,7 +67,7 @@ class altitudeClass:
         return _dateValueExtractor(data)
 
 
-class caloriesClass:
+class CaloriesClass:
     @staticmethod
     def tableCheck(_dateMin, _dateMax):
         return tableCheckGeneral('calories', _dateMin, _dateMax)
@@ -85,7 +85,7 @@ class caloriesClass:
         return _dateValueExtractor(data)
 
 
-class distanceClass:
+class DistanceClass:
     @staticmethod
     def tableCheck(_dateMin, _dateMax):
         return tableCheckGeneral('distance', _dateMin, _dateMax)
@@ -103,7 +103,7 @@ class distanceClass:
         return _dateValueExtractor(data)
 
 
-class heartRateClass:
+class HeartRateClass:
 
     @staticmethod
     def inserter(data: dict):
@@ -129,7 +129,7 @@ def timeInHRZonesSupport(data: dict):
             _vIZones['IN_DEFAULT_ZONE_3'], _vIZones['BELOW_DEFAULT_ZONE_1']]
 
 
-class timeInHRZonesClass:
+class TimeInHRZonesClass:
     @staticmethod
     def inserter(data: dict):
         _extract = timeInHRZonesSupport(data)
@@ -152,7 +152,7 @@ class timeInHRZonesClass:
         return timeInHRZonesSupport(data)
 
 
-class stepsClass:
+class StepsClass:
     @staticmethod
     def tableCheck(_dateMin, _dateMax):
         return tableCheckGeneral('steps', _dateMin, _dateMax)
@@ -170,7 +170,7 @@ class stepsClass:
         return _dateValueExtractor(data)
 
 
-class lAMinutesClass:
+class LAMinutesClass:
     @staticmethod
     def tableCheck(_dateMin, _dateMax):
         return tableCheckGeneral('lightlyActiveMinutes', _dateMin, _dateMax)
@@ -189,7 +189,7 @@ class lAMinutesClass:
         return _dateValueExtractor(data)
 
 
-class mAMinutesClass:
+class MAMinutesClass:
     @staticmethod
     def tableCheck(_dateMin, _dateMax):
         return tableCheckGeneral('moderatelyActiveMinutes', _dateMin, _dateMax)
@@ -208,7 +208,7 @@ class mAMinutesClass:
         return _dateValueExtractor(data)
 
 
-class sMinutesClass:
+class SMinutesClass:
     @staticmethod
     def tableCheck(_dateMin, _dateMax):
         return tableCheckGeneral('sedentaryMinutes', _dateMin, _dateMax)
@@ -226,7 +226,7 @@ class sMinutesClass:
         return _dateValueExtractor(data)
 
 
-class vAMinutesClass:
+class VAMinutesClass:
     @staticmethod
     def tableCheck(_dateMin, _dateMax):
         return tableCheckGeneral('veryActiveMinutes', _dateMin, _dateMax)
@@ -306,27 +306,27 @@ with open(f"{exportDirectory}{'altitude'}.txt", 'w+') as altitudeLF, \
                     # if 'minutes' in file:
                     inJsonData = json.load(inJsonFile)
                     if file[:9] == 'altitude-':
-                        databaseRecorder(file, inJsonData, altitudeClass(), altitudeLF)
+                        databaseRecorder(file, inJsonData, AltitudeClass(), altitudeLF)
                     elif file[:9] == 'calories-':
-                        databaseRecorder(file, inJsonData, caloriesClass(), caloriesLF)
+                        databaseRecorder(file, inJsonData, CaloriesClass(), caloriesLF)
                     elif file[:9] == 'distance-':
-                        databaseRecorder(file, inJsonData, distanceClass(), distanceLF)
+                        databaseRecorder(file, inJsonData, DistanceClass(), distanceLF)
                     elif file[:11] == 'heart_rate-':
-                        databaseRecorder(file, inJsonData, heartRateClass(), heartRateLF)
+                        databaseRecorder(file, inJsonData, HeartRateClass(), heartRateLF)
                         pass
                     elif file[:25] == 'time_in_heart_rate_zones-':
                         pass
-                        databaseRecorder(file, inJsonData, timeInHRZonesClass(), timeInHRZonesLF)
+                        databaseRecorder(file, inJsonData, TimeInHRZonesClass(), timeInHRZonesLF)
                     elif file[:6] == 'steps-':
-                        databaseRecorder(file, inJsonData, stepsClass(), stepsLF)
+                        databaseRecorder(file, inJsonData, StepsClass(), stepsLF)
                     elif file[:23] == 'lightly_active_minutes-':
-                        databaseRecorder(file, inJsonData, lAMinutesClass(), lAMinutesLF)
+                        databaseRecorder(file, inJsonData, LAMinutesClass(), lAMinutesLF)
                     elif file[:26] == 'moderately_active_minutes-':
-                        databaseRecorder(file, inJsonData, mAMinutesClass(), mAMinutesLF)
+                        databaseRecorder(file, inJsonData, MAMinutesClass(), mAMinutesLF)
                     elif file[:18] == 'sedentary_minutes-':
-                        databaseRecorder(file, inJsonData, sMinutesClass(), sMinutesLF)
+                        databaseRecorder(file, inJsonData, SMinutesClass(), sMinutesLF)
                     elif file[:20] == 'very_active_minutes-':
-                        databaseRecorder(file, inJsonData, vAMinutesClass(), vAMLogFile)
+                        databaseRecorder(file, inJsonData, VAMinutesClass(), vAMLogFile)
                     else:
                         pass
                     _fileTrack += 1
