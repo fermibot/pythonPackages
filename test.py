@@ -1,7 +1,9 @@
-from mathematica.random_functions import *
-from mathematica.core_functions import Factorial
-import sys
+for i in range(10):
+    if i != 5:
+        print(i)
+    else:
+        continue
 
-print(Factorial(5))
-
-print(sys.getrecursionlimit())
+# myNumber = 2
+# if myNumber == 2:
+#     pass
