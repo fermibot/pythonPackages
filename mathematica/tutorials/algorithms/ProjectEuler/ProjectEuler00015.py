@@ -1,8 +1,10 @@
-if __name__ == '__main__':
-    import csv
+import time
+import sys
 
-    with open("D:\\Mathematica Files 4K\\fermibotAlgorithms\\ProjectEuler00015.txt", 'w') as textFile:
-        maximum = 9
+if __name__ == '__main__':
+    for maximum in range(14, 15):
+        iteration = 0
+        startTime = time.time()
         paths = [[[1, 1]]]
         fullPaths = []
         while any(path[-1] != [maximum, maximum] for path in paths):
@@ -19,10 +21,9 @@ if __name__ == '__main__':
                     if endPoint[1] < maximum:
                         appendList.append([endPoint[0], endPoint[1] + 1])
                     for appendPoint in appendList:
-                        tempFullPaths.append(path + [appendPoint])
+                        tempFullPaths.append([appendPoint])
+                        iteration += 1
+                        sys.stdout.write(f"\rCurrentIteration::{iteration}||TimePassed::{time.time()-startTime}")
                 paths = tempFullPaths
-            fullPaths += tempFullPaths
-
-        for path in fullPaths:
-            textFile.write(str(path).replace('[', '{').replace(']', '}'))
-            textFile.write('\n')
+        print()
+        print([maximum, len(paths), time.time() - startTime])
