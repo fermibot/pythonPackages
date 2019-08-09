@@ -1,4 +1,4 @@
-from mathematica.random_functions import RandomChoice, RandomInteger
+from functions.random_functions import RandomChoice, RandomInteger
 
 _masterList = []
 for r in range(0, 1000000):

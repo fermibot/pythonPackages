@@ -1,9 +1,9 @@
-from mathematica.string_operations import StringDelete
-from mathematica.databaseLink import SQLExecute, OpenSQLConnection
-from mathematica.lists import Last, Riffle, Rest
-from mathematica.matrices_and_arrays import ConstantArray
-from mathematica.string_operations import StringJoin, ToString
-from mathematica.monitoring import TimeTagMessage
+from functions.string_operations import StringDelete
+from functions.databaseLink import SQLExecute, OpenSQLConnection
+from functions.lists import Last, Riffle, Rest
+from functions.matrices_and_arrays import ConstantArray
+from functions.string_operations import StringJoin, ToString
+from functions.monitoring import TimeTagMessage
 import os
 import fnmatch
 

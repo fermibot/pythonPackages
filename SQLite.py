@@ -1,6 +1,6 @@
 import sqlite3
 import random
-from mathematica import random_functions
+from functions import random_functions
 
 
 connection = sqlite3.connect('example.db')

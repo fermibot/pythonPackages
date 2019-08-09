@@ -1,6 +1,6 @@
 import os
 import json
-from mathematica.databaseLink import OpenSQLConnection
+from functions.databaseLink import OpenSQLConnection
 import sys
 import time
 import datetime

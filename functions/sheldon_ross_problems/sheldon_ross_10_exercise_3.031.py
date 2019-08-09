@@ -1,6 +1,6 @@
 from sys import stdout
 import csv
-from mathematica.sheldon_ross_support_functions import randomChoiceCustom
+from functions.sheldon_ross_support_functions import randomChoiceCustom
 
 _folderPath = 'D:\\Mathematica Files 4K\\sheldon_ross\\sheldon_ross_chapter_03\\sheldon_ross_10_exercise_3.031\\'
 

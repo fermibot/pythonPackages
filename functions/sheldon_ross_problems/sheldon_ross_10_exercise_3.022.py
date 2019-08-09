@@ -1,7 +1,7 @@
 from sys import stdout
 import sys
-from mathematica.lists import EqualAll, Range
-from mathematica.random_functions import RandomChoice
+from functions.lists import EqualAll, Range
+from functions.random_functions import RandomChoice
 
 _folderPath = 'D:\\Mathematica Files 4K\\sheldon_ross\\sheldon_ross_chapter_03\\sheldon_ross_10_exercise_3.022\\'
 for _n in [10, 15]:

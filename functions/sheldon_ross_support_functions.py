@@ -1,4 +1,4 @@
-from mathematica.random_functions import RandomReal
+from functions.random_functions import RandomReal
 
 
 def randomChoiceCustom(_probability):

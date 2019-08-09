@@ -1,5 +1,5 @@
-from mathematica.random_functions import *
-from mathematica.monitoring import *
+from functions.random_functions import *
+from functions.monitoring import *
 import csv
 
 for t in range(0, 1000):

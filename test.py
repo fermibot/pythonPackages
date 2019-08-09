@@ -1,9 +1,13 @@
-for i in range(10):
-    if i != 5:
-        print(i)
-    else:
-        continue
+def IntegerDigits(integer):
+    integer_digits = []
+    power = 0
+    divisor = 10 ** power
+    while integer // divisor > 0:
+        integer_digits = [integer // 10 ** power % 10] + integer_digits
+        divisor = 10 ** power
+        power += 1
+    return integer_digits[1:]
 
-# myNumber = 2
-# if myNumber == 2:
-#     pass
+
+if __name__ == '__main__':
+    print(IntegerDigits(123456789))

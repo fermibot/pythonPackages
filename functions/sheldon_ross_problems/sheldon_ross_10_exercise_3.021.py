@@ -1,5 +1,5 @@
 from sys import stdout
-from mathematica.random_functions import RandomChoice, RandomReal
+from functions.random_functions import RandomChoice, RandomReal
 
 print("Opening the text file")
 _file = open(
