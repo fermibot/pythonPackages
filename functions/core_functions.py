@@ -1,11 +1,11 @@
 from .q_functions import *
 
 
-def Print(_obj):
+def print2(_obj):
     print(_obj)
 
 
-def Max(_list: list):
+def max2(_list: list):
     _max = _list[0]
     for i in _list:
         if i > _max:
@@ -25,7 +25,7 @@ def Min(_list: list):
     return _min
 
 
-def promptReal():
+def prompt_real():
     print("Input needs to be a real number \nDie Eingabe muss eine reelle Zahl sein")
 
 
@@ -37,7 +37,7 @@ def Abs(x: float):
             _x = -1 * x
         return _x
     except TypeError:
-        promptReal()
+        prompt_real()
         # TODO: This prints a redundant none statement.
 
 
@@ -48,7 +48,7 @@ def Sign(_x):
         return 1
 
 
-def Greater(_list):
+def greater(_list):
     if len(_list) == 2:
         return _list[0] > _list[1]
     elif len(_list) > 2:
@@ -58,7 +58,7 @@ def Greater(_list):
             return _greater
 
 
-def GreaterEqual(_list):
+def greater_equal(_list):
     if len(_list) == 2:
         return _list[0] >= _list[1]
     elif len(_list) > 2:
@@ -68,7 +68,7 @@ def GreaterEqual(_list):
             return _greaterEqual
 
 
-def Less(_list):
+def less(_list):
     if len(_list) == 2:
         return _list[0] < _list[1]
     elif len(_list) > 2:
@@ -88,42 +88,42 @@ def LessEqual(_list):
             return _lessEqual
 
 
-def LessThanAll(element, _list: list):
+def less_than_all(element, _list: list):
     _truth = True
     for i in _list:
         _truth = (element < i) and _truth
     return _truth
 
 
-def LessThanEqualToAll(element, _list: list):
+def less_than_equal_all(element, _list: list):
     _truth = True
     for i in _list:
         _truth = (element <= i) and _truth
     return _truth
 
 
-def GreaterThanAll(element, _list: list):
+def greater_than_all(element, _list: list):
     _truth = True
     for i in _list:
         _truth = (element > i) and _truth
     return _truth
 
 
-def GreaterThanEqualToAll(element, _list: list):
+def greater_than_equal_all(element, _list: list):
     _truth = True
     for i in _list:
         _truth = (element >= i) and _truth
     return _truth
 
 
-def EqualAll(_list: list):
+def equal_all(_list: list):
     _truth = True
     for i in range(0, _list.__len__() - 1):
         _truth = _truth and (_list[i] == _list[i + 1])
     return _truth
 
 
-def Range(i, j=None, step=None):
+def range2(i, j=None, step=None):
     def _Range(_lower, _upper, _step):
         __elem, __list = _lower, []
         while True:
@@ -156,7 +156,7 @@ def Range(i, j=None, step=None):
             return _Range(i, j, step)
 
 
-def Factorial(x):
+def factorial(x):
     if x == 0:
         return 1
     if (not isinstance(x, int)) or (x < 1):
@@ -165,11 +165,11 @@ def Factorial(x):
         if x == 0:
             result = 1
         elif x > 0:
-            result = x * Factorial(x - 1)
+            result = x * factorial(x - 1)
     return result
 
 
-def Factorial2(x):
+def factorial2(x):
     _factorial2 = 1
     if x == 0:
         return _factorial2
@@ -182,19 +182,19 @@ def Factorial2(x):
     return _factorial2
 
 
-def Binomial(_n, _m):
+def binomial(_n, _m):
     _n, _m = Abs(_n), Abs(_m)
-    return Factorial(_n) / (Factorial(_n - _m) * Factorial(_m))
+    return factorial(_n) / (factorial(_n - _m) * factorial(_m))
 
 
-def Boole(_obj):
+def boole(_obj):
     if _obj:
         return 1
     elif not _obj:
         return 0
 
 
-def XOR(bit1, bit2):
+def xor(bit1, bit2):
     if (bit1 and bit2) or (not bit1 and not bit2):
         return False
     else:

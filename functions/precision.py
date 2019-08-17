@@ -7,14 +7,14 @@ from .core_functions import *
 def Pi(precision: int=200):
     _pi = 0
     for i in range(0, precision):
-        _pi += (Factorial(i) / Factorial2(2 * i + 1))
+        _pi += (factorial(i) / factorial2(2 * i + 1))
     return round(float(2 * _pi), 200)
 
 
 def E(precision: int=200):
     _e = 0
     for i in range(0, precision):
-        _e += (1 / Factorial(i))
+        _e += (1 / factorial(i))
     return round(float(_e), 200)
 
 
@@ -29,7 +29,7 @@ def Round(x: float):
         elif x % int(x) >= 0.5:
             return Sign(_x) * (int(x) + 1)
     except TypeError:
-        promptReal()
+        prompt_real()
 
 
 def Reciprocal(_number):
@@ -67,14 +67,14 @@ def Floor(x: float):
     try:
         return int(x)
     except TypeError:
-        promptReal()
+        prompt_real()
 
 
 def Ceiling(x: float):
     try:
         return int(x) + 1
     except TypeError:
-        promptReal()
+        prompt_real()
 
 
 def Sqrt(n):
@@ -184,7 +184,7 @@ def Resacle(*args):
         return (_rescaleHelp(args[0], args[1]) * (args[2][1] - args[2][0])) + args[2][0]
     elif len(args) == 1 and ListQ(args[0]):
         _min = Min(args[0])
-        _max = Max(args[0])
+        _max = max2(args[0])
         _rescale = []
         for i in args[0]:
             _rescale.append(_rescaleHelp(i, [_min, _max]))

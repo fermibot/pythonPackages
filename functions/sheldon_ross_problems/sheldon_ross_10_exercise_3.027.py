@@ -1,5 +1,5 @@
 from sys import stdout
-from functions.lists import Range
+from functions.lists import range2
 import csv
 from functions.sheldon_ross_support_functions import randomChoiceCustom
 
@@ -19,7 +19,7 @@ print(_progressPadTop)
 
 for i in range(0, _steps):
     _gamesMaster = []
-    for _p in Range(0.1, 0.95, 0.05):
+    for _p in range2(0.1, 0.95, 0.05):
         _games = []
         while True:
             _games.append(randomChoiceCustom(_p))

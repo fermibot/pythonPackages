@@ -1,6 +1,6 @@
 from sys import stdout
 import sys
-from functions.lists import EqualAll, Range
+from functions.lists import equal_all, range2
 from functions.random_functions import RandomChoice
 
 _folderPath = 'D:\\Mathematica Files 4K\\sheldon_ross\\sheldon_ross_chapter_03\\sheldon_ross_10_exercise_3.022\\'
@@ -8,7 +8,7 @@ for _n in [10, 15]:
     _steps = 10000
     _subSteps = _steps // 100
     __n = _n
-    _set = Range(_n)
+    _set = range2(_n)
 
     for _k in range(2, 5):
         _progressPad = "_" * 106
@@ -22,7 +22,7 @@ for _n in [10, 15]:
         for i in range(0, _steps):
             _sample = RandomChoice(_set, _k)
             while True:
-                if EqualAll(_sample[-_k:]):
+                if equal_all(_sample[-_k:]):
                     break
                 else:
                     _sample.append(RandomChoice(_set))

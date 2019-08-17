@@ -89,7 +89,7 @@ def SparseArray(*args):
                 _maxx = i[0][0]
                 if i[0][1] > _maxy:
                     _maxy = i[0][1]
-        _dimensions = Max([_maxx, _maxy])
+        _dimensions = max2([_maxx, _maxy])
 
         _listDict = {}
         for i in _list:
@@ -109,7 +109,7 @@ def SparseArray(*args):
 
             # added # for PEP warning elimination _list = args[0]
             _transpose = Transpose(args[0])
-            _dimensions = Max([Max(_transpose[0]), Max(_transpose[1])])
+            _dimensions = max2([max2(_transpose[0]), max2(_transpose[1])])
 
             _listDict = {}
             for i in range(0, len(args[0])):
@@ -303,7 +303,7 @@ def Det(_matrix: list):
     if MatrixQ(_matrix):
         _len = len(_matrix)
         _det = "("
-        _indices = Permutations(Range(_len))
+        _indices = Permutations(range2(_len))
         _mat = _matrix
 
         for i in _indices:

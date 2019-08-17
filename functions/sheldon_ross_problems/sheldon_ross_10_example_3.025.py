@@ -21,14 +21,14 @@ def bestGift():
             TimeTagMessage('Writing into file')
 
             for r in range(0, 1000000):
-                randomSample = RandomSample(Range(numberOfGifts), numberOfGifts)
+                randomSample = RandomSample(range2(numberOfGifts), numberOfGifts)
                 rejectedIndex = rejInd
                 rejectedSequence = randomSample[0:rejectedIndex]
                 unRejectedSequence = randomSample[rejectedIndex:len(randomSample)]
 
                 accepted = None
                 for i in unRejectedSequence:
-                    if GreaterThanAll(i, rejectedSequence):
+                    if greater_than_all(i, rejectedSequence):
                         accepted = i
                         break
                 __file.write(str(accepted) + '\n')
@@ -52,14 +52,14 @@ def worstGift():
             TimeTagMessage('Writing into file')
 
             for r in range(0, 1000000):
-                randomSample = RandomSample(Range(numberOfGifts), numberOfGifts)
+                randomSample = RandomSample(range2(numberOfGifts), numberOfGifts)
                 rejectedIndex = rejInd
                 rejectedSequence = randomSample[0:rejectedIndex]
                 unRejectedSequence = randomSample[rejectedIndex:len(randomSample)]
 
                 accepted = None
                 for i in unRejectedSequence:
-                    if LessThanAll(i, rejectedSequence):
+                    if less_than_all(i, rejectedSequence):
                         accepted = i
                         break
                 __file.write(str(accepted) + '\n')

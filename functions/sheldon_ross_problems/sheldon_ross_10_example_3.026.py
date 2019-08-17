@@ -23,7 +23,7 @@ TimeTagMessage('Writing into file')
 
 _men = 1000
 for i in range(100000):
-    __file.write(str(ListCompare(Range(_men), RandomSample(Range(_men), _men)).count(True)) + '\n')
+    __file.write(str(ListCompare(range2(_men), RandomSample(range2(_men), _men)).count(True)) + '\n')
 
 TimeTagMessage('Closing the file ' + __fileName)
 __file.close()

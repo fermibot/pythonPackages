@@ -10,7 +10,7 @@ def Sin(x: float):
     _Pi = Pi(100)
     x = x % _Pi
     for i in range(50):
-        _sin += (((-1)**i) * (x**((2 * i) + 1)) / (Factorial((2 * i) + 1)))
+        _sin += (((-1)**i) * (x**((2 * i) + 1)) / (factorial((2 * i) + 1)))
     return _sin
 
 
@@ -19,7 +19,7 @@ def Cos(x: float):
     _Pi = Pi(100)
     x = x % _Pi
     for i in range(50):
-        _cos += (((-1)**i) * (x**(2 * i)) / (Factorial(2 * i)))
+        _cos += (((-1)**i) * (x**(2 * i)) / (factorial(2 * i)))
     return _cos
 
 
@@ -58,7 +58,7 @@ def Cot(x):
 def ArcSin(x: float):
     _arcsin = []
     for i in range(50):
-        _arcsin += ((Factorial(2 * i)) * (x**((2 * i) + 1)) / ((4**i) * ((Factorial(i))**2) * (2 * i + 1)))
+        _arcsin += ((factorial(2 * i)) * (x ** ((2 * i) + 1)) / ((4 ** i) * ((factorial(i)) ** 2) * (2 * i + 1)))
 
 
 def ArcCos(x):
@@ -79,14 +79,14 @@ def Erf(x):
     elif x != 0:
         _e = E()
         _pi = Pi()
-        for i in Range(0, x, 0.001):
+        for i in range2(0, x, 0.001):
             _erf += (_e ** (- (i ** 2))) * 0.001
         return 2 * _erf / Sqrt(_pi)
 
 
 def LogE(_x, _n=E()):
     _log = 0
-    for i in Range(1, _x, 0.001):
+    for i in range2(1, _x, 0.001):
         _log += 0.001 * 1 / i
     return _log
 

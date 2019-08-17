@@ -9,7 +9,7 @@ chapterName = 'sheldon_ross_chapter_03'
 problemName = 'sheldon_ross_10_example_3.028'
 
 
-_x = Range(1, 100)
+_x = range2(1, 100)
 for __x in _x:
     __xList = []
     __fileName = ConstructFileName([unknownPath, chapterName, problemName, problemName], '_1_through_100_' + str(__x) +

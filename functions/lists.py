@@ -573,7 +573,7 @@ def Riffle(*args):
 
 def Binlists(*args):
     if len(args) == 1:
-        _max = Max(args[0])
+        _max = max2(args[0])
         _min = Min(args[0])
         _binLists = [_min, _max]
         return _binLists
@@ -628,7 +628,7 @@ def ChessboardDistance(_vector1: list, _vector2: list):
         _chessboardDistanceList = []
         for i in range(0, len(_vector1)):
             _chessboardDistanceList.append(Abs(_vector1[i] - _vector2[i]))
-        return Max(_chessboardDistanceList)
+        return max2(_chessboardDistanceList)
     elif not len(_vector1) == len(_vector2):
         return vectorEqualityMessage
 
@@ -660,12 +660,12 @@ def HammingDistance(_vector1, _vector2):
         if StringQ(_vector1) and StringQ(_vector2):
             _hammingDistance = 0
             for i in range(0, len(_vector1)):
-                _hammingDistance += Boole(not _vector1[i] == _vector2[i])
+                _hammingDistance += boole(not _vector1[i] == _vector2[i])
             return _hammingDistance
         elif ListQ(_vector1) and ListQ(_vector2):
             _hammingDistance = 0
             for i in range(0, len(_vector1)):
-                _hammingDistance += Boole(not _vector1[i] == _vector2[i])
+                _hammingDistance += boole(not _vector1[i] == _vector2[i])
             return _hammingDistance
     elif len(_vector1) != len(_vector2):
         return vectorEqualityMessage
