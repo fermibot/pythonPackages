@@ -30,9 +30,20 @@ def figurate_number(sides: int, n: int):
     return figurate_number_internal
 
 
-def square_root(number:int):
+def integer_digits(integer: int):
+    return len(str(integer))
+
+
+def square_root(number, precision: int = 10):
+    square_root_internal = number
+    base = 2
+    while base >= -precision:
+        base_addition = 10 ** base
+        while (square_root_internal - base_addition) ** 2 > number:
+            square_root_internal -= base_addition
+        base -= 1
+    return square_root_internal
 
 
 if __name__ == '__main__':
-    for i in range(0, 20):
-        print(f"Pentagonal_Number {i}::{figurate_number(5,i)}")
+    print(square_root(102, precision=5))
