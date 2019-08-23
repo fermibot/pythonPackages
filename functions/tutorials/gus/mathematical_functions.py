@@ -1,3 +1,6 @@
+from math import log10, floor
+
+
 def tribonacci(n: int):
     seed_list = [0, 1, 1]
     if n <= 3:
@@ -36,7 +39,7 @@ def integer_digits(integer: int):
 
 def square_root(number, precision: int = 10):
     square_root_internal = number
-    base = 2
+    base = floor(log10(number)) - 1
     while base >= -precision:
         base_addition = 10 ** base
         while (square_root_internal - base_addition) ** 2 > number:
@@ -46,4 +49,4 @@ def square_root(number, precision: int = 10):
 
 
 if __name__ == '__main__':
-    print(square_root(102, precision=5))
+    print(square_root(456, precision=14))
