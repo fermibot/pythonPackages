@@ -15,7 +15,6 @@ def triangular_detect(coord: List[List[float]]) -> bool:
         equality_truth = False
         for i in range(len(coord)):
             for j in range(i + 1, len(coord)):
-                print(f'Now comparing: {coord[i]} and {coord[j]}::{coord[i]==coord[j]}')
                 equality_truth = equality_truth or (coord[i] == coord[j])
         if equality_truth:
             return False
