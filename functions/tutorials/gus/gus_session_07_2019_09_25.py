@@ -6,7 +6,7 @@ def triangular_detect(coord: List[List[float]]) -> bool:
 
     for i in coord:
         for j in i:
-            pre_truth = (pre_truth and type(j) == float)
+            pre_truth = (pre_truth and ((type(j) == float) or (type(j) == int)))
 
     if not pre_truth:
         return False
@@ -15,6 +15,7 @@ def triangular_detect(coord: List[List[float]]) -> bool:
         equality_truth = False
         for i in range(len(coord)):
             for j in range(i + 1, len(coord)):
+                print(f'Now comparing: {coord[i]} and {coord[j]}::{coord[i]==coord[j]}')
                 equality_truth = equality_truth or (coord[i] == coord[j])
         if equality_truth:
             return False
@@ -29,4 +30,4 @@ def triangular_detect(coord: List[List[float]]) -> bool:
 
 
 if __name__ == '__main__':
-    print(triangular_detect([[0, None], [1, 1], [1.0, None]]))
+    print(triangular_detect([[0, 0], [1, 1], [1.5, 3]]))
