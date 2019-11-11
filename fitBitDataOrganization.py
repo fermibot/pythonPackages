@@ -25,34 +25,34 @@ def _dateValueExtractor(data: dict) -> list:
     return [data['dateTime'], data['value']]
 
 
-def yearReformat(dateTimeID: str) -> str:
-    return dateTimeID.replace('/18 ', '/2018 ').replace('/19 ', '/2019 ')
+def yearReformat(date_time_id: str) -> str:
+    return date_time_id.replace('/18 ', '/2018 ').replace('/19 ', '/2019 ')
 
 
-def parseDate(dateString: str) -> str or None:
+def parseDate(date_string: str) -> str or None:
     try:
-        returnDate = datetime.datetime.strptime(dateString, '%m/%d/%y %H:%M:%S').strftime('%Y-%m-%d %H:%M:%S')
-        return returnDate
+        return_date = datetime.datetime.strptime(date_string, '%m/%d/%y %H:%M:%S').strftime('%Y-%m-%d %H:%M:%S')
+        return return_date
     except ValueError:
         return None
 
 
-def timeDelta(_startTime):
-    return time.strftime("%H:%M:%S", time.gmtime(time.time() - _startTime))
+def timeDelta(start_time):
+    return time.strftime("%H:%M:%S", time.gmtime(time.time() - start_time))
 
 
-def tableCheckGeneral(_tableName, _dateMin, _dateMax):
-    return f"SELECT * FROM {_tableName} WHERE dateTimeID IN ('{parseDate(_dateMin)}','{parseDate(_dateMax)}')"
+def tableCheckGeneral(table_name, date_min, date_max):
+    return f"SELECT * FROM {table_name} WHERE dateTimeID IN ('{parseDate(date_min)}','{parseDate(date_max)}')"
 
 
-def recordCheckGeneral(_tableName, _dateTime):
-    return f"SELECT * FROM {_tableName} WHERE dateTimeID = '{parseDate(_dateTime)}'"
+def recordCheckGeneral(table_name, date_time):
+    return f"SELECT * FROM {table_name} WHERE dateTimeID = '{parseDate(date_time)}'"
 
 
 class AltitudeClass:
     @staticmethod
-    def tableCheck(_dateMin, _dateMax):
-        return tableCheckGeneral('altitude', _dateMin, _dateMax)
+    def tableCheck(date_min, date_max):
+        return tableCheckGeneral('altitude', date_min, date_max)
 
     @staticmethod
     def recordCheck(data: dict):
@@ -69,8 +69,8 @@ class AltitudeClass:
 
 class CaloriesClass:
     @staticmethod
-    def tableCheck(_dateMin, _dateMax):
-        return tableCheckGeneral('calories', _dateMin, _dateMax)
+    def tableCheck(date_min, date_max):
+        return tableCheckGeneral('calories', date_min, date_max)
 
     @staticmethod
     def recordCheck(data: dict):
@@ -87,8 +87,8 @@ class CaloriesClass:
 
 class DistanceClass:
     @staticmethod
-    def tableCheck(_dateMin, _dateMax):
-        return tableCheckGeneral('distance', _dateMin, _dateMax)
+    def tableCheck(date_min, date_max):
+        return tableCheckGeneral('distance', date_min, date_max)
 
     @staticmethod
     def recordCheck(data: dict):
@@ -111,8 +111,8 @@ class HeartRateClass:
             data['value']['bpm']) + ", " + str(data['value']['confidence']) + ")"
 
     @staticmethod
-    def tableCheck(_dateMin, _dateMax):
-        return tableCheckGeneral('heartRate', _dateMin, _dateMax)
+    def tableCheck(date_min, date_max):
+        return tableCheckGeneral('heartRate', date_min, date_max)
 
     @staticmethod
     def recordCheck(data: dict):
@@ -140,8 +140,8 @@ class TimeInHRZonesClass:
                + str(_extract[4]) + ")"
 
     @staticmethod
-    def tableCheck(_dateMin, _dateMax):
-        return tableCheckGeneral('timeInHRZones', _dateMin, _dateMax)
+    def tableCheck(date_min, date_max):
+        return tableCheckGeneral('timeInHRZones', date_min, date_max)
 
     @staticmethod
     def recordCheck(data: dict):
@@ -154,8 +154,8 @@ class TimeInHRZonesClass:
 
 class StepsClass:
     @staticmethod
-    def tableCheck(_dateMin, _dateMax):
-        return tableCheckGeneral('steps', _dateMin, _dateMax)
+    def tableCheck(date_min, date_max):
+        return tableCheckGeneral('steps', date_min, date_max)
 
     @staticmethod
     def recordCheck(data: dict):
@@ -172,8 +172,8 @@ class StepsClass:
 
 class LAMinutesClass:
     @staticmethod
-    def tableCheck(_dateMin, _dateMax):
-        return tableCheckGeneral('lightlyActiveMinutes', _dateMin, _dateMax)
+    def tableCheck(date_min, date_max):
+        return tableCheckGeneral('lightlyActiveMinutes', date_min, date_max)
 
     @staticmethod
     def recordCheck(data: dict):
@@ -191,8 +191,8 @@ class LAMinutesClass:
 
 class MAMinutesClass:
     @staticmethod
-    def tableCheck(_dateMin, _dateMax):
-        return tableCheckGeneral('moderatelyActiveMinutes', _dateMin, _dateMax)
+    def tableCheck(date_min, date_max):
+        return tableCheckGeneral('moderatelyActiveMinutes', date_min, date_max)
 
     @staticmethod
     def recordCheck(data: dict):
@@ -210,8 +210,8 @@ class MAMinutesClass:
 
 class SMinutesClass:
     @staticmethod
-    def tableCheck(_dateMin, _dateMax):
-        return tableCheckGeneral('sedentaryMinutes', _dateMin, _dateMax)
+    def tableCheck(date_min, date_max):
+        return tableCheckGeneral('sedentaryMinutes', date_min, date_max)
 
     @staticmethod
     def recordCheck(data: dict):
@@ -228,8 +228,8 @@ class SMinutesClass:
 
 class VAMinutesClass:
     @staticmethod
-    def tableCheck(_dateMin, _dateMax):
-        return tableCheckGeneral('veryActiveMinutes', _dateMin, _dateMax)
+    def tableCheck(date_min, date_max):
+        return tableCheckGeneral('veryActiveMinutes', date_min, date_max)
 
     @staticmethod
     def recordCheck(data: dict):
