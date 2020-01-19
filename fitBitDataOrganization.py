@@ -333,4 +333,4 @@ with open(f"{exportDirectory}{'altitude'}.txt", 'w+') as altitudeLF, \
                 else:
                     pass
 
-print("Database import complete")
+print("\nDatabase import complete")
