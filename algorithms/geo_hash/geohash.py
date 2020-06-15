@@ -53,7 +53,7 @@ class GeoHash:
                 lat_long_range[0] = center
         return lat_long_code
 
-    def lat_long_to_geo_hash(self, lat, long, precision: int = 30) -> str:
+    def lat_long_to_geo_hash(self, lat, long, precision: int = 40) -> str:
         lat_range = [-90, 90]
         long_range = [-180, 180]
         lat_code = self.hash_encoder(lat, lat_range, precision)
@@ -71,6 +71,6 @@ class GeoHash:
 
 if __name__ == '__main__':
     geo_hash = GeoHash()
-    print(geo_hash.geo_hash_to_lat_log('ezs42s000esk'))
+    print(geo_hash.geo_hash_to_lat_log('ezs42s000esks2q2'))
     print(geo_hash.lat_long_to_geo_hash(42.605, -5.603))
 
