@@ -7,7 +7,7 @@ import datetime
 
 startTime = time.time()
 
-directory = 'C:\\Users\\Alcatraz\\Downloads\\MyFitbitData\\AshwiniKumarKounduri\\user-site-export'
+directory = 'D:\\Mathematica Files 4K\\fitBitDataImport\\MyFitbitData\\AshwiniKumarKounduri\\user-site-export'
 _sqlConnection = OpenSQLConnection('D:\\Programming\\_databases\\fitbitData.db')
 _sqlCursor = _sqlConnection.cursor()
 
